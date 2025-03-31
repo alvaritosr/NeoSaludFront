@@ -1,0 +1,56 @@
+<ion-content>
+  <div class="register-container">
+    <div class="img">
+      <ion-img src="assets/Logo.png" class="register-logo"></ion-img>
+    </div>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Nº Colegiado</ion-label>
+          <div class="input-container">
+            <ion-input type="text" [(ngModel)]="doctorNum" name="doctorNum" required></ion-input>
+          </div>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Usuario</ion-label>
+          <div class="input-container">
+            <ion-input type="text" [(ngModel)]="username" name="username" required></ion-input>
+          </div>
+        </ion-item>
+
+        <ion-item class="password-item">
+          <ion-label position="floating">Contraseña</ion-label>
+          <div class="input-container">
+            <ion-input [type]="passwordFieldType" [(ngModel)]="password" required></ion-input>
+            <ion-icon
+              slot="end"
+              [name]="passwordFieldType === 'password' ? 'eye' : 'eye-off'"
+              (click)="togglePasswordVisibility()"
+              style="cursor: pointer;">
+            </ion-icon>
+          </div>
+        </ion-item>
+
+        <ion-item class="password-item">
+          <ion-label position="floating">Repetir Contraseña</ion-label>
+          <div class="input-container">
+            <ion-input [type]="passwordFieldType2" [(ngModel)]="repeatPassword" required></ion-input>
+            <ion-icon
+              slot="end"
+              [name]="passwordFieldType2 === 'password' ? 'eye' : 'eye-off'"
+              (click)="togglePasswordVisibility2()"
+              style="cursor: pointer;">
+            </ion-icon>
+          </div>
+        </ion-item>
+
+        <button expand="full" (click)="register()">Iniciar Sesión</button>
+        <a [routerLink]="'/login'">
+          Login
+        </a>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
