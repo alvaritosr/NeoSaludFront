@@ -1,0 +1,7 @@
+{
+  "name": "$NeoSaludFront",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
