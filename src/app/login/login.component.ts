@@ -1,116 +1,97 @@
-import { Component } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
-import {FormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
-import {addIcons} from "ionicons";
-import { NgIf } from "@angular/common";
-import {eye, eyeOff} from "ionicons/icons";
-import {Registro} from "../models/Registro";
+import { Component, OnInit } from '@angular/core';
+import {
+  IonButton,
+  IonContent,
+  IonImg,
+  IonInput,
+  IonList,
+  IonSelect,
+  IonSelectOption,
+  IonText
+} from "@ionic/angular/standalone";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import {Login} from "../models/Login";
+import {Router} from "@angular/router";
 import {LoginService} from "../services/login.service";
-import {ToastOkService} from "../services/toast-ok.service";
-import {ToastErrorService} from "../services/toast-error.service";
+import {AlertController} from "@ionic/angular";
 
-
-import { Keyboard } from '@capacitor/keyboard';
-import { Router } from "@angular/router";
-import { CommonModule } from "@angular/common";
-import { AuthService } from '../services/auth.service';
-
-
-@Component
-({
+@Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  imports:
-  [
-    IonicModule,
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
+    IonContent,
+    IonInput,
+    IonList,
+    IonText,
+    ReactiveFormsModule,
+    CommonModule,
     FormsModule,
-    RouterLink
-  ],
-  styleUrls: ['./login.component.scss']
+    IonImg,
+    IonSelect,
+    IonSelectOption,
+    IonButton,
+  ]
 })
 
-export class LoginComponent
-{
-  constructor(
-    private loginService: LoginService,
-    private toastOkService: ToastOkService,
-    private toastErrorService: ToastErrorService,
-    private authService: AuthService,
-    private router: Router
-
-
-  )
-  {
-    addIcons
-    ({
-      'eye-off': eyeOff,
-      'eye': eye
-    });
-  }
-  isRegistro: boolean = false;
-  nombre: string = '';
-  apellidos: string = '';
-  email: string = '';
-  username: string = '';
-  password: string = '';
-  telefono: string = '';
-  especialidad: string = '';
-  numero_colegiado: number = 0;
-  medicalCenter: string = '';
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  login: Login = new Login();
   passwordFieldType: string = 'password';
 
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private alertController: AlertController) {
+    this.loginForm = this.fb.group({
+      username: [this.login.username, Validators.required],
+      password: [this.login.password, Validators.required],
+      unidadPerfil: ['', Validators.required],
+    });
+  }
 
-  togglePasswordVisibility()
-  {
+  ngOnInit() {}
+
+  togglePasswordVisibility(): void {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
-  login(): void {
-    const loginData = {
-      username: this.username,
-      password: this.password
-    };
-
-    this.loginService.login(loginData).subscribe({
-      next: response => {
-        this.authService.setToken(response.token);
-        this.loginService.setAuthState(true);
-        this.toastOkService.presentToast('Sesión iniciada con éxito', 2000, 'ok');
-        this.router.navigate(['/productos']);
-        window.location.reload();
-      },
-      error: err => {
-        this.toastErrorService.presentToast('Contraseña o usuario incorrecto', 2000, 'error');
-      }
+  async alertaError(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
     });
+
+    await alert.present();
   }
 
-
-  cambioRegistro() {
-    this.isRegistro = !this.isRegistro;
+  doLogin(): void {
+    if (this.loginForm.valid) {
+      this.login = { ...this.login, ...this.loginForm.value };
+      this.loginService.loguearUsuario(this.login).subscribe({
+        next: (respuesta) => {
+          const token = respuesta.token;
+          sessionStorage.setItem("authToken", token);
+          const username = this.login.username || '';
+          sessionStorage.setItem("username", username);
+          this.loginService.setAuthState(true);
+        },
+        error: (e) => {
+          console.error(e);
+          this.alertaError('Error | Validación', 'La contraseña o el nombre de usuario son incorrectos.');
+        },
+        complete: () => this.router.navigate(['parati'])
+      });
+    } else {
+      this.alertaError('Error | Sin Datos', 'Los campos están vacíos. Por favor inserta los datos.');
+    }
   }
 
-  register(): void {
-    const registro: Registro = {
-      nombre: this.nombre,
-      apellidos: this.apellidos,
-      email: this.email,
-      username: this.username,
-      password: this.password,
-      telefono: this.telefono,
-      especialidad: this.especialidad,
-      numero_colegiado: this.numero_colegiado
-    };
+  navigateToRegistro() {
+    this.router.navigate(['/registro']);
+  }
 
-    this.loginService.register(registro).subscribe({
-      next: () => {
-        this.toastOkService.presentToast('Registro exitoso, active su cuenta desde email', 3000, 'ok');
-        this.cambioRegistro();
-      },
-      error: err => {
-        this.toastErrorService.presentToast('Error al registrarse', 3000, 'error');
-      }
-    });
+  forgotPassword() {
+
   }
 }

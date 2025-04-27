@@ -1,46 +1,45 @@
 <ion-content>
-  <div class="login-container">
-    <div class="img">
-      <ion-img src="assets/Logo.png" class="login-logo"></ion-img>
+  <div class="centrado">
+    <div class="login-container">
+      <div class="img">
+        <ion-img src="assets/Logo.png" class="login-logo"></ion-img>
+      </div>
+
+      <form [formGroup]="loginForm" class="login-form">
+        <ion-list class="lista">
+
+          <ion-text class="username">Usuario</ion-text>
+          <div class="contenedor1">
+            <ion-input class="usernameInput" placeholder="Introduce tu usuario" fill="outline" formControlName="username"></ion-input>
+          </div>
+
+          <ion-text class="password">Contraseña</ion-text>
+          <div class="contenedor2">
+            <ion-input
+              class="passwordInput"
+              placeholder="Introduce tu contraseña"
+              fill="outline"
+              formControlName="password">
+            </ion-input>
+          </div>
+
+          <ion-text class="unidad-perfil">Unidad-Perfil</ion-text>
+          <div class="contenedor3">
+            <ion-select
+              class="unidadPerfilSelect"
+              placeholder="Selecciona una opción"
+              formControlName="unidadPerfil">
+              <ion-select-option value="unidad">Unidad</ion-select-option>
+              <ion-select-option value="perfil">Perfil</ion-select-option>
+            </ion-select>
+          </div>
+
+          <ion-button expand="block" (click)="doLogin()" color="dark">Iniciar Sesión</ion-button>
+
+          <ion-text class="forgot-password" (click)="forgotPassword()">¿Has olvidado la contraseña?</ion-text>
+
+        </ion-list>
+      </form>
     </div>
-
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <div class="input-container">
-            <ion-input type="text" [(ngModel)]="username" name="username" required></ion-input>
-          </div>
-        </ion-item>
-
-        <ion-item class="password-item">
-          <ion-label position="floating">Contraseña</ion-label>
-          <div class="input-container">
-            <ion-input [type]="passwordFieldType" [(ngModel)]="password" required></ion-input>
-            <ion-icon
-              slot="end"
-              [name]="passwordFieldType === 'password' ? 'eye' : 'eye-off'"
-              (click)="togglePasswordVisibility()"
-              style="cursor: pointer;">
-            </ion-icon>
-          </div>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Unidad - Perfil</ion-label>
-          <div class="input-container">
-            <ion-input type="text" [(ngModel)]="medicalCenter" name="medicalCenter" required></ion-input>
-          </div>
-        </ion-item>
-
-        <button expand="full" (click)="login()">Iniciar Sesión</button>
-        <a [routerLink]="'/recuperar-contrasena'">
-          ¿Has olvidado la contraseña?
-        </a>
-      </ion-card-content>
-    </ion-card>
   </div>
 </ion-content>
-
-
-
