@@ -1,0 +1,167 @@
+ion-content {
+  --background: #ffffff;
+  color: #000000;
+}
+
+ion-toolbar {
+  --background: #fff4f4;
+  --color: #d62f4d;
+}
+
+ion-header ion-title[slot="end"] {
+  text-align: right;
+}
+
+ion-header.header2 ion-title[slot="start"] {
+  margin-left: 1%;
+  text-align: left;
+}
+
+.header2 {
+  --background: #f8e4e4;
+  --color: #d62f4d;
+}
+
+.user-selection-card {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 1115px;
+  border: 2px solid #d23c3c;
+  border-radius: 16px;
+  background-color: #fff;
+}
+
+ion-card-title {
+  font-size: 1.2rem;
+  color: #d23c3c;
+  text-align: center;
+}
+
+ion-item {
+  --border-color: #d23c3c;
+  --border-width: 1px;
+  --background: #ffffff;
+  --border-radius: 12px;
+  margin-bottom: 8px;
+  color: #000000;
+  --inner-padding-end: 0px;
+  --inner-padding-start: 0px;
+}
+
+ion-label,
+ion-input,
+ion-select,
+ion-textarea {
+  color: #000000 !important;
+  font-weight: normal;
+}
+
+ion-input,
+ion-select {
+  border: 1px solid #d23c3c;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 6px;
+  max-width: 90%;
+}
+
+.textarea-wrapper {
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+ion-textarea {
+  width: 100%;
+  border: 1px solid #d23c3c;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.button-left,
+.button-right {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.button-left {
+  justify-content: flex-start;
+}
+
+.button-right {
+  justify-content: flex-end;
+}
+
+ion-button {
+  --background: #f8e4e4;
+  --color: black;
+  border: 2px solid #d23c3c;
+  border-radius: 12px;
+  --border-radius: 12px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .user-selection-card {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  ion-card {
+    max-width: 95%;
+    padding: 0.5rem;
+  }
+
+  ion-card-title {
+    font-size: 1rem;
+  }
+
+  ion-row {
+    flex-direction: column;
+  }
+
+  ion-col {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+  }
+
+  .button-left,
+  .button-right {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  ion-button {
+    width: 100%;
+  }
+
+  ion-input,
+  ion-select,
+  ion-textarea {
+    font-size: 0.9rem;
+    padding: 4px;
+  }
+}
+

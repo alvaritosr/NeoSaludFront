@@ -1,0 +1,60 @@
+ion-content {
+  --background: #ffffff;
+}
+
+.health-history-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 900px;
+  border: 2px solid #d23c3c;
+  border-radius: 0;
+  background-color: #fff;
+}
+
+ion-card-header, ion-card-content {
+  background-color: #fff;
+}
+
+ion-card-title {
+  font-size: 1.2rem;
+  color: #d23c3c;
+  text-align: center;
+}
+
+p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.icon-bar {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.icon-bar ion-icon {
+  font-size: 2rem;
+  color: #d23c3c;
+  border: 1px solid #d23c3c;
+  padding: 10px;
+  border-radius: 0;
+  background-color: #ffffff;
+}
+
+ion-button {
+  margin-top: 1rem;
+  --background: #ffffff;
+  --color: #d23c3c;
+  --border-color: #d23c3c;
+  --border-width: 2px;
+  --border-radius: 0;
+  font-weight: bold;
+}

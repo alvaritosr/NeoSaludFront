@@ -1,0 +1,155 @@
+<ion-menu side="start" menuId="first" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary" class="header1">
+      <ion-title>Historia de Salud Digital AP</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Atención al usuario</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/citacion">Citacion</ion-item>
+        <ion-item routerLink="/informe-citas">Informe de citas previstas</ion-item>
+        <ion-item routerLink="/teleconsulta">Teleconsulta</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Atención clínica</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/pacientes-seguimiento">Pacientes en seguimiento</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Historias</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/datos-administrativos">Datos administrativos</ion-item>
+        <ion-item routerLink="/grupo-familiar">Grupo familiar</ion-item>
+        <ion-item routerLink="/alta-manual">Alta manual</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Profesionales y agendas</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/visado-recetas">Visado de recetas</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Consultas generales</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/asistencias-podologicas">Validación asistencias podológicas</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Pruebas analíticas</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/informes-administrativos">Informes administrativos</ion-item>
+      </ion-item-group>
+
+      <ion-item routerLink="/ayuda">Ayuda</ion-item>
+      <ion-item routerLink="/logout" color="danger">Salir</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<ion-header>
+  <ion-toolbar class="header2">
+    <ion-img
+      slot="start"
+      src="assets/Higiea.png"
+      class="header-icon"
+      style="max-width: 10%; cursor: pointer;"
+      (click)="openMenu()">
+    </ion-img>
+    <ion-title style="text-align: center">
+      <h1>Historia de Salud Digital AP</h1>
+    </ion-title>
+    <ion-title slot="end">Usuario ▼</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header class="header2">
+  <ion-toolbar>
+    <ion-title slot="start">Citas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" size-md="6" class="agenda-container">
+          <div class="agenda-flex">
+            <strong style="color: #d62f4d;">AGENDA</strong>
+            <ion-button id="open-date" fill="clear" class="calendar-button" size="small">
+              <ion-icon name="calendar"></ion-icon>
+            </ion-button>
+            <ion-popover trigger="open-date" showBackdrop="true">
+              <ion-datetime
+                presentation="date"
+                value="2025-04-13"
+                preferWheel="false"
+                showDefaultButtons="true"
+              ></ion-datetime>
+            </ion-popover>
+          </div>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <ion-select placeholder="Profesional">
+            <ion-select-option value="sanchez">SANCHEZ RUBIO, ÁLVARO</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-start">
+        <ion-col size="6" size-md="auto">
+          <ion-button expand="block" color="primary">Actualizar</ion-button>
+        </ion-col>
+        <ion-col size="6" size-md="auto">
+          <ion-button expand="block" color="success">Añadir nueva consulta</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" size-md="3">
+          <ion-select placeholder="Seleccionar profesional"></ion-select>
+        </ion-col>
+        <ion-col size="12" size-md="3">
+          <ion-select placeholder="Actividad">
+            <ion-select-option value="actividad1">Actividad 1</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="12" size-md="3">
+          <ion-select placeholder="Tramo">
+            <ion-select-option value="manana">Mañana</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Orden</th>
+        <th>Hora</th>
+        <th>Usuario</th>
+        <th>NUHSA</th>
+        <th>Tarea</th>
+        <th>Profesional</th>
+        <th>Obs.</th>
+        <th>Imprimir</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </ion-content>
+
