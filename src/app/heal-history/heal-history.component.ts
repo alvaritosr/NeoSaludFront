@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
+import {IonicModule, MenuController} from "@ionic/angular";
 
 @Component({
   selector: 'app-heal-history',
@@ -10,5 +10,9 @@ import {IonicModule} from "@ionic/angular";
   ]
 })
 export class HealHistoryComponent {
-  constructor() {}
+  constructor(private menuCtrl: MenuController) { }
+
+  openMenu() {
+    this.menuCtrl.open('first');
+  }
 }

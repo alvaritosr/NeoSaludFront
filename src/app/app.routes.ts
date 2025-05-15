@@ -30,4 +30,8 @@ export const routes: Routes = [
     path: 'medical-appointment',
     loadComponent: () => import('./medical-appointment/medical-appointment.component').then((m) => m.MedicalAppointmentComponent),
   },
+  // {
+  //   path: 'calendar',
+  //   loadComponent: () => import('./calendar/calendar.component').then((m) => m.CalendarComponent),
+  // },
 ];
