@@ -1,56 +1,51 @@
 <ion-content>
-  <div class="register-container">
-    <div class="img">
-      <ion-img src="assets/Logo.png" class="register-logo"></ion-img>
+  <div class="centrado">
+    <div class="register-container">
+      <div class="img">
+        <ion-img src="assets/Logo.png" class="login-logo"></ion-img>
+      </div>
+
+      <form [formGroup]="registroForm" class="register-form">
+        <ion-list class="lista">
+
+          <ion-text class="colegiado">Nº Colegiado</ion-text>
+          <div class="contenedor1">
+            <ion-input class="colegiadoInput" placeholder="Introduce tu nº colegiado" fill="outline" formControlName="colegiado"></ion-input>
+          </div>
+
+          <ion-text class="username">Usuario</ion-text>
+          <div class="contenedor2">
+            <ion-input class="usernameInput" placeholder="Introduce tu usuario" fill="outline" formControlName="username"></ion-input>
+          </div>
+
+          <ion-text class="password">Contraseña</ion-text>
+          <div class="contenedor3">
+            <ion-input
+              class="passwordInput"
+              type="password"
+              placeholder="Introduce tu contraseña"
+              fill="outline"
+              formControlName="password">
+            </ion-input>
+          </div>
+
+          <ion-text class="confirmar-password">Repetir Contraseña</ion-text>
+          <div class="contenedor4">
+            <ion-input
+              class="confirmPasswordInput"
+              type="password"
+              placeholder="Repite tu contraseña"
+              fill="outline"
+              formControlName="confirmarPassword">
+            </ion-input>
+          </div>
+
+          <ion-button expand="block" (click)="doRegister()" color="dark">Registrarse</ion-button>
+
+          <ion-text class="iniciar-sesion" (click)="navigateToLogin()">Iniciar sesión</ion-text>
+
+        </ion-list>
+      </form>
     </div>
-
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Nº Colegiado</ion-label>
-          <div class="input-container">
-            <ion-input type="text" [(ngModel)]="doctorNum" name="doctorNum" required></ion-input>
-          </div>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <div class="input-container">
-            <ion-input type="text" [(ngModel)]="username" name="username" required></ion-input>
-          </div>
-        </ion-item>
-
-        <ion-item class="password-item">
-          <ion-label position="floating">Contraseña</ion-label>
-          <div class="input-container">
-            <ion-input [type]="passwordFieldType" [(ngModel)]="password" required></ion-input>
-            <ion-icon
-              slot="end"
-              [name]="passwordFieldType === 'password' ? 'eye' : 'eye-off'"
-              (click)="togglePasswordVisibility()"
-              style="cursor: pointer;">
-            </ion-icon>
-          </div>
-        </ion-item>
-
-        <ion-item class="password-item">
-          <ion-label position="floating">Repetir Contraseña</ion-label>
-          <div class="input-container">
-            <ion-input [type]="passwordFieldType2" [(ngModel)]="repeatPassword" required></ion-input>
-            <ion-icon
-              slot="end"
-              [name]="passwordFieldType2 === 'password' ? 'eye' : 'eye-off'"
-              (click)="togglePasswordVisibility2()"
-              style="cursor: pointer;">
-            </ion-icon>
-          </div>
-        </ion-item>
-
-        <button expand="full" (click)="register()">Iniciar Sesión</button>
-        <a [routerLink]="'/login'">
-          Login
-        </a>
-      </ion-card-content>
-    </ion-card>
   </div>
 </ion-content>
