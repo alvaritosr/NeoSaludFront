@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Restablecer Contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Ingresa tu nueva contraseña</ion-card-title>
+        <ion-card-subtitle class="ion-text-center">Por favor ingresa y confirma tu nueva contraseña</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="restablecerForm" (ngSubmit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">Nueva Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="restablecerForm.get('password')?.touched && restablecerForm.get('password')?.errors?.['required']">
+            <small>La contraseña es requerida</small>
+          </ion-text>
+          <ion-text color="danger" *ngIf="restablecerForm.get('password')?.touched && restablecerForm.get('password')?.errors?.['minlength']">
+            <small>La contraseña debe tener al menos 6 caracteres</small>
+          </ion-text>
+
+          <ion-item class="ion-margin-top">
+            <ion-label position="floating">Confirmar Contraseña</ion-label>
+            <ion-input type="password" formControlName="confirmPassword"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="restablecerForm.errors?.['notMatching'] && restablecerForm.get('confirmPassword')?.touched">
+            <small>Las contraseñas no coinciden</small>
+          </ion-text>
+
+          <div class="ion-margin-top ion-text-center">
+            <ion-button expand="block" type="submit" [disabled]="!restablecerForm.valid">
+              Restablecer Contraseña
+            </ion-button>
+            <ion-button expand="block" fill="clear" routerLink="/login">
+              Volver al inicio de sesión
+            </ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<style>
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+
+  ion-card {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+  }
+
+  ion-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  ion-card-subtitle {
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  ion-text small {
+    display: block;
+    margin: 5px 0 10px 16px;
+  }
+</style>
