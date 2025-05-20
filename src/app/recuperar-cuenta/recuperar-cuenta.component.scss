@@ -1,0 +1,128 @@
+ion-content {
+  --background: #F9E5E4;
+}
+
+.recuperar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.recuperar-card {
+  background: #FFFFFF;
+  border: 5px solid #000000;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+
+  ion-card-header {
+    padding-bottom: 20px;
+
+    ion-card-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #000000;
+    }
+  }
+
+  ion-card-content {
+    .form-group {
+      margin-bottom: 20px;
+
+      ion-item {
+        --background: transparent;
+        --border-color: #D9D9D9;
+        --border-width: 2px;
+        --border-radius: 10px;
+        --highlight-height: 0;
+        margin-bottom: 5px;
+
+        &::part(native) {
+          padding: 0 10px;
+        }
+
+        ion-input {
+          --padding-start: 10px;
+          --padding-end: 10px;
+          --placeholder-color: #666666;
+          --placeholder-opacity: 1;
+          --color: #000000;
+
+          &.custom-input {
+            font-size: 16px;
+
+            &::part(wrapper) {
+              padding: 0;
+            }
+          }
+        }
+
+        &.item-has-focus {
+          --border-color: #D9534F;
+        }
+      }
+
+      ion-text {
+        font-size: 12px;
+        padding-left: 16px;
+        color: #D9534F;
+      }
+    }
+  }
+
+  .button-container {
+    margin-top: 30px;
+
+    ion-button {
+      margin-bottom: 10px;
+      height: 45px;
+      font-size: 16px;
+      --border-radius: 10px;
+      text-transform: none;
+
+      &:first-child {
+        --background: #D9534F;
+        --background-activated: #C9302C;
+        --background-hover: #C9302C;
+      }
+
+      &:last-child {
+        --border-color: #D9534F;
+        --color: #D9534F;
+        --background-hover: rgba(217, 83, 79, 0.1);
+        --background-activated: rgba(217, 83, 79, 0.2);
+      }
+
+      &[disabled] {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .recuperar-card {
+    border-width: 3px;
+    padding: 15px;
+    margin: 10px;
+
+    ion-card-header ion-card-title {
+      font-size: 20px;
+    }
+
+    ion-card-content {
+      .form-group ion-item ion-input {
+        font-size: 14px;
+      }
+    }
+
+    .button-container ion-button {
+      font-size: 14px;
+      height: 40px;
+    }
+  }
+}

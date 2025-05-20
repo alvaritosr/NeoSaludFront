@@ -1,0 +1,67 @@
+<!-- recuperar-cuenta.component.html -->
+<ion-content>
+  <div class="recuperar-container">
+    <ion-card class="recuperar-card">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Recuperar Cuenta</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="recuperarForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <ion-item>
+              <ion-input
+                type="email"
+                formControlName="email"
+                label="Email"
+                labelPlacement="stacked"
+                placeholder="ejemplo@hospital.com"
+                class="custom-input"
+              ></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="recuperarForm.get('email')?.touched && recuperarForm.get('email')?.errors?.['required']">
+              El email es requerido
+            </ion-text>
+            <ion-text color="danger" *ngIf="recuperarForm.get('email')?.touched && recuperarForm.get('email')?.errors?.['email']">
+              Introduce un email válido
+            </ion-text>
+          </div>
+
+          <div class="form-group">
+            <ion-item>
+              <ion-input
+                type="text"
+                formControlName="numeroColegiado"
+                label="Número de Colegiado"
+                labelPlacement="stacked"
+                placeholder="123456789"
+                class="custom-input"
+              ></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="recuperarForm.get('numeroColegiado')?.touched && recuperarForm.get('numeroColegiado')?.errors?.['required']">
+              El número de colegiado es requerido
+            </ion-text>
+          </div>
+
+          <div class="button-container">
+            <ion-button
+              expand="block"
+              type="submit"
+              [disabled]="!recuperarForm.valid"
+            >
+              Recuperar Cuenta
+            </ion-button>
+
+            <ion-button
+              expand="block"
+              fill="outline"
+              [routerLink]="['/login']"
+            >
+              Volver al Login
+            </ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

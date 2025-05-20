@@ -1,0 +1,133 @@
+<app-navbar></app-navbar>
+
+<ion-content class="ion-padding">
+  <div class="modal-container">
+    <ion-card class="modal-card">
+      <ion-card-header class="modal-header">
+        <ion-card-title>Prescripción de fármacos</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="prescripcionForm" (ngSubmit)="onSubmit()">
+          <ion-grid>
+            <!-- Datos del prescriptor -->
+            <ion-item-divider>
+              <ion-label>Datos del Prescriptor</ion-label>
+            </ion-item-divider>
+
+            <ion-row>
+              <ion-col size="6">
+                <ion-input formControlName="nombrePrescriptor" label="Nombre del Médico" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="6">
+                <ion-input formControlName="numeroColegiado" label="Número de Colegiado" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="4">
+                <ion-input formControlName="especialidad" label="Especialidad" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="4">
+                <ion-input formControlName="firmaDigital" label="Firma Digital" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="4">
+                <ion-input formControlName="contactoPrescriptor" label="Contacto" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <!-- Datos del medicamento -->
+            <ion-item-divider>
+              <ion-label>Datos del Medicamento</ion-label>
+            </ion-item-divider>
+
+            <ion-row>
+              <ion-col size="6">
+                <ion-input formControlName="nombreGenerico" label="Nombre Genérico" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="6">
+                <ion-input formControlName="nombreComercial" label="Nombre Comercial" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="4">
+                <ion-input formControlName="concentracion" label="Concentración" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="4">
+                <ion-input formControlName="formaFarmaceutica" label="Forma Farmacéutica" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="4">
+                <ion-input formControlName="viaAdministracion" label="Vía Administración" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="3">
+                <ion-input formControlName="dosis" label="Dosis" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="3">
+                <ion-input formControlName="frecuencia" label="Frecuencia" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="3">
+                <ion-input type="number" formControlName="duracionDias" label="Duración (días)" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="3">
+                <ion-input type="number" formControlName="cantidadEnvases" label="Cantidad Envases" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <!-- Información adicional -->
+            <ion-item-divider>
+              <ion-label>Información Adicional</ion-label>
+            </ion-item-divider>
+
+            <ion-row>
+              <ion-col size="6">
+                <ion-input formControlName="lugarEmision" label="Lugar de Emisión" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+              <ion-col size="6">
+                <ion-input formControlName="fechaEmision" type="date" label="Fecha de Emisión" labelPlacement="stacked" required></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <ion-textarea formControlName="indicacionesEspecificas" label="Indicaciones Específicas" labelPlacement="stacked" autoGrow="true" required></ion-textarea>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <ion-textarea formControlName="notasAdicionales" label="Notas Adicionales" labelPlacement="stacked" autoGrow="true"></ion-textarea>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="button-row">
+              <ion-col class="ion-text-center">
+                <ion-button type="submit" [disabled]="!prescripcionForm.valid" color="primary">Guardar Prescripción</ion-button>
+                <ion-button type="button" color="medium" (click)="prescripcionForm.reset()">Limpiar Formulario</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+
+        <!-- Lista de prescripciones -->
+        <ion-list>
+          <ion-item *ngFor="let prescripcion of prescripciones">
+            <ion-label>
+              <h2>{{prescripcion.nombreGenerico}} - {{prescripcion.nombreComercial}}</h2>
+              <p>Dr. {{prescripcion.nombrePrescriptor}} - Col. {{prescripcion.numeroColegiado}}</p>
+              <p>{{prescripcion.dosis}} - {{prescripcion.frecuencia}} - {{prescripcion.duracionDias}} días</p>
+            </ion-label>
+            <ion-buttons slot="end">
+              <ion-button color="danger" (click)="eliminarPrescripcion(prescripcion.id!)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
