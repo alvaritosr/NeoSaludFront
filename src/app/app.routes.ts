@@ -30,4 +30,8 @@ export const routes: Routes = [
     path: 'medical-appointment',
     loadComponent: () => import('./medical-appointment/medical-appointment.component').then((m) => m.MedicalAppointmentComponent),
   },
+  {
+    path: 'visor-dicom',
+    loadComponent: () => import('./visor-dicom/visor-dicom.component').then((m) => m.VisorDicomComponent),
+  },
 ];
