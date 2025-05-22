@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-select-user',
@@ -8,7 +9,8 @@ import {FormsModule} from "@angular/forms";
   styleUrls: ['./select-user.component.scss'],
   imports: [
     IonicModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ]
 })
 export class SelectUserComponent {

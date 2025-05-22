@@ -1,0 +1,124 @@
+<ion-menu side="start" menuId="first" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary" class="header1">
+      <ion-title>Historia de Salud Digital AP</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Atención al usuario</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/citacion">Citacion</ion-item>
+        <ion-item routerLink="/informe-citas">Informe de citas previstas</ion-item>
+        <ion-item routerLink="/teleconsulta">Teleconsulta</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Atención clínica</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/pacientes-seguimiento">Pacientes en seguimiento</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Historias</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/datos-administrativos">Datos administrativos</ion-item>
+        <ion-item routerLink="/grupo-familiar">Grupo familiar</ion-item>
+        <ion-item routerLink="/alta-manual">Alta manual</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Profesionales y agendas</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/visado-recetas">Visado de recetas</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Consultas generales</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/asistencias-podologicas">Validación asistencias podológicas</ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-label>Pruebas analíticas</ion-label>
+        </ion-item-divider>
+        <ion-item routerLink="/informes-administrativos">Informes administrativos</ion-item>
+      </ion-item-group>
+
+      <ion-item routerLink="/ayuda">Ayuda</ion-item>
+      <ion-item routerLink="/logout" color="danger">Salir</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<ion-header>
+  <ion-toolbar class="header2">
+    <ion-img
+      slot="start"
+      src="assets/Higiea.png"
+      class="header-icon"
+      style="max-width: 10%; cursor: pointer;">
+    </ion-img>
+    <ion-title style="text-align: center">
+      <h1>Buzon</h1>
+    </ion-title>
+    <ion-title slot="end">Usuario ▼</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header class="header2">
+  <ion-toolbar>
+    <ion-title slot="start">Chat con X</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="chat-bubble other">
+          <ion-card-content>
+            <ion-icon name="medkit-outline"></ion-icon>
+            <div>Buenos días, ¿cómo van los pacientes en planta hoy?</div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="chat-bubble me">
+          <ion-card-content>
+            <ion-icon name="person-outline"></ion-icon>
+            <div>Todo estable. El paciente de la habitación 203 ya se encuentra consciente.</div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="chat-bubble other">
+          <ion-card-content>
+            <ion-icon name="medkit-outline"></ion-icon>
+            <div>Perfecto. ¿Le administraste el nuevo tratamiento?</div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="chat-bubble me">
+          <ion-card-content>
+            <ion-icon name="person-outline"></ion-icon>
+            <div>Sí, a las 08:00h. Está respondiendo bien.</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-input placeholder="Escribe un mensaje..." class="chat-input"></ion-input>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

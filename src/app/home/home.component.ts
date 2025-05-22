@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import { ReactiveFormsModule } from "@angular/forms";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,8 @@ import { ReactiveFormsModule } from "@angular/forms";
   styleUrls: ['./home.component.scss'],
   imports: [
     IonicModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ]
 })
 export class HomeComponent implements OnInit {

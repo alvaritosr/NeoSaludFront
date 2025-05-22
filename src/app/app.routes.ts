@@ -30,8 +30,20 @@ export const routes: Routes = [
     path: 'medical-appointment',
     loadComponent: () => import('./medical-appointment/medical-appointment.component').then((m) => m.MedicalAppointmentComponent),
   },
-  // {
-  //   path: 'calendar',
-  //   loadComponent: () => import('./calendar/calendar.component').then((m) => m.CalendarComponent),
-  // },
+  {
+    path: 'chats-selector',
+    loadComponent: () => import('./chats-selector/chats-selector.component').then((m) => m.ChatsSelectorComponent),
+  },
+  {
+    path: 'chat',
+    loadComponent: () => import('./chat/chat.component').then((m) => m.ChatComponent),
+  },
+  {
+    path: 'hcdm-visor',
+    loadComponent: () => import('./hcdm-visor/hcdm-visor.component').then((m) => m.HcdmVisorComponent),
+  },
+  {
+    path: 'calendar',
+    loadComponent: () => import('./calendar/calendar.component').then((m) => m.CalendarComponent),
+  },
 ];
