@@ -35,7 +35,6 @@ export class VisorDicomComponent implements OnInit {
 
     cornerstoneWADOImageLoader.configure({
       beforeSend: function (xhr: any) {
-        // auth headers si hiciera falta
       }
     });
 
