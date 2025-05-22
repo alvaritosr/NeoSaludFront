@@ -50,6 +50,7 @@ export class AuthService {
     this.route.navigate(['/inicio-sesion']);
   }
 
+
   setToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
