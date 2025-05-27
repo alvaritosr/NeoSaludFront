@@ -1,16 +1,141 @@
-<!--<ion-header>-->
-<!--  <ion-toolbar>-->
-<!--    <ion-title>Calendario</ion-title>-->
-<!--  </ion-toolbar>-->
-<!--</ion-header>-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calendario Dinámico</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@latest/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@latest/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@latest/css/ionic.bundle.css" />
+  <style>
+    body, html, ion-app {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-<!--<ion-content>-->
-<!--  <div class="calendar-container">-->
-<!--    <mwl-calendar-month-view-->
-<!--      [viewDate]="viewDate"-->
-<!--      [events]="events"-->
-<!--      (dayClicked)="dayClicked($event)"-->
-<!--      (beforeViewRender)="beforeMonthViewRender($event)">-->
-<!--    </mwl-calendar-month-view>-->
-<!--  </div>-->
-<!--</ion-content>-->
+    ion-card {
+      background-color: #e89ca0;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    ion-card:hover {
+      transform: scale(1.05);
+    }
+
+    ion-content,
+    ion-grid,
+    ion-row,
+    ion-col {
+      --background: white;
+    }
+
+    ion-card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .selected {
+      border: 2px solid #004a77;
+    }
+
+    ion-toolbar {
+      --background: #fff4f4;
+      --color: #d62f4d;
+    }
+
+    .header2 {
+      --background: #f8e4e4;
+      --color: #d62f4d;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    ion-title {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    #calendar-body ion-row {
+      min-height: 130px;
+    }
+  </style>
+</head>
+
+<body>
+<ion-app>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title id="calendar-title">Calendario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-grid>
+      <ion-row class="header2">
+        <ion-col>Lun</ion-col>
+        <ion-col>Mar</ion-col>
+        <ion-col>Mié</ion-col>
+        <ion-col>Jue</ion-col>
+        <ion-col>Vie</ion-col>
+        <ion-col>Sáb</ion-col>
+        <ion-col>Dom</ion-col>
+      </ion-row>
+      <div id="calendar-body"></div>
+    </ion-grid>
+  </ion-content>
+</ion-app>
+
+<script>
+  function generateCalendar(month, year) {
+    const calendarBody = document.getElementById("calendar-body");
+    const title = document.getElementById("calendar-title");
+    title.textContent = `Calendario ${String(month + 1).padStart(2, "0")}/${year}`;
+    calendarBody.innerHTML = "";
+
+    const firstDay = new Date(year, month, 1).getDay(); // 0 (domingo) a 6 (sábado)
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const startDay = firstDay === 0 ? 6 : firstDay - 1; // convertimos a Lunes = 0
+
+    let day = 1;
+    const totalCells = Math.ceil((startDay + daysInMonth) / 7) * 7;
+
+    for (let i = 0; i < totalCells; i++) {
+      if (i % 7 === 0) {
+        var row = document.createElement("ion-row");
+        calendarBody.appendChild(row);
+      }
+
+      const col = document.createElement("ion-col");
+
+      if (i >= startDay && day <= daysInMonth) {
+        const card = document.createElement("ion-card");
+        const content = document.createElement("ion-card-content");
+        content.textContent = day;
+        card.appendChild(content);
+        col.appendChild(card);
+        day++;
+      }
+
+      row.appendChild(col);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const today = new Date();
+    generateCalendar(today.getMonth(), today.getFullYear());
+  });
+</script>
+</body>
+</html>
