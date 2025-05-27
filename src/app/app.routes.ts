@@ -50,4 +50,5 @@ export const routes: Routes = [
     path: 'visor-dicom',
     loadComponent: () => import('./visor-dicom/visor-dicom.component').then((m) => m.VisorDicomComponent),
   },
+
 ];
