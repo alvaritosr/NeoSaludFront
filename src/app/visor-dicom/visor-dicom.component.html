@@ -1,0 +1,7 @@
+<div>
+  <div #dicomImage style="width:512px; height:512px; background-color: black;"></div>
+</div>
+
+<div style="margin-top: 10px;">
+  <input type="range" min="0" [max]="dicomFiles.length - 1" [(ngModel)]="currentIndex" (input)="loadDicomImage()" />
+</div>

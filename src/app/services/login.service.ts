@@ -19,6 +19,6 @@ export class LoginService {
   }
 
   loguearUsuario(login: Login): Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/auth/login`,login) ;
+    return this.http.post<any>(`/api/auth/login`,login) ;
   }
 }
