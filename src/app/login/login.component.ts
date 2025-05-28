@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
           console.error(e);
           this.alertaError('Error | Validación', 'La contraseña o el nombre de usuario son incorrectos.');
         },
-        complete: () => this.router.navigate(['medical-appointment'])
+        complete: () => this.router.navigate(['home'])
       });
     } else {
       this.alertaError('Error | Sin Datos', 'Los campos están vacíos. Por favor inserta los datos.');
