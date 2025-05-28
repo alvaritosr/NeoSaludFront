@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {calendar} from "ionicons/icons";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-medical-appointment',
@@ -12,14 +13,17 @@ import {calendar} from "ionicons/icons";
   ]
 })
 export class MedicalAppointmentComponent  implements OnInit {
+  nombreMedico: string = '';
 
-  constructor(private menuCtrl: MenuController) {
+  constructor(private menuCtrl: MenuController, private authService: AuthService) {
     addIcons({
       'calendar': calendar
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.nombreMedico = this.authService.getUsernameFromToken();
+  }
 
   openMenu() {
     this.menuCtrl.open('first');
