@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    return sessionStorage.getItem("authToken");
   }
 
   getAuthHeaders(): { headers: HttpHeaders } {
@@ -93,10 +93,15 @@ export class AuthService {
   }
 
   getUsernameFromToken(): string {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('authToken');
     if (token) {
-      const decodedToken: any = jwtDecode(token);
-      return decodedToken.username;
+      try {
+        const decodedToken: any = jwtDecode(token);
+        return decodedToken.tokenDataDTO?.username || '';
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return '';
+      }
     }
     return '';
   }

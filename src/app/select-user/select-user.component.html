@@ -79,11 +79,6 @@
                 <ion-input [(ngModel)]="searchParams.anyoNacimiento" name="anyoNacimiento"></ion-input>
               </ion-col>
             </ion-row>
-            <ion-row>
-              <ion-col size="12" size-md="12">
-                <ion-textarea [(ngModel)]="searchParams.direccion" name="direccion" rows="4"></ion-textarea>
-              </ion-col>
-            </ion-row>
           </ion-grid>
 
           <div class="button-group">
@@ -94,10 +89,22 @@
               <ion-button>Nuevo familiar</ion-button>
             </div>
             <div class="button-right">
-              <ion-button (click)="verDetallePaciente(paciente.nh)">Aceptar</ion-button>
+              <ion-button (click)="verDetallePaciente()">Aceptar</ion-button>
               <ion-button>Cancelar</ion-button>
             </div>
           </div>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="12">
+                <ion-list>
+                  <ion-item *ngFor="let paciente of pacientes" (click)="selectPaciente(paciente)" [class.selected]="paciente === selectedPaciente">
+                    {{ paciente.nombre }} {{ paciente.primerApellido }} {{ paciente.segundoApellido }} [{{ paciente.nh }}]
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
 
         </ion-card-content>
       </ion-card>

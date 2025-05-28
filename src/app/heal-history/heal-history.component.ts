@@ -3,14 +3,15 @@ import { IonicModule, MenuController } from '@ionic/angular';
 import { MedicoService } from '../services/medico.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { NgIf } from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-heal-history',
   templateUrl: './heal-history.component.html',
   imports: [
     IonicModule,
-    NgIf
+    NgIf,
+    NgForOf
   ],
   styleUrls: ['./heal-history.component.scss']
 })
@@ -21,7 +22,6 @@ export class HealHistoryComponent implements OnInit {
   detalleAntecedente: any;
 
   constructor(
-    private menuCtrl: MenuController,
     private medicoService: MedicoService,
     private route: ActivatedRoute,
     private authService: AuthService
@@ -30,15 +30,14 @@ export class HealHistoryComponent implements OnInit {
   ngOnInit() {
     this.nombreMedico = this.authService.getUsernameFromToken();
 
-    const usernameMedico = this.authService.getUsernameFromToken();
     this.route.queryParams.subscribe(params => {
       const nh = params['nh'];
-      if (nh && usernameMedico) {
-        this.medicoService.verDetallePaciente(nh, usernameMedico).subscribe(data => {
+      if (nh && this.nombreMedico) {
+        this.medicoService.verDetallePaciente(nh, this.nombreMedico).subscribe(data => {
           this.paciente = data;
         });
 
-        this.medicoService.verAntecedentesFamiliares(nh, usernameMedico).subscribe(data => {
+        this.medicoService.verAntecedentesFamiliares(nh, this.nombreMedico).subscribe(data => {
           this.antecedentes = data;
         });
       }

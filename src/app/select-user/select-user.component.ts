@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {IonicModule, MenuController} from "@ionic/angular";
+import { IonicModule, MenuController } from "@ionic/angular";
 import { MedicoService } from '../services/medico.service';
-import {FormsModule} from "@angular/forms";
-import {Router, RouterLink} from "@angular/router";
-import {AuthService} from "../services/auth.service";
+import { FormsModule } from "@angular/forms";
+import { Router, RouterLink } from "@angular/router";
+import { AuthService } from "../services/auth.service";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-select-user',
@@ -12,13 +13,14 @@ import {AuthService} from "../services/auth.service";
   imports: [
     IonicModule,
     FormsModule,
-    RouterLink
+    NgForOf
   ]
 })
 export class SelectUserComponent {
   nombreMedico: string = '';
-
   pacientes: any[] = [];
+  selectedPaciente: any = null;
+
   searchParams = {
     nombre: '',
     primerApellido: '',
@@ -40,9 +42,14 @@ export class SelectUserComponent {
     this.nombreMedico = this.authService.getUsernameFromToken();
   }
 
-    buscarPacientes() {
-    this.pacienteService.buscarPacientes(this.searchParams).subscribe(
+  buscarPacientes() {
+    const filteredParams = Object.fromEntries(
+      Object.entries(this.searchParams).filter(([_, value]) => value)
+    );
+    console.log('Parámetros filtrados:', filteredParams);
+    this.pacienteService.buscarPacientes(filteredParams).subscribe(
       (data) => {
+        console.log('Pacientes encontrados:', data);
         this.pacientes = data;
       },
       (error) => {
@@ -51,7 +58,16 @@ export class SelectUserComponent {
     );
   }
 
-  verDetallePaciente(nh: string) {
-    this.router.navigate(['/heal-history'], { queryParams: { nh } });
+  selectPaciente(paciente: any) {
+    this.selectedPaciente = paciente;
+  }
+
+  verDetallePaciente() {
+    if (this.selectedPaciente) {
+      console.log('NH del paciente seleccionado:', this.selectedPaciente.nh);
+      this.router.navigate(['/heal-history'], { queryParams: { nh: this.selectedPaciente.nh } });
+    } else {
+      console.error('No patient selected');
+    }
   }
 }

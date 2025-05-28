@@ -24,14 +24,14 @@
   <div class="health-history-container">
     <ion-card *ngIf="paciente">
       <ion-card-header>
-        <ion-card-title>{{ paciente.nombre }} [{{ paciente.nh }}]</ion-card-title>
+        <ion-card-title>{{ paciente.nombre }} [{{ paciente.dni }}]</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
         <p><strong>NH:</strong> {{ paciente.nh }}</p>
-        <p><strong>Género:</strong> {{ paciente.genero }}</p>
-        <p><strong>Edad:</strong> {{ paciente.edad }} años</p>
-        <p><strong>Fecha alta:</strong> {{ paciente.fechaAlta }}</p>
+        <p><strong>Género:</strong> {{ paciente.sexo }}</p>
+        <p><strong>Ano nacimiento:</strong> {{ paciente.anyoNacimiento }}</p>
+        <p><strong>Fecha alta:</strong> {{ paciente.fecha }}</p>
         <p><strong>Antecedentes:</strong></p>
         <ion-select placeholder="Selecciona un antecedente" (ionChange)="cargarDetalleAntecedente($event.detail.value)">
           <ion-select-option *ngFor="let antecedente of antecedentes; let i = index" [value]="i">

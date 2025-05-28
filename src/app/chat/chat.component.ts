@@ -9,7 +9,6 @@ import {AuthService} from "../services/auth.service";
   styleUrls: ['./chat.component.scss'],
   imports: [
     IonicModule,
-    RouterLink
   ]
 })
 export class ChatComponent  implements OnInit {
