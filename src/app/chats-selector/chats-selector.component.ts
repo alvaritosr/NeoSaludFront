@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {RouterLink} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-chats-selector',
@@ -12,9 +13,12 @@ import {RouterLink} from "@angular/router";
   ]
 })
 export class ChatsSelectorComponent  implements OnInit {
+  nombreMedico: string = '';
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.nombreMedico = this.authService.getUsernameFromToken();
+  }
 
 }

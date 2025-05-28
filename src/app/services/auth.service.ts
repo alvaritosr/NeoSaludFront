@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {environment} from "../../environments/environment";
+import jwt_decode, {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -89,5 +89,14 @@ export class AuthService {
   restablecerContrasena(token: string, newPassword: string): Observable<any> {
     const options = this.getAuthHeaders();
     return this.httpClient.post(`/api/auth/restablecer-contrasena`, { token, newPassword }, options);
+  }
+
+  getUsernameFromToken(): string {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.username;
+    }
+    return '';
   }
 }
