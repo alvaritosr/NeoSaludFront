@@ -32,9 +32,24 @@
         <p><strong>Género:</strong> {{ paciente.sexo }}</p>
         <p><strong>Ano nacimiento:</strong> {{ paciente.anyoNacimiento }}</p>
         <p><strong>Fecha alta:</strong> {{ paciente.fecha }}</p>
-        <p><strong>Antecedentes:</strong></p>
+
+        <p><strong>Alergias:</strong></p>
+        <ion-select placeholder="Selecciona un antecedente" (ionChange)="cargarDetalleAlergias($event.detail.value)">
+          <ion-select-option *ngFor="let alergia of alergias" [value]="alergia">
+            {{ alergia }}
+          </ion-select-option>
+        </ion-select>
+
+        <p><strong>Análisis Médico:</strong></p>
+        <ion-select placeholder="Selecciona un antecedente" (ionChange)="cargarDetalleAnalisis($event.detail.value)">
+          <ion-select-option *ngFor="let analitica of analisis" [value]="analisis">
+            {{ analitica }}
+          </ion-select-option>
+        </ion-select>
+
+        <p><strong>Antecedentes Familiares:</strong></p>
         <ion-select placeholder="Selecciona un antecedente" (ionChange)="cargarDetalleAntecedente($event.detail.value)">
-          <ion-select-option *ngFor="let antecedente of antecedentes; let i = index" [value]="i">
+          <ion-select-option *ngFor="let antecedente of antecedentes" [value]="antecedente">
             {{ antecedente }}
           </ion-select-option>
         </ion-select>
@@ -42,9 +57,21 @@
     </ion-card>
 
     <div class="icon-bar">
-      <p *ngIf="detalleAntecedente">
-        <strong>Detalle del antecedente:</strong> {{ detalleAntecedente.descripcion }}
-      </p>
+      <div *ngIf="detalleAlergias">
+        <p><strong>Sustancia:</strong> {{ detalleAlergias.sustancia }}</p>
+        <p><strong>Reacción:</strong> {{ detalleAlergias.reaccion }}</p>
+      </div>
+
+      <div *ngIf="detalleAnalisis">
+        <p><strong>Tipo:</strong> {{ detalleAnalisis.tipo }}</p>
+        <p><strong>Fecha:</strong> {{ detalleAnalisis.fecha }}</p>
+      </div>
+
+      <div *ngIf="detalleAntecedente">
+        <p><strong>Enfermedad:</strong> {{ detalleAntecedente.enfermedad }}</p>
+        <p><strong>Familiar:</strong> {{ detalleAntecedente.familiar }}</p>
+        <p><strong>Comentarios:</strong> {{ detalleAntecedente.comentarios }}</p>
+      </div>
     </div>
   </div>
 </ion-content>

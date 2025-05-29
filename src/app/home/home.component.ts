@@ -20,6 +20,6 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.nombreMedico = this.authService.getUsernameFromToken(); // Ajusta según el método que obtenga el nombre
+    this.nombreMedico = this.authService.getUsernameFromToken();
   }
 }

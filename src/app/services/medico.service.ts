@@ -25,12 +25,4 @@ export class MedicoService {
     const params = { usernameMedico };
     return this.http.get(url, { headers, params });
   }
-
-  verAntecedentesFamiliares(nh: string, usernameMedico: string): Observable<string[]> {
-    return this.http.get<string[]>(`/api/medicos/pacientes/${nh}`, { params: { usernameMedico } });
-  }
-
-  verAntecedenteFamiliarDetalle(nh: string, idAntecedente: number, usernameMedico: string): Observable<any> {
-    return this.http.get<any>(`/api/medicos/pacientes/${nh}/detalles/${idAntecedente}`, { params: { usernameMedico } });
-  }
 }
