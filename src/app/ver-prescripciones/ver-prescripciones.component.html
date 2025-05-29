@@ -1,4 +1,3 @@
-<app-navbar></app-navbar>
 
 <ion-content>
   <div class="modal-container">
@@ -8,26 +7,12 @@
       </div>
 
       <ion-list>
-        <ion-item button class="prescription-item">
+        <ion-item *ngFor="let prescripcion of prescripciones" class="prescription-item">
           <ion-label>
-            <h2>Juan García</h2>
-            <p>Paracetamol - 500mg</p>
-          </ion-label>
-          <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-        </ion-item>
-
-        <ion-item button class="prescription-item">
-          <ion-label>
-            <h2>María López</h2>
-            <p>Ibuprofeno - 400mg</p>
-          </ion-label>
-          <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-        </ion-item>
-
-        <ion-item button class="prescription-item">
-          <ion-label>
-            <h2>Pedro Sánchez</h2>
-            <p>Amoxicilina - 250mg</p>
+            <h2>{{ prescripcion.nombrePrescriptor }}</h2>
+            <p>{{ prescripcion.nombreGenerico }} - {{ prescripcion.nombreComercial }}</p>
+            <p>Dosis: {{ prescripcion.dosis }}, Frecuencia: {{ prescripcion.frecuencia }}</p>
+            <p>Duración: {{ prescripcion.duracionDias }} días</p>
           </ion-label>
           <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
         </ion-item>

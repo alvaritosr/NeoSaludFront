@@ -1,44 +1,71 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="secondary">
     <ion-title class="ion-text-center">Restablecer Contraseña</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="container">
-    <ion-card>
+<ion-content class="ion-padding" color="light">
+  <div class="recuperar-container">
+    <ion-card class="recuperar-card">
       <ion-card-header>
-        <ion-card-title class="ion-text-center">Ingresa tu nueva contraseña</ion-card-title>
+        <ion-card-title class="ion-text-center primary-color">Ingresa tu nueva contraseña</ion-card-title>
         <ion-card-subtitle class="ion-text-center">Por favor ingresa y confirma tu nueva contraseña</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
         <form [formGroup]="restablecerForm" (ngSubmit)="onSubmit()">
-          <ion-item>
-            <ion-label position="floating">Nueva Contraseña</ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-          </ion-item>
-          <ion-text color="danger" *ngIf="restablecerForm.get('password')?.touched && restablecerForm.get('password')?.errors?.['required']">
-            <small>La contraseña es requerida</small>
-          </ion-text>
-          <ion-text color="danger" *ngIf="restablecerForm.get('password')?.touched && restablecerForm.get('password')?.errors?.['minlength']">
-            <small>La contraseña debe tener al menos 6 caracteres</small>
-          </ion-text>
+          <div class="form-group">
+            <ion-item>
+              <ion-input
+                type="password"
+                formControlName="password"
+                label="Nueva Contraseña"
+                labelPlacement="stacked"
+                placeholder="********"
+                class="custom-input"
+              ></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="restablecerForm.get('password')?.touched && restablecerForm.get('password')?.errors?.['required']">
+              La contraseña es requerida
+            </ion-text>
+            <ion-text color="danger" *ngIf="restablecerForm.get('password')?.touched && restablecerForm.get('password')?.errors?.['minlength']">
+              La contraseña debe tener al menos 6 caracteres
+            </ion-text>
+          </div>
 
-          <ion-item class="ion-margin-top">
-            <ion-label position="floating">Confirmar Contraseña</ion-label>
-            <ion-input type="password" formControlName="confirmPassword"></ion-input>
-          </ion-item>
-          <ion-text color="danger" *ngIf="restablecerForm.errors?.['notMatching'] && restablecerForm.get('confirmPassword')?.touched">
-            <small>Las contraseñas no coinciden</small>
-          </ion-text>
+          <div class="form-group">
+            <ion-item>
+              <ion-input
+                type="password"
+                formControlName="confirmPassword"
+                label="Confirmar Contraseña"
+                labelPlacement="stacked"
+                placeholder="********"
+                class="custom-input"
+              ></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="restablecerForm.errors?.['notMatching'] && restablecerForm.get('confirmPassword')?.touched">
+              Las contraseñas no coinciden
+            </ion-text>
+          </div>
 
-          <div class="ion-margin-top ion-text-center">
-            <ion-button expand="block" type="submit" [disabled]="!restablecerForm.valid">
+          <div class="button-container">
+            <ion-button
+              expand="block"
+              type="submit"
+              [disabled]="!restablecerForm.valid"
+              color="secondary"
+            >
               Restablecer Contraseña
             </ion-button>
-            <ion-button expand="block" fill="clear" routerLink="/login">
-              Volver al inicio de sesión
+
+            <ion-button
+              expand="block"
+              fill="clear"
+              routerLink="/login"
+              color="secondary"
+            >
+              Volver al Login
             </ion-button>
           </div>
         </form>
@@ -46,32 +73,133 @@
     </ion-card>
   </div>
 </ion-content>
-
 <style>
-  .container {
+  ion-content {
+    --background: #F9E5E4;
+  }
+
+  .recuperar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+  }
+
+  .recuperar-card {
+    background: #FFFFFF;
+    border: 5px solid #000000;
+    border-radius: 20px;
+    width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    padding-top: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+
+    ion-card-header {
+      padding-bottom: 20px;
+
+      ion-card-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #000000;
+      }
+    }
+
+    ion-card-content {
+      .form-group {
+        margin-bottom: 20px;
+
+        ion-item {
+          --background: transparent;
+          --border-color: #D9D9D9;
+          --border-width: 2px;
+          --border-radius: 10px;
+          --highlight-height: 0;
+          margin-bottom: 5px;
+
+          &::part(native) {
+            padding: 0 10px;
+          }
+
+          ion-input {
+            --padding-start: 10px;
+            --padding-end: 10px;
+            --placeholder-color: #666666;
+            --placeholder-opacity: 1;
+            --color: #000000;
+
+            &.custom-input {
+              font-size: 16px;
+
+              &::part(wrapper) {
+                padding: 0;
+              }
+            }
+          }
+
+          &.item-has-focus {
+            --border-color: #D9534F;
+          }
+        }
+
+        ion-text {
+          font-size: 12px;
+          padding-left: 16px;
+          color: #D9534F;
+        }
+      }
+    }
+
+    .button-container {
+      margin-top: 30px;
+
+      ion-button {
+        margin-bottom: 10px;
+        height: 45px;
+        font-size: 16px;
+        --border-radius: 10px;
+        text-transform: none;
+
+        &:first-child {
+          --background: #D9534F;
+          --background-activated: #C9302C;
+          --background-hover: #C9302C;
+        }
+
+        &:last-child {
+          --border-color: #D9534F;
+          --color: #D9534F;
+          --background-hover: rgba(217, 83, 79, 0.1);
+          --background-activated: rgba(217, 83, 79, 0.2);
+        }
+
+        &[disabled] {
+          opacity: 0.7;
+        }
+      }
+    }
   }
 
-  ion-card {
-    box-shadow: none;
-    border: 1px solid #e0e0e0;
-  }
+  @media (max-width: 480px) {
+    .recuperar-card {
+      border-width: 3px;
+      padding: 15px;
+      margin: 10px;
 
-  ion-card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+      ion-card-header ion-card-title {
+        font-size: 20px;
+      }
 
-  ion-card-subtitle {
-    color: #666;
-    margin-bottom: 20px;
-  }
+      ion-card-content {
+        .form-group ion-item ion-input {
+          font-size: 14px;
+        }
+      }
 
-  ion-text small {
-    display: block;
-    margin: 5px 0 10px 16px;
+      .button-container ion-button {
+        font-size: 14px;
+        height: 40px;
+      }
+    }
   }
 </style>

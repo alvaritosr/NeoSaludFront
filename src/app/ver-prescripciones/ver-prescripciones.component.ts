@@ -1,32 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { Router } from '@angular/router';
+import { PrescripcionService } from '../services/prescripcion.service';
 
 @Component({
   selector: 'app-ver-prescripciones',
   templateUrl: './ver-prescripciones.component.html',
   styleUrls: ['./ver-prescripciones.component.scss'],
   standalone: true,
-  imports: [
-    IonicModule,
-    NavbarComponent
-  ]
+  imports: [CommonModule, IonicModule], // Importa los módulos necesarios
 })
 export class VerPrescripcionesComponent implements OnInit {
-  prescriptions = [
-    { id: 1, patientName: 'Juan García', medicine: 'Paracetamol', dosage: '500mg' },
-    { id: 2, patientName: 'María López', medicine: 'Ibuprofeno', dosage: '400mg' },
-    { id: 3, patientName: 'Pedro Sánchez', medicine: 'Amoxicilina', dosage: '250mg' }
-  ];
+  prescripciones: any[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private prescripcionService: PrescripcionService) {}
 
   ngOnInit(): void {
-    console.log('VerPrescripcionesComponent initialized');
+    this.cargarPrescripciones();
   }
 
-  goToPrescription(id: number): void {
-    this.router.navigate(['/prescripcion', id]);
+  cargarPrescripciones(): void {
+    this.prescripcionService.obtenerTodas().subscribe(
+      (data) => {
+        this.prescripciones = data;
+      },
+      (error) => {
+        console.error('Error al cargar las prescripciones:', error);
+      }
+    );
   }
 }

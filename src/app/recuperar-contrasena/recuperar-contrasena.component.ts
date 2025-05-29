@@ -64,7 +64,7 @@ export class RecuperarContrasenaComponent implements OnInit {
 
   onSubmit(): void {
     if (this.restablecerForm.valid && this.token) {
-      console.log('Enviando solicitud con token:', this.token); // Para depuración
+      console.log('Enviando solicitud con token:', this.token);
       const data = {
         token: this.token.trim(),
         newPassword: this.restablecerForm.get('password')?.value
