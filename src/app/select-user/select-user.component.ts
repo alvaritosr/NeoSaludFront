@@ -71,9 +71,6 @@ export class SelectUserComponent {
   verDetallePaciente() {
     if (this.cardId) {
       switch (this.cardId) {
-        case 'estacion-clinica':
-          this.router.navigate(['/estacion-clinica'], { queryParams: { nh: this.selectedPaciente.nh } });
-          break;
         case 'historial-salud':
           this.router.navigate(['/heal-history'], { queryParams: { nh: this.selectedPaciente.nh } });
           break;
