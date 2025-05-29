@@ -1,44 +1,16 @@
 <app-menu-superior> </app-menu-superior>
 
 <ion-toolbar>
-  <ion-title>Chat con {{ nombreReceptor }}</ion-title>
+  <ion-title>Chat con X</ion-title>
 </ion-toolbar>
 
 <ion-content>
-  <div class="chat-container" #chatContainer>
-    <ng-container *ngFor="let mensaje of mensajes">
-      <ion-card
-        class="chat-bubble"
-        [class.me]="(mensaje.idEmisor?.toString() ?? '') === (idMedicoActual?.toString() ?? '')"
-        [class.other]="(mensaje.idEmisor?.toString() ?? '') !== (idMedicoActual?.toString() ?? '')"
-      >
-        <ion-card-content>
-          <ion-icon
-            [name]="(mensaje.idEmisor?.toString() ?? '') === (idMedicoActual?.toString() ?? '') ? 'person-outline' : 'medkit-outline'"
-          ></ion-icon>
-          <div>{{ mensaje.contenido }}</div>
-          <div class="mensaje-fecha">
-            {{ mensaje.fecha | date:'shortTime' }}
-          </div>
-
-        </ion-card-content>
-      </ion-card>
-    </ng-container>
+  <div class="chat-container">
+    <div *ngFor="let mensaje of mensajes" [ngClass]="{'align-right': mensaje.emisorId === userId, 'align-left': mensaje.emisorId !== userId}">
+      <div class="mensaje">
+        <p>{{ mensaje.contenido }}</p>
+        <span class="fecha">{{ mensaje.fecha | date:'short' }}</span>
+      </div>
+    </div>
   </div>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-input
-      [(ngModel)]="nuevoMensaje"
-      placeholder="Escribe un mensaje..."
-      (keyup.enter)="enviarMensaje()"
-      class="chat-input"
-    ></ion-input>
-    <ion-buttons slot="end">
-      <ion-button (click)="enviarMensaje()">
-        <ion-icon name="send-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
