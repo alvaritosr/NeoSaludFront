@@ -72,15 +72,13 @@ export class LoginComponent implements OnInit {
         next: (respuesta) => {
           const token = respuesta.token;
           sessionStorage.setItem("authToken", token);
-          const username = this.login.username || '';
-          sessionStorage.setItem("username", username);
           this.loginService.setAuthState(true);
         },
         error: (e) => {
           console.error(e);
           this.alertaError('Error | Validación', 'La contraseña o el nombre de usuario son incorrectos.');
         },
-        complete: () => this.router.navigate(['parati'])
+        complete: () => this.router.navigate(['home'])
       });
     } else {
       this.alertaError('Error | Sin Datos', 'Los campos están vacíos. Por favor inserta los datos.');

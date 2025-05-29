@@ -1,0 +1,28 @@
+<app-menu-superior> </app-menu-superior>
+
+<ion-content>
+  <div class="tac">
+    <ion-card>
+      <ion-list>
+        <ion-item *ngFor="let tac of tacs">
+          <ion-label>
+            <h2>{{ tac.descripcion}}</h2>
+          </ion-label>
+          <ion-button slot="end" (click)="cargarTac(tac.nombreCarpeta)">Ver</ion-button>
+        </ion-item>
+      </ion-list>
+
+    </ion-card>
+
+    <div class="dicom-viewer" style="margin-top: 20px;">
+      <div>
+        <div #dicomImage id="dicomImage" style="width:100%; height:470px; background-color: black;"></div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <input type="range" min="0" [max]="dicomFiles.length - 1" [(ngModel)]="currentIndex" (input)="loadDicomImage(currentTac)" />
+      </div>
+    </div>
+
+  </div>
+</ion-content>

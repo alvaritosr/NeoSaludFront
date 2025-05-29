@@ -1,0 +1,82 @@
+ion-content {
+  --background: white;
+}
+
+.health-history-container {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+  justify-content: space-between;
+}
+
+ion-toolbar {
+  --background: #fff4f4;
+  --color: #d62f4d;
+}
+
+.header2 {
+  --background: #f8e4e4;
+  --color: #d62f4d;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 300px;
+  border: 2px solid #d23c3c;
+  border-radius: 20px;
+  background-color: #fff4f4;
+  padding: 1rem;
+}
+
+ion-card-header,
+ion-card-content {
+  background-color: #fff4f4;
+}
+
+ion-card-title {
+  font-size: 1rem;
+  color: #d23c3c;
+  text-align: left;
+  font-weight: bold;
+}
+
+p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.icon-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #d23c3c;
+  border-radius: 20px;
+  background-color: #fff4f4;
+  align-items: flex-start;
+  justify-content: start;
+  max-width: 100%;
+}
+
+.icon-bar ion-icon {
+  font-size: 1.8rem;
+  color: #d23c3c;
+  padding: 10px;
+  border: 2px solid #d23c3c;
+  border-radius: 10px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+ion-button {
+  margin-top: 1rem;
+  --background: #ffffff;
+  --color: #d23c3c;
+  --border-color: #d23c3c;
+  --border-width: 2px;
+  --border-radius: 10px;
+  font-weight: bold;
+  align-self: center;
+}

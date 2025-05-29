@@ -1,0 +1,29 @@
+<app-menu-superior> </app-menu-superior>
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<ion-toolbar>
+  <ion-title>Selector de chat</ion-title>
+</ion-toolbar>
+
+<ion-content>
+  <ion-list class="chat-list">
+    <ion-item [routerLink]="'/chat'" class="chat-card selected">
+      <div class="chat-avatar">A</div>
+      <div class="chat-info">
+        <div class="chat-name">Ana López</div>
+        <div class="chat-last-message">¿Qué tal todo? 😊</div>
+      </div>
+      <div class="chat-time">13:45</div>
+    </ion-item>
+
+    <ion-item [routerLink]="'/chat'" class="chat-card">
+      <div class="chat-avatar">M</div>
+      <div class="chat-info">
+        <div class="chat-name">Miguel Ruiz</div>
+        <div class="chat-last-message">Te envío el archivo ahora...</div>
+      </div>
+      <div class="chat-time">12:30</div>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

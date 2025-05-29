@@ -1,0 +1,47 @@
+<app-menu-superior> </app-menu-superior>
+
+<ion-toolbar>
+  <ion-title>Chat con X</ion-title>
+</ion-toolbar>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="chat-bubble other">
+          <ion-card-content>
+            <ion-icon name="medkit-outline"></ion-icon>
+            <div>Buenos días, ¿cómo van los pacientes en planta hoy?</div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="chat-bubble me">
+          <ion-card-content>
+            <ion-icon name="person-outline"></ion-icon>
+            <div>Todo estable. El paciente de la habitación 203 ya se encuentra consciente.</div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="chat-bubble other">
+          <ion-card-content>
+            <ion-icon name="medkit-outline"></ion-icon>
+            <div>Perfecto. ¿Le administraste el nuevo tratamiento?</div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="chat-bubble me">
+          <ion-card-content>
+            <ion-icon name="person-outline"></ion-icon>
+            <div>Sí, a las 08:00h. Está respondiendo bien.</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-input placeholder="Escribe un mensaje..." class="chat-input"></ion-input>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

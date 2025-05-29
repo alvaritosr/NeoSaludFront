@@ -1,0 +1,159 @@
+:host {
+  display: block;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  color: #000000;
+}
+
+ion-toolbar {
+  --background: #fff4f4;
+  --color: #d62f4d;
+}
+
+ion-header ion-title[slot="end"] {
+  text-align: right;
+}
+
+ion-header.header2 ion-title[slot="start"] {
+  margin-left: 1%;
+  text-align: left;
+}
+
+.header2 {
+  --background: #f8e4e4;
+  --color: #d62f4d;
+}
+
+ion-title {
+  text-align: center;
+  font-weight: bold;
+  --color: #d62f4d;
+}
+
+ion-button {
+  text-transform: none;
+  font-size: 14px;
+  --color: #ffffff;
+}
+
+h2 {
+  font-weight: bold;
+  color: #000000;
+  margin-left: 16px;
+}
+
+ion-grid {
+  margin: 0 16px;
+  color: #000000;
+}
+
+ion-select,
+ion-datetime {
+  background: white;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #000000;
+  border: 1px solid #ccc;
+}
+
+ion-select {
+  width: auto;
+  max-width: 250px;
+}
+
+ion-datetime {
+  width: auto;
+  max-width: 250px;
+}
+
+table {
+  width: 100%;
+  margin-top: 24px;
+  border-collapse: collapse;
+  font-size: 14px;
+  background-color: white;
+  color: #000000;
+}
+
+th,
+td {
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+  color: #000000;
+}
+
+th {
+  background-color: #fafafa;
+  font-weight: bold;
+  font-size: 13px;
+  color: #000000;
+}
+
+.agenda-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calendar-button {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  color: #000000;
+
+  ion-icon {
+    font-size: 30px;
+    color: #d62f4d;
+  }
+}
+
+ion-popover {
+  --background: #ffffff;
+  --color: #000000;
+}
+
+ion-content {
+  --background: white;
+}
+
+th {
+  background: white;
+}
+
+@media screen and (max-width: 600px) {
+  .agenda-flex {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  ion-col[size="6"] {
+    padding: 0 4px;
+  }
+
+  ion-button {
+    font-size: 13px;
+  }
+
+  ion-select,
+  ion-datetime {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .agenda-flex {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  ion-col[size="6"] {
+    padding: 0 4px;
+  }
+
+  ion-button {
+    font-size: 13px;
+  }
+}

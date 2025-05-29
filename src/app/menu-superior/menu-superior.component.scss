@@ -1,0 +1,13 @@
+ion-header ion-title[slot="end"] {
+  text-align: right;
+}
+
+ion-header.header2 ion-title[slot="start"] {
+  margin-left: 1%;
+  text-align: left;
+}
+
+.header2 {
+  --background: #f8e4e4;
+  --color: #d62f4d;
+}

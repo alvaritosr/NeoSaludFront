@@ -1,0 +1,43 @@
+<app-menu-superior></app-menu-superior>
+
+<ion-content class="ion-padding">
+  <div class="health-history-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Farmacia [AN1234567890]</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p><strong>NH:</strong> 3000000000, Hombre, 21 años</p>
+        <p><strong>Fecha alta:</strong> 20/01/2022</p>
+        <p><strong>Fecha último control:</strong> 08/04/2019</p>
+        <p><a>Radiografia 22/05/2025</a></p>
+        <p><a>Radiografia 22/05/2024</a></p>
+        <p><a>Radiografia 22/05/2023</a></p>
+        <p><a>Radiografia 22/05/2022</a></p>
+        <p><a>Radiografia 22/05/2021</a></p>
+        <p><a>Radiografia 22/05/2020</a></p>
+      </ion-card-content>
+    </ion-card>
+
+    <div>
+      <div class="icon-bar">
+        <ion-img
+          id="image"
+          src="./assets/Radiografia-de-torax.jpg"
+          (mousedown)="onMouseDown($event)"
+          (mousemove)="onMouseMove($event)"
+          (mouseup)="onMouseUp()"
+          (mouseleave)="onMouseUp()"
+        ></ion-img>
+      </div>
+
+      <div class="button-bar">
+        <ion-button (click)="zoomIn()" color="primary">Ampliar</ion-button>
+        <ion-button (click)="zoomOut()" color="secondary" [disabled]="zoomLevel <= 1.0">Reducir</ion-button>
+        <ion-button (click)="toggleFullScreen()" color="tertiary">Pantalla completa</ion-button>
+        <ion-button (click)="resetImage()" color="danger">Reset</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
