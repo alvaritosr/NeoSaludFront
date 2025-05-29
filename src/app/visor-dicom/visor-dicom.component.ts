@@ -10,14 +10,16 @@ import {
   IonButton,
   IonCard,
   IonContent,
-  IonItem, IonLabel, IonList,
-
+  IonHeader,
+  IonImg, IonItem, IonLabel, IonList,
+  IonRouterOutlet,
+  IonTitle,
+  IonToolbar
 } from "@ionic/angular/standalone";
 import {TacService} from "../services/tac.service";
 import {Tac} from "../models/tac";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
-import { PanTool, ZoomTool, ZoomMouseWheelTool } from 'cornerstone-tools';
 
 @Component({
   selector: 'app-visor-dicom',
@@ -27,6 +29,10 @@ import { PanTool, ZoomTool, ZoomMouseWheelTool } from 'cornerstone-tools';
   imports: [
     CommonModule,
     FormsModule,
+    IonTitle,
+    IonHeader,
+    IonToolbar,
+    IonImg,
     IonContent,
     IonCard,
     IonList,
@@ -85,45 +91,29 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
 
   }
 
-
   ngAfterViewInit() {
-    const element = this.dicomImage.nativeElement;
+    setTimeout(() => {
+      if (this.dicomImage && this.dicomImage.nativeElement) {
+        cornerstone.enable(this.dicomImage.nativeElement);
+        this.cornerstoneEnabled = true;
+        this.loadDicomImage();
 
-    cornerstone.enable(element);
-    this.cornerstoneEnabled = true;
+        // Inicializar cornerstone-tools
+        cornerstoneTools.init();
 
-    cornerstoneTools.external.cornerstone = cornerstone;
-    cornerstoneTools.init();
+        // Crear herramienta de zoom
+        const ZoomTool = cornerstoneTools.ZoomTool;
+        cornerstoneTools.addTool(ZoomTool);
 
-    cornerstoneTools.addTool(PanTool);
-    cornerstoneTools.addTool(ZoomTool);
-    cornerstoneTools.addTool(ZoomMouseWheelTool);
-
-    cornerstoneTools.setToolActive('Pan', { mouseButtonMask: 1 });
-    cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 2 });
-    cornerstoneTools.setToolActive('ZoomMouseWheel', { mouseButtonMask: 0 });
-
-    this.dicomImage.nativeElement.addEventListener('wheel', (event: { deltaY: any; }) => {
-      console.log('Rueda del ratón detectada', event.deltaY);
-    });
+        // Activar zoom con la rueda del ratón
+        cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 0 }); // 0 para click izquierdo o solo rueda
+      }
+    }, 0);
   }
 
-  cargarTac(nombreCarpeta: string | undefined) {
-    this.currentTac = nombreCarpeta; // Establece el Tac actual
-    this.http.get<any[]>(`/api/tac/estudio/${nombreCarpeta}`).subscribe((files) => {
-      this.dicomFiles = files;
-      this.currentIndex = 0;
-
-      // Aquí seguro que dicomFiles ya está lleno, así que puedes cargar la imagen:
-      this.loadDicomImage(nombreCarpeta);
-    });
-  }
 
   loadDicomImage(nombreCarpeta?: string) {
-    if (this.dicomFiles.length === 0) {
-      console.warn('No hay archivos DICOM para mostrar');
-      return;
-    }
+    if (this.dicomFiles.length === 0) return;
 
     const fileName = this.dicomFiles[this.currentIndex].fileName;
     const carpeta = nombreCarpeta || '301D3YOC'; // fallback por si acaso
@@ -133,19 +123,21 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
     cornerstone.loadImage(imageId).then((image: any) => {
       cornerstone.displayImage(this.dicomImage.nativeElement, image);
 
-      // Aquí puedes hacer zoom programático si quieres:
-      const viewport = cornerstone.getViewport(this.dicomImage.nativeElement);
-      viewport.scale = 2.0; // zoom 2x
-      cornerstone.setViewport(this.dicomImage.nativeElement, viewport);
-
       const dataSet = image.data;
       const studyDescription = dataSet.string('x00081030');
       console.log('Descripción del estudio:', studyDescription);
       this.tituloTac = studyDescription || 'Sin descripción';
-    }).catch((err: unknown) => {
-      console.error('Error cargando imagen DICOM:', err);
     });
   }
 
+
+  cargarTac(nombreCarpeta: string | undefined) {
+    this.currentTac = nombreCarpeta; // Establece el Tac actual
+    this.http.get<any[]>(`/api/tac/estudio/${nombreCarpeta}`).subscribe((files) => {
+      this.dicomFiles = files;
+      this.currentIndex = 0;
+      this.loadDicomImage(nombreCarpeta);
+    });
+  }
 
 }
