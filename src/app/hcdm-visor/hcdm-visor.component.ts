@@ -3,6 +3,7 @@ import {IonicModule} from "@ionic/angular";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../services/auth.service";
+import {MedicoService} from "../services/medico.service";
 
 @Component({
   selector: 'app-hcdm-visor',
@@ -14,7 +15,9 @@ import {AuthService} from "../services/auth.service";
   styleUrls: ['./hcdm-visor.component.scss']
 })
 export class HcdmVisorComponent {
+  paciente: any;
   nombreMedico: string = '';
+
   protected zoomLevel = 1;
   private posX = 0;
   private posY = 0;
@@ -22,16 +25,42 @@ export class HcdmVisorComponent {
   private startX = 0;
   private startY = 0;
 
-  constructor(private authService: AuthService) {
+
+  constructor(private authService: AuthService, private route: ActivatedRoute, private medicoService: MedicoService) {
     document.addEventListener('mousemove', this.onMouseMove.bind(this));
     document.addEventListener('mouseup', this.onMouseUp.bind(this));
   }
 
   ngOnInit() {
     this.nombreMedico = this.authService.getUsernameFromToken();
+
+    this.route.queryParams.subscribe(params => {
+      const nh = params['nh'];
+      if (nh && this.nombreMedico) {
+        this.medicoService.verDetallePaciente(nh, this.nombreMedico).subscribe(data => {
+          this.paciente = {
+            ...data,
+            edad: this.calcularEdad(data.fecha)
+          };
+        });
+      }
+    });
   }
 
-    zoomIn() {
+  calcularEdad(fechaNacimiento: string): number {
+    const fechaNac = new Date(fechaNacimiento);
+    const fechaActual = new Date();
+    let edad = fechaActual.getFullYear() - fechaNac.getFullYear();
+    const mes = fechaActual.getMonth() - fechaNac.getMonth();
+
+    if (mes < 0 || (mes === 0 && fechaActual.getDate() < fechaNac.getDate())) {
+      edad--;
+    }
+
+    return edad;
+  }
+
+  zoomIn() {
     this.zoomLevel += 0.1;
     this.updateTransform();
   }
