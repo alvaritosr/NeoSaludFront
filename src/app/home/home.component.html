@@ -8,7 +8,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-md="3">
-        <ion-card>
+        <ion-card [routerLink]="['/select-user', {cardId: 'estacion-clinica'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/hospital.png" style="max-width: 58px"></ion-img>
             <ion-label>Estación Clínica</ion-label>
@@ -16,7 +16,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-card [routerLink]="'/select-user'">
+        <ion-card [routerLink]="['/select-user', {cardId: 'historial-salud'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/stethoscope.png" style="max-width: 58px"></ion-img>
             <ion-label>Historia de salud digital AP</ion-label>
@@ -24,7 +24,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-card>
+        <ion-card [routerLink]="['/select-user', {cardId: 'prescripciones'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/pills.png" style="max-width: 58px"></ion-img>
             <ion-label>Prescripciones</ion-label>
@@ -32,7 +32,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-card>
+        <ion-card [routerLink]="['/select-user', {cardId: 'urgencias-ap'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/hospital-with-user.png" style="max-width: 58px"></ion-img>
             <ion-label>Urgencias AP</ion-label>
@@ -67,7 +67,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-card>
+        <ion-card [routerLink]="['/select-user', {cardId: 'telederma'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/object-connection-7.png" style="max-width: 58px"></ion-img>
             <ion-label>Telederma</ion-label>
@@ -78,7 +78,7 @@
 
     <ion-row>
       <ion-col size="12" size-md="3">
-        <ion-card>
+        <ion-card [routerLink]="['/select-user', {cardId: 'vacunas'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/vaccine.png" style="max-width: 58px"></ion-img>
             <ion-label>Vacunas</ion-label>
@@ -86,7 +86,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-card>
+        <ion-card [routerLink]="['/select-user', {cardId: 'visados'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/stamp.png" style="max-width: 58px"></ion-img>
             <ion-label>Visados</ion-label>
@@ -94,7 +94,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-card [routerLink]="'/hcdm-visor'">
+        <ion-card [routerLink]="['/select-user', {cardId: 'visorHCDM'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/ambulance.png" style="max-width: 58px"></ion-img>
             <ion-label>Visor HCDM</ion-label>
@@ -102,7 +102,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-card [routerLink]="'/visor-dicom'">
+        <ion-card [routerLink]="['/select-user', {cardId: 'visorPACS'}]">
           <ion-card-content class="ion-text-center">
             <ion-img src="./assets/icons/radiology.png" style="max-width: 58px"></ion-img>
             <ion-label>Visor PACS</ion-label>
