@@ -1,22 +1,15 @@
-// src/app/services/recuperar-contrasena.service.ts
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-interface RestablecerContrasenaData {
-  token: string;
-  newPassword: string; // Cambiado de password a newPassword
-}
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class RecuperarContrasenaService {
-  private apiUrl = 'http://localhost:8080/auth';
+export class AuthService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  restablecerContrasena(data: RestablecerContrasenaData): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/restablecer-contrasena`, data);
+  restablecerContrasena(data: { token: string; newPassword: string }): Observable<any> {
+    const url = '/api/auth/restablecer-contrasena';
+    return this.http.post(url, data);
   }
 }

@@ -1,7 +1,7 @@
-// src/app/services/recuperar-cuenta.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface RecuperarContrasenaData {
   email: string;
@@ -12,11 +12,10 @@ interface RecuperarContrasenaData {
   providedIn: 'root'
 })
 export class RecuperarCuentaService {
-  private apiUrl = 'http://localhost:8080/auth';
 
   constructor(private http: HttpClient) { }
 
   recuperarContrasena(data: RecuperarContrasenaData): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/recuperar-contrasena`, data);
+    return this.http.post<void>(`api/auth/recuperar-contrasena`, data);
   }
 }

@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { RecuperarContrasenaService } from '../services/recuperar-contrasena.service';
+import { AuthService } from '../services/recuperar-contrasena.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -22,7 +22,7 @@ export class RecuperarContrasenaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private recuperarService: RecuperarContrasenaService,
+    private recuperarService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private alertController: AlertController
@@ -34,41 +34,40 @@ export class RecuperarContrasenaComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Obtener el token de QueryParams en lugar de ParamMap
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
       console.log('Token recibido:', this.token);
-
-      // Decodificar el token si viene codificado en la URL
-      try {
-        this.token = decodeURIComponent(this.token);
-        console.log('Token decodificado:', this.token);
-      } catch (e) {
-        console.error('Error al decodificar el token:', e);
-      }
 
       if (!this.token || this.token.trim() === '') {
         this.presentAlert('No se encontró un token válido en la URL');
         this.router.navigate(['/login']);
         return;
       }
+
+      try {
+        this.token = decodeURIComponent(this.token);
+        console.log('Token decodificado:', this.token);
+      } catch (e) {
+        console.error('Error al decodificar el token:', e);
+        this.presentAlert('El token proporcionado no es válido');
+        this.router.navigate(['/login']);
+      }
     });
   }
-
   private passwordMatchValidator = (group: FormGroup) => {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { notMatching: true };
   }
 
-
   onSubmit(): void {
     if (this.restablecerForm.valid && this.token) {
-      console.log('Enviando solicitud con token:', this.token);
       const data = {
         token: this.token.trim(),
         newPassword: this.restablecerForm.get('password')?.value
       };
+
+      console.log('Datos enviados al servidor:', data);
 
       this.recuperarService.restablecerContrasena(data).subscribe({
         next: () => {
@@ -78,12 +77,19 @@ export class RecuperarContrasenaComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           let mensaje = 'Ha ocurrido un error al restablecer la contraseña';
           if (error.status === 400) {
-            mensaje = 'El token no es válido o ha expirado';
+            mensaje = error.error || 'El token no es válido o ha expirado. Verifica que el token y la contraseña sean correctos.';
+          } else if (error.status === 500) {
+            mensaje = 'Error interno del servidor. Intenta nuevamente más tarde.';
+          } else {
+            mensaje = `Error inesperado: ${error.message}`;
           }
           this.presentAlert(mensaje);
           console.error('Error completo:', error);
+          console.error('Respuesta del servidor:', error.error);
         }
       });
+    } else {
+      this.presentAlert('Por favor, completa todos los campos correctamente.');
     }
   }
 

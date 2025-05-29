@@ -31,9 +31,9 @@ export const routes: Routes = [
     loadComponent: () => import('./recuperar-cuenta/recuperar-cuenta.component').then((m) => m.RecuperarCuentaComponent),
   },
   {
-    path: 'restablecer-contrasena', // Quitamos el parámetro de la ruta
+    path: 'restablecer-contrasena',
     loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then((m) => m.RecuperarContrasenaComponent),
-  }
+  },
   {
     path: 'select-user',
     loadComponent: () => import('./select-user/select-user.component').then((m) => m.SelectUserComponent),
