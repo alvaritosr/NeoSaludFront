@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {calendar} from "ionicons/icons";
+import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 
 @Component({
   selector: 'app-medical-appointment',
   templateUrl: './medical-appointment.component.html',
   styleUrls: ['./medical-appointment.component.scss'],
   imports: [
-    IonicModule
+    IonicModule,
+    MenuSuperiorComponent
   ]
 })
 export class MedicalAppointmentComponent  implements OnInit {
 
-  constructor(private menuCtrl: MenuController) {
+  constructor() {
     addIcons({
       'calendar': calendar
     });
@@ -21,7 +23,4 @@ export class MedicalAppointmentComponent  implements OnInit {
 
   ngOnInit() {}
 
-  openMenu() {
-    this.menuCtrl.open('first');
-  }
 }

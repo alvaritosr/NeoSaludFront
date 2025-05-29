@@ -1,0 +1,150 @@
+ion-content {
+  --background:  #fff4f4;
+}
+
+ion-list {
+  --background:  #fff4f4;
+  --ion-item-background: #fff4f4;
+  --ion-item-color: #d23c3c;
+  --ion-item-border-color: #d23c3c;
+}
+
+ion-item {
+  --background:  #fff4f4;
+}
+
+.health-history-container {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+  justify-content: space-between;
+}
+
+ion-toolbar {
+  --background: #fff4f4;
+  --color: #d62f4d;
+}
+
+.header2 {
+  --background: #f8e4e4;
+  --color: #d62f4d;
+}
+
+ion-card {
+  width: 20%;
+  border: 2px solid #d23c3c;
+  border-radius: 20px;
+  background-color: #fff4f4;
+  padding: 1rem;
+}
+
+.dicom-viewer {
+  width: 80%;
+  margin: 10px;
+}
+
+.tac {
+  width: 97%;
+  border: 2px solid #d23c3c;
+  border-radius: 20px;
+  background-color: #f8e4e4;
+  padding: 1rem;
+  margin: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+#dicomImage {
+  touch-action: none;
+}
+
+input[type="range"] {
+  width: 100%;
+  max-width: 512px;
+  margin: 10px auto 0 auto;
+  display: block;
+  appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: #e89ca0;
+  outline: none;
+  transition: background 0.3s ease-in-out;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #d62f4d;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease-in-out;
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #d62f4d;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &:hover {
+    background:#f2b3b6;
+  }
+}
+
+
+ion-card-header,
+ion-card-content {
+  background-color: #fff4f4;
+}
+
+ion-card-title {
+  font-size: 1rem;
+  color: #d23c3c;
+  text-align: left;
+  font-weight: bold;
+}
+
+p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.icon-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #d23c3c;
+  border-radius: 20px;
+  background-color: #fff4f4;
+  align-items: flex-start;
+  justify-content: start;
+  max-width: 100%;
+}
+
+.icon-bar ion-icon {
+  font-size: 1.8rem;
+  color: #d23c3c;
+  padding: 10px;
+  border: 2px solid #d23c3c;
+  border-radius: 10px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+ion-button {
+  margin-top: 1rem;
+  --background: #ffffff;
+  --color: #d23c3c;
+  --border-color: #d23c3c;
+  --border-width: 2px;
+  --border-radius: 10px;
+  font-weight: bold;
+  align-self: center;
+}

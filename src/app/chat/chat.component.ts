@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {RouterLink} from "@angular/router";
+import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 
 @Component({
   selector: 'app-chat',
@@ -8,7 +9,7 @@ import {RouterLink} from "@angular/router";
   styleUrls: ['./chat.component.scss'],
   imports: [
     IonicModule,
-    RouterLink
+    MenuSuperiorComponent
   ]
 })
 export class ChatComponent  implements OnInit {

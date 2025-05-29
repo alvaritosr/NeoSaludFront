@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {IonicModule} from "@ionic/angular";
+import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 
 @Component({
   selector: 'app-calendar',
@@ -8,6 +9,7 @@ import {IonicModule} from "@ionic/angular";
   imports: [
     IonicModule,
     CommonModule,
+    MenuSuperiorComponent,
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
+import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 
 @Component({
   selector: 'app-hcdm-visor',
   templateUrl: './hcdm-visor.component.html',
   imports: [
-    IonicModule
+    IonicModule,
+    MenuSuperiorComponent
   ],
   styleUrls: ['./hcdm-visor.component.scss']
 })

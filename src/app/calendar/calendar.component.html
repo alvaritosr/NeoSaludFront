@@ -1,100 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <title>Calendario Dinámico</title>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@latest/dist/ionic/ionic.esm.js"></script>
-  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@latest/dist/ionic/ionic.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@latest/css/ionic.bundle.css" />
-  <style>
-    body, html, ion-app {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+<app-menu-superior> </app-menu-superior>
 
-    ion-card {
-      background-color: #e89ca0;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.2s ease-in-out;
-    }
+<ion-toolbar>
+  <ion-title id="calendar-title">Calendario</ion-title>
+</ion-toolbar>
 
-    ion-card:hover {
-      transform: scale(1.05);
-    }
 
-    ion-content,
-    ion-grid,
-    ion-row,
-    ion-col {
-      --background: white;
-    }
-
-    ion-card-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .selected {
-      border: 2px solid #004a77;
-    }
-
-    ion-toolbar {
-      --background: #fff4f4;
-      --color: #d62f4d;
-    }
-
-    .header2 {
-      --background: #f8e4e4;
-      --color: #d62f4d;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    ion-title {
-      font-weight: bold;
-      font-size: 20px;
-    }
-
-    #calendar-body ion-row {
-      min-height: 130px;
-    }
-  </style>
-</head>
-
-<body>
-<ion-app>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title id="calendar-title">Calendario</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-grid>
-      <ion-row class="header2">
-        <ion-col>Lun</ion-col>
-        <ion-col>Mar</ion-col>
-        <ion-col>Mié</ion-col>
-        <ion-col>Jue</ion-col>
-        <ion-col>Vie</ion-col>
-        <ion-col>Sáb</ion-col>
-        <ion-col>Dom</ion-col>
-      </ion-row>
-      <div id="calendar-body"></div>
-    </ion-grid>
-  </ion-content>
-</ion-app>
+<ion-content>
+  <ion-grid>
+    <ion-row class="header2">
+      <ion-col>Lun</ion-col>
+      <ion-col>Mar</ion-col>
+      <ion-col>Mié</ion-col>
+      <ion-col>Jue</ion-col>
+      <ion-col>Vie</ion-col>
+      <ion-col>Sáb</ion-col>
+      <ion-col>Dom</ion-col>
+    </ion-row>
+    <div id="calendar-body"></div>
+  </ion-grid>
+</ion-content>
 
 <script>
   function generateCalendar(month, year) {
@@ -137,5 +61,3 @@
     generateCalendar(today.getMonth(), today.getFullYear());
   });
 </script>
-</body>
-</html>

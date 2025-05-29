@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
+import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 
 @Component({
   selector: 'app-select-user',
   templateUrl: './select-user.component.html',
   styleUrls: ['./select-user.component.scss'],
-  imports: [
-    IonicModule,
-    FormsModule,
-    RouterLink
-  ]
+    imports: [
+        IonicModule,
+        FormsModule,
+        RouterLink,
+        MenuSuperiorComponent
+    ]
 })
 export class SelectUserComponent {
   primerApellido = '';
