@@ -1,62 +1,7 @@
-body, html, ion-app {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 ion-card {
-  background-color: #e89ca0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.2s ease-in-out;
-}
-
-ion-card:hover {
-  transform: scale(1.05);
-}
-
-ion-content,
-ion-grid,
-ion-row,
-ion-col {
-  --background: white;
-}
-
-ion-card-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.selected {
-  border: 2px solid #004a77;
-}
-
-ion-toolbar {
-  --background: #fff4f4;
-  --color: #d62f4d;
-}
-
-.header2 {
-  --background: #f8e4e4;
-  --color: #d62f4d;
-  font-weight: bold;
+  height: 100px;
   text-align: center;
-}
-
-ion-title {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-#calendar-body ion-row {
-  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
