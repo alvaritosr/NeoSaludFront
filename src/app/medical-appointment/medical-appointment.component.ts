@@ -17,7 +17,6 @@ import {AuthService} from "../services/auth.service";
 export class MedicalAppointmentComponent  implements OnInit {
   nombreMedico: string = '';
 
-  constructor() {
   constructor(private menuCtrl: MenuController, private authService: AuthService) {
     addIcons({
       'calendar': calendar

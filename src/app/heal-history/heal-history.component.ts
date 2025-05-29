@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
-import { Component, OnInit } from '@angular/core';
-import { IonicModule, MenuController } from '@ionic/angular';
 import { MedicoService } from '../services/medico.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -15,16 +13,12 @@ import {AnalisisService} from "../services/analisis.service";
   selector: 'app-heal-history',
   templateUrl: './heal-history.component.html',
   styleUrls: ['./heal-history.component.scss'],
-    imports: [
-        IonicModule,
-        MenuSuperiorComponent
-    ]
   imports: [
     IonicModule,
+    MenuSuperiorComponent,
     NgIf,
     NgForOf
   ],
-  styleUrls: ['./heal-history.component.scss']
 })
 export class HealHistoryComponent implements OnInit {
   nombreMedico: string = '';
