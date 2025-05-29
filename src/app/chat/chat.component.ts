@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {RouterLink} from "@angular/router";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-chat',
@@ -13,9 +14,12 @@ import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
   ]
 })
 export class ChatComponent  implements OnInit {
+  nombreMedico: string = '';
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.nombreMedico = this.authService.getUsernameFromToken();
+  }
 
 }

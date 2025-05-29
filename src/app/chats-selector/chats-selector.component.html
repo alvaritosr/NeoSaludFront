@@ -1,8 +1,29 @@
 <app-menu-superior> </app-menu-superior>
+<ion-router-outlet id="main-content"></ion-router-outlet>
 
 <ion-toolbar>
   <ion-title>Selector de chat</ion-title>
 </ion-toolbar>
+<ion-header>
+  <ion-toolbar class="header2">
+    <ion-img
+      slot="start"
+      src="assets/Higiea.png"
+      class="header-icon"
+      style="max-width: 10%; cursor: pointer;">
+    </ion-img>
+    <ion-title style="text-align: center">
+      <h1>Buzon</h1>
+    </ion-title>
+    <ion-title slot="end">{{ nombreMedico }} ▼</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header class="header2">
+  <ion-toolbar>
+    <ion-title slot="start">Selector de chat</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
   <ion-list class="chat-list">

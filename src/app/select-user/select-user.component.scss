@@ -17,6 +17,16 @@ ion-header.header2 ion-title[slot="start"] {
   text-align: left;
 }
 
+.selected {
+  background-color: #007bff; /* Blue color */
+  color: white; /* Optional: Change text color to white for better contrast */
+  cursor: pointer; /* Ensure the item is clickable */
+}
+
+ion-col, ion-row, ion-list {
+  background-color: white;
+}
+
 .header2 {
   --background: #f8e4e4;
   --color: #d62f4d;

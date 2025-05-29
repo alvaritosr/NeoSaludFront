@@ -3,6 +3,7 @@ import {IonicModule, MenuController} from "@ionic/angular";
 import { ReactiveFormsModule } from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,11 @@ import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
     ]
 })
 export class HomeComponent implements OnInit {
+  nombreMedico: string = '';
 
-  constructor(private menuCtrl: MenuController) { }
+  constructor(private authService: AuthService) {}
 
-  ngOnInit() {}
-
-  openMenu() {
-    this.menuCtrl.open('first');
+  ngOnInit() {
+    this.nombreMedico = this.authService.getUsernameFromToken();
   }
 }

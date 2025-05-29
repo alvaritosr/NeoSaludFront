@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-hcdm-visor',
@@ -12,6 +14,7 @@ import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
   styleUrls: ['./hcdm-visor.component.scss']
 })
 export class HcdmVisorComponent {
+  nombreMedico: string = '';
   protected zoomLevel = 1;
   private posX = 0;
   private posY = 0;
@@ -19,12 +22,16 @@ export class HcdmVisorComponent {
   private startX = 0;
   private startY = 0;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     document.addEventListener('mousemove', this.onMouseMove.bind(this));
     document.addEventListener('mouseup', this.onMouseUp.bind(this));
   }
 
-  zoomIn() {
+  ngOnInit() {
+    this.nombreMedico = this.authService.getUsernameFromToken();
+  }
+
+    zoomIn() {
     this.zoomLevel += 0.1;
     this.updateTransform();
   }
