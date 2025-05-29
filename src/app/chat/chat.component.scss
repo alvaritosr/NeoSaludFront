@@ -71,3 +71,33 @@ ion-footer {
 ion-content {
   --background: white;
 }
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-right {
+  align-self: flex-end;
+  background-color: #d1e7dd;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.align-left {
+  align-self: flex-start;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.mensaje {
+  max-width: 60%;
+}
+
+.fecha {
+  font-size: 0.8em;
+  color: #6c757d;
+}

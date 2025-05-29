@@ -11,6 +11,10 @@
           <ion-grid>
             <ion-row>
               <ion-col size="12" size-md="2">
+                <ion-label position="stacked">Nombre</ion-label>
+                <ion-input [(ngModel)]="searchParams.nombre" name="nombre"></ion-input>
+              </ion-col>
+              <ion-col size="12" size-md="2">
                 <ion-label position="stacked">Primer apellido</ion-label>
                 <ion-input [(ngModel)]="searchParams.primerApellido" name="primerApellido"></ion-input>
               </ion-col>
@@ -19,19 +23,12 @@
                 <ion-input [(ngModel)]="searchParams.segundoApellido" name="segundoApellido"></ion-input>
               </ion-col>
               <ion-col size="12" size-md="2">
-                <ion-label position="stacked">Nombre</ion-label>
-                <ion-input [(ngModel)]="searchParams.nombre" name="nombre"></ion-input>
-              </ion-col>
-              <ion-col size="12" size-md="2">
-                <ion-label position="stacked">Tipo doc</ion-label>
-                <ion-select [(ngModel)]="searchParams.tipoDoc" name="tipoDoc">
-                  <ion-select-option value="DNI">DNI</ion-select-option>
-                  <ion-select-option value="Pasaporte">Pasaporte</ion-select-option>
-                </ion-select>
-              </ion-col>
-              <ion-col size="12" size-md="2">
-                <ion-label position="stacked">Nº doc</ion-label>
+                <ion-label position="stacked">DNI</ion-label>
                 <ion-input [(ngModel)]="searchParams.dni" name="dni"></ion-input>
+              </ion-col>
+              <ion-col size="12" size-md="2">
+                <ion-label position="stacked">Pasaporte</ion-label>
+                <ion-input [(ngModel)]="searchParams.pasaporte" name="pasaporte"></ion-input>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -48,29 +45,42 @@
                 <ion-input [(ngModel)]="searchParams.nuhsa" name="nuhsa"></ion-input>
               </ion-col>
               <ion-col size="12" size-md="2">
-                <ion-label position="stacked">Provincia</ion-label>
-                <ion-select [(ngModel)]="searchParams.provincia" name="provincia">
-                  <ion-select-option value="Provincia1">Provincia1</ion-select-option>
-                  <ion-select-option value="Provincia2">Provincia2</ion-select-option>
-                </ion-select>
+                <ion-label position="stacked">Ano Nacimiento</ion-label>
+                <ion-input [(ngModel)]="searchParams.anyoNacimiento" name="anyoNacimiento"></ion-input>
               </ion-col>
               <ion-col size="12" size-md="2">
-                <ion-label position="stacked">Año Nacimiento</ion-label>
-                <ion-input [(ngModel)]="searchParams.anyoNacimiento" name="anyoNacimiento"></ion-input>
+                <ion-label position="stacked">Sexo</ion-label>
+                <ion-select [(ngModel)]="searchParams.sexo" name="sexo">
+                  <ion-select-option value="0">Masculino</ion-select-option>
+                  <ion-select-option value="1">Femenino</ion-select-option>
+                </ion-select>
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" size-md="2">
+                <ion-label position="stacked">Direccion</ion-label>
+                <ion-input [(ngModel)]="searchParams.direccion" name="direccion"></ion-input>
+              </ion-col>
+              <ion-col size="12" size-md="2">
+                <ion-label position="stacked">Telefono</ion-label>
+                <ion-input [(ngModel)]="searchParams.telefono" name="telefono"></ion-input>
+              </ion-col>
+              <ion-col size="12" size-md="2">
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input [(ngModel)]="searchParams.email" name="email"></ion-input>
               </ion-col>
             </ion-row>
           </ion-grid>
 
           <div class="button-group">
             <div class="button-left">
-              <ion-button>Leer Tarjeta</ion-button>
               <ion-button (click)="buscarPacientes()">Buscar</ion-button>
-              <ion-button>Nuevo</ion-button>
-              <ion-button>Nuevo familiar</ion-button>
+              <ion-button (click)="crearPaciente()">Nuevo</ion-button>
             </div>
             <div class="button-right">
               <ion-button (click)="verDetallePaciente()">Aceptar</ion-button>
-              <ion-button>Cancelar</ion-button>
+              <ion-button (click)="cancelarBusqueda()">Cancelar</ion-button>
             </div>
           </div>
 
