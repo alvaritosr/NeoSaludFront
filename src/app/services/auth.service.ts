@@ -46,8 +46,8 @@ export class AuthService {
   }
 
   cerrarSesion(){
-    localStorage.removeItem('authToken');
-    this.route.navigate(['/inicio-sesion']);
+    sessionStorage.removeItem('authToken');
+    this.route.navigate(['/login']);
   }
 
 

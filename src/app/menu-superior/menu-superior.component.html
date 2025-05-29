@@ -10,6 +10,11 @@
     <ion-title style="text-align: center">
       <h1>Historia de Salud Digital AP</h1>
     </ion-title>
-    <ion-title slot="end">Usuario ▼</ion-title>
+    <ion-title slot="end">
+      {{ nombreMedico }}
+      <ion-button style="--background: transparent" *ngIf="ajustesreportes" (click)="mostrarAjustes($event)">
+        {{ popoverAbierto ? '▲' : '▼' }}
+      </ion-button>
+    </ion-title>
   </ion-toolbar>
 </ion-header>

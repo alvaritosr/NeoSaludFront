@@ -29,10 +29,6 @@ import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
   imports: [
     CommonModule,
     FormsModule,
-    IonTitle,
-    IonHeader,
-    IonToolbar,
-    IonImg,
     IonContent,
     IonCard,
     IonList,
