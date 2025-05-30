@@ -1,63 +1,38 @@
-<app-menu-superior> </app-menu-superior>
+<app-menu-superior></app-menu-superior>
 
 <ion-toolbar>
-  <ion-title id="calendar-title">Calendario</ion-title>
+  <ion-title id="calendar-title">Calendario Semanal</ion-title>
 </ion-toolbar>
 
-
 <ion-content>
+  <ion-buttons>
+    <ion-button (click)="moveWeek(-1)">Semana anterior</ion-button>
+    <ion-button (click)="moveWeek(1)">Semana siguiente</ion-button>
+  </ion-buttons>
+
   <ion-grid>
-    <ion-row class="header2">
-      <ion-col>Lun</ion-col>
-      <ion-col>Mar</ion-col>
-      <ion-col>Mié</ion-col>
-      <ion-col>Jue</ion-col>
-      <ion-col>Vie</ion-col>
-      <ion-col>Sáb</ion-col>
-      <ion-col>Dom</ion-col>
+    <ion-row>
+      <ion-col size="1">
+        <strong>Horas</strong>
+      </ion-col>
+      <ion-col *ngFor="let weekDate of weekDates" size="2.20">
+        <strong>{{ weekDate.day }}</strong>
+        <br />
+        <small>{{ weekDate.date }}</small>
+      </ion-col>
     </ion-row>
-    <div id="calendar-body"></div>
+    <ion-row *ngFor="let hour of hours">
+      <ion-col size="1">
+        <strong>{{ hour }}</strong>
+      </ion-col>
+      <ion-col *ngFor="let weekDate of weekDates" size="2.20">
+        <ion-card>
+          <ion-card-content>
+            <!-- Contenido -->
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-grid>
+
 </ion-content>
-
-<script>
-  function generateCalendar(month, year) {
-    const calendarBody = document.getElementById("calendar-body");
-    const title = document.getElementById("calendar-title");
-    title.textContent = `Calendario ${String(month + 1).padStart(2, "0")}/${year}`;
-    calendarBody.innerHTML = "";
-
-    const firstDay = new Date(year, month, 1).getDay(); // 0 (domingo) a 6 (sábado)
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    const startDay = firstDay === 0 ? 6 : firstDay - 1; // convertimos a Lunes = 0
-
-    let day = 1;
-    const totalCells = Math.ceil((startDay + daysInMonth) / 7) * 7;
-
-    for (let i = 0; i < totalCells; i++) {
-      if (i % 7 === 0) {
-        var row = document.createElement("ion-row");
-        calendarBody.appendChild(row);
-      }
-
-      const col = document.createElement("ion-col");
-
-      if (i >= startDay && day <= daysInMonth) {
-        const card = document.createElement("ion-card");
-        const content = document.createElement("ion-card-content");
-        content.textContent = day;
-        card.appendChild(content);
-        col.appendChild(card);
-        day++;
-      }
-
-      row.appendChild(col);
-    }
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const today = new Date();
-    generateCalendar(today.getMonth(), today.getFullYear());
-  });
-</script>

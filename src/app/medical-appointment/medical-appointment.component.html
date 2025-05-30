@@ -6,74 +6,82 @@
   </ion-toolbar>
 </ion-header>
 
-  <ion-content class="ion-padding">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-        <ion-col size="12" size-md="6" class="agenda-container">
-          <div class="agenda-flex">
-            <strong style="color: #d62f4d;">AGENDA</strong>
-            <ion-button id="open-date" fill="clear" class="calendar-button" size="small">
-              <ion-icon name="calendar"></ion-icon>
-            </ion-button>
-            <ion-popover trigger="open-date" showBackdrop="true">
-              <ion-datetime
-                presentation="date"
-                value="2025-04-13"
-                preferWheel="false"
-                showDefaultButtons="true"
-              ></ion-datetime>
-            </ion-popover>
-          </div>
-        </ion-col>
-        <ion-col size="12" size-md="6">
-          <ion-select placeholder="Profesional">
-            <ion-select-option value="sanchez">SANCHEZ RUBIO, ÁLVARO</ion-select-option>
-          </ion-select>
-        </ion-col>
-      </ion-row>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" size-md="6" class="agenda-container">
+        <div class="agenda-flex">
+          <strong style="color: #d62f4d;">AGENDA</strong>
+          <ion-button id="open-date" fill="clear" class="calendar-button" size="small" (click)="openDatePicker()">
+            <ion-icon name="calendar"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-select placeholder="Profesional">
+          <ion-select-option value="sanchez">SANCHEZ RUBIO, ÁLVARO</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
 
-      <ion-row class="ion-justify-content-start">
-        <ion-col size="6" size-md="auto">
-          <ion-button expand="block" color="primary">Actualizar</ion-button>
-        </ion-col>
-        <ion-col size="6" size-md="auto">
-          <ion-button expand="block" color="success">Añadir nueva consulta</ion-button>
-        </ion-col>
-      </ion-row>
+    <ion-row class="ion-justify-content-start">
+      <ion-col size="6" size-md="auto">
+        <ion-button expand="block" color="primary">Actualizar</ion-button>
+      </ion-col>
+      <ion-col size="6" size-md="auto">
+        <ion-button expand="block" color="success">Añadir nueva consulta</ion-button>
+      </ion-col>
+    </ion-row>
 
-      <ion-row class="ion-align-items-center">
-        <ion-col size="12" size-md="3">
-          <ion-select placeholder="Seleccionar profesional"></ion-select>
-        </ion-col>
-        <ion-col size="12" size-md="3">
-          <ion-select placeholder="Actividad">
-            <ion-select-option value="actividad1">Actividad 1</ion-select-option>
-          </ion-select>
-        </ion-col>
-        <ion-col size="12" size-md="3">
-          <ion-select placeholder="Tramo">
-            <ion-select-option value="manana">Mañana</ion-select-option>
-          </ion-select>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" size-md="3">
+        <ion-select placeholder="Seleccionar profesional"></ion-select>
+      </ion-col>
+      <ion-col size="12" size-md="3">
+        <ion-select placeholder="Actividad">
+          <ion-select-option value="actividad1">Actividad 1</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="12" size-md="3">
+        <ion-select placeholder="Tramo">
+          <ion-select-option value="manana">Mañana</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-    <table>
-      <thead>
-      <tr>
-        <th>Orden</th>
-        <th>Hora</th>
-        <th>Usuario</th>
-        <th>NUHSA</th>
-        <th>Tarea</th>
-        <th>Profesional</th>
-        <th>Obs.</th>
-        <th>Imprimir</th>
-        <th>Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </ion-content>
+  <table>
+    <thead>
+    <tr>
+      <th>Orden</th>
+      <th>Hora</th>
+      <th>Usuario</th>
+      <th>NUHSA</th>
+      <th>Tarea</th>
+      <th>Profesional</th>
+      <th>Obs.</th>
+      <th>Imprimir</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
 
+</ion-content>
+
+<ion-modal [isOpen]="showDatePicker" (didDismiss)="closeDatePicker()"  style="--width: 250px; --height: 390px; --border-radius: 10px;">
+  <ng-template>
+    <ion-content>
+      <ion-datetime
+        presentation="date"
+        (ionChange)="onDateSelected($event)"
+        [value]="selectedDate"
+      ></ion-datetime>
+
+      <ion-button expand="block" color="primary" (click)="closeDatePicker()">
+        Cerrar
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

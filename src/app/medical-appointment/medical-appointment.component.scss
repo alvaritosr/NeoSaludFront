@@ -30,6 +30,7 @@ ion-title {
   --color: #d62f4d;
 }
 
+
 ion-button {
   text-transform: none;
   font-size: 14px;
@@ -109,11 +110,6 @@ th {
   }
 }
 
-ion-popover {
-  --background: #ffffff;
-  --color: #000000;
-}
-
 ion-content {
   --background: white;
 }
@@ -121,6 +117,8 @@ ion-content {
 th {
   background: white;
 }
+
+
 
 @media screen and (max-width: 600px) {
   .agenda-flex {
@@ -157,3 +155,4 @@ th {
     font-size: 13px;
   }
 }
+
