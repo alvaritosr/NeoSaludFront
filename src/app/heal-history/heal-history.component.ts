@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 import { MedicoService } from '../services/medico.service';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import {NgForOf, NgIf, DatePipe} from '@angular/common';
 import {AntecedentesService} from "../services/antecedentes.service";
@@ -18,8 +18,7 @@ import {AnalisisService} from "../services/analisis.service";
     IonicModule,
     MenuSuperiorComponent,
     NgIf,
-    NgForOf,
-    RouterLink
+    NgForOf
   ],
 })
 export class HealHistoryComponent implements OnInit {
@@ -28,12 +27,9 @@ export class HealHistoryComponent implements OnInit {
   alergias: string[] = [];
   analisis: string[] = [];
   antecedentes: string[] = [];
-  consultas: any[] = [];
-
   detalleAlergias: any;
   detalleAnalisis: any;
   detalleAntecedente: any;
-  detalleConsulta: any;
 
   constructor(
     private medicoService: MedicoService,
@@ -42,7 +38,6 @@ export class HealHistoryComponent implements OnInit {
     private antecedentesService: AntecedentesService,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private router: Router,
     private datePipe: DatePipe
   ) {}
 
@@ -68,13 +63,6 @@ export class HealHistoryComponent implements OnInit {
         this.antecedentesService.verAntecedentesFamiliares(nh, this.nombreMedico).subscribe(data => {
           this.antecedentes = data;
         });
-
-        this.medicoService.verConsultas(nh, this.nombreMedico).subscribe(data => {
-          this.consultas = data;
-          this.consultas.forEach(consulta => {
-            consulta.fechaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy HH:mm');
-          });
-        });
       }
     });
   }
@@ -85,7 +73,6 @@ export class HealHistoryComponent implements OnInit {
     if (nh && usernameMedico) {
       this.detalleAnalisis = null;
       this.detalleAntecedente = null;
-      this.detalleConsulta = null;
       this.alergiasService.verAlergiasDetalles(nh, nombreAlergia, usernameMedico).subscribe((data: any) => {
         this.detalleAlergias = data;
       });
@@ -97,7 +84,6 @@ export class HealHistoryComponent implements OnInit {
     if (nh) {
       this.detalleAlergias = null;
       this.detalleAntecedente = null;
-      this.detalleConsulta = null;
       this.analisisService.verAnaliticasDetalle(nh, nombreAnalisis).subscribe((data: any) => {
         this.detalleAnalisis = data;
       });
@@ -110,24 +96,8 @@ export class HealHistoryComponent implements OnInit {
     if (nh && usernameMedico) {
       this.detalleAlergias = null;
       this.detalleAnalisis = null;
-      this.detalleConsulta = null;
       this.antecedentesService.verAntecedenteFamiliarDetalle(nh, nombreAntecedente, usernameMedico).subscribe((data: any) => {
         this.detalleAntecedente = data;
-      });
-    }
-  }
-
-  cargarDetalleConsulta(idConsulta: number) {
-    const nh = this.paciente?.nh;
-    const usernameMedico = this.nombreMedico;
-    if (nh && usernameMedico) {
-      this.detalleAlergias = null;
-      this.detalleAnalisis = null;
-      this.detalleAntecedente = null;
-      this.medicoService.verDetalleConsulta(nh, idConsulta, usernameMedico).subscribe((data: any) => {
-        this.detalleConsulta = data;
-        this.detalleConsulta.fechaConsulta = this.datePipe.transform(this.detalleConsulta.fechaConsulta, 'dd/MM/yyyy');
-        this.detalleConsulta.horaConsulta = this.datePipe.transform(this.detalleConsulta.fechaConsulta, 'HH:mm');
       });
     }
   }
