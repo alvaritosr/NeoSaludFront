@@ -1,0 +1,41 @@
+<app-menu-superior></app-menu-superior>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Detalle de la Consulta</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>Fecha:</strong> {{consulta.fechaConsulta}}</p>
+            <p><strong>Hora:</strong> {{ consulta.horaConsulta }}</p>
+            <br>
+
+            <p><strong>Paciente:</strong> {{ consulta.paciente.nombre }} {{ consulta.paciente.primerApellido }} {{ consulta.paciente.segundoApellido }}</p>
+            <p><strong>Fecha de Nacimiento: </strong> {{ consulta.paciente.anyoNacimiento }}</p>
+            <p><strong>DNI: </strong> {{ consulta.paciente.dni }}</p>
+            <p><strong>NH: </strong> {{ consulta.paciente.nh }}</p>
+            <p><strong>NUHSA: </strong> {{ consulta.paciente.nuhsa }}</p>
+            <p><strong>NUSS: </strong> {{ consulta.paciente.nuss }}</p>
+            <p><strong>Telefono: </strong> {{ consulta.paciente.telefono }}</p>
+            <br>
+
+            <p><strong>Motivo:</strong> <ion-input [(ngModel)]="consulta.motivoConsulta" name="motivoConsulta"></ion-input></p>
+            <p><strong>Observaciones:</strong> <ion-input [(ngModel)]="consulta.observaciones" name="observaciones"></ion-input></p>
+            <br>
+
+            <p><strong>Profesional:</strong> {{ consulta.paciente.medico.nombre }} {{ consulta.paciente.medico.apellidos }}</p>
+            <br>
+
+            <ion-button expand="block" color="primary" (click)="modificarConsulta()">Motivo y Observaciones</ion-button>
+            <br>
+
+            <ion-button expand="block" color="primary" (click)="generarPDF(consulta)">Imprimir Justificante</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

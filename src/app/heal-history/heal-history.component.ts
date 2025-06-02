@@ -4,7 +4,7 @@ import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 import { MedicoService } from '../services/medico.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf, NgIf, DatePipe} from '@angular/common';
 import {AntecedentesService} from "../services/antecedentes.service";
 import {AlergiasService} from "../services/alergias.service";
 import {AnalisisService} from "../services/analisis.service";
@@ -13,6 +13,7 @@ import {AnalisisService} from "../services/analisis.service";
   selector: 'app-heal-history',
   templateUrl: './heal-history.component.html',
   styleUrls: ['./heal-history.component.scss'],
+  providers: [DatePipe],
   imports: [
     IonicModule,
     MenuSuperiorComponent,
@@ -36,7 +37,8 @@ export class HealHistoryComponent implements OnInit {
     private analisisService: AnalisisService,
     private antecedentesService: AntecedentesService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -47,6 +49,7 @@ export class HealHistoryComponent implements OnInit {
       if (nh && this.nombreMedico) {
         this.medicoService.verDetallePaciente(nh, this.nombreMedico).subscribe(data => {
           this.paciente = data;
+          this.paciente.fecha = this.datePipe.transform(this.paciente.fecha, 'dd/MM/yyyy HH:mm');
         });
 
         this.alergiasService.verAlergias(nh, this.nombreMedico).subscribe(data => {

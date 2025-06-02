@@ -24,14 +24,6 @@
         <ion-label position="stacked">NH Paciente</ion-label>
         <ion-input name="nh"></ion-input>
       </ion-col>
-      <ion-col size="12" size-md="3">
-        <ion-label position="stacked">Motivo de la consulta</ion-label>
-        <ion-input name="motivoConsulta"></ion-input>
-      </ion-col>
-      <ion-col size="12" size-md="3">
-        <ion-label position="stacked">Observaciones</ion-label>
-        <ion-input name="observaciones"></ion-input>
-      </ion-col>
     </ion-row>
 
     <ion-row class="ion-justify-content-start">
@@ -72,10 +64,9 @@
         <ion-button fill="clear" color="primary" (click)="generarPDF(consulta)">Imprimir</ion-button>
       </td>
       <td>
-        <ion-button fill="clear" color="primary">Ver Consulta</ion-button>
+        <ion-button fill="clear" color="primary" (click)="navigateToAppointment(consulta.paciente.nh, consulta.id)">Ver Consulta</ion-button>
       </td>
       <td>
-
         <ion-select placeholder="Seleccionar Médico" [(ngModel)]="consulta.nuevoMedico">
           <ion-select-option *ngFor="let medico of medicos" [value]="medico.username">
             {{ medico.nombre }} {{ medico.apellidos }}
