@@ -20,7 +20,7 @@ export class MenuSuperiorComponent implements OnInit {
 
   nombreMedico: string = '';
   ajustesreportes: boolean = true;
-  popoverAbierto: boolean = false; // Nueva variable para rastrear el estado del popover
+  popoverAbierto: boolean = false;
 
   constructor(private authService: AuthService, private popoverCtrl: PopoverController) { }
 

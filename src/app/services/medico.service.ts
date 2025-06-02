@@ -32,4 +32,42 @@ export class MedicoService {
     const url = `/api/medicos/${usernameMedico}/pacientes`;
     return this.http.post(url, paciente, { headers });
   }
+
+  verConsultas(nh: string, usernameMedico: string): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `api/medicos/pacientes/${nh}/consultas`;
+    const params = { usernameMedico };
+    return this.http.get<any[]>(url, { headers, params });
+  }
+
+  obtenerMedicos(): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `/api/medicos/all`;
+    return this.http.get<any[]>(url, { headers });
+  }
+
+  verConsultasPorMedico(usernameMedico: string): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `/api/medicos/${usernameMedico}/consultas`;
+    return this.http.get<any[]>(url, { headers });
+  }
+
+  cambiarMedicoDePaciente(nh: string, nuevoUsernameMedico: string): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `/api/pacientes/${nh}/cambiar-medico`;
+    const params = { nuevoUsernameMedico };
+    return this.http.put(url, {}, { headers, params });
+  }
+
+  crearConsulta(nh: string, consulta: any, usernameMedico: string): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    const url = `/api/medicos/pacientes/${nh}/consultas`;
+    const params = { usernameMedico };
+    return this.http.post(url, consulta, { headers, params });
+  }
 }

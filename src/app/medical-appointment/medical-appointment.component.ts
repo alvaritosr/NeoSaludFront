@@ -4,24 +4,38 @@ import { addIcons } from "ionicons";
 import { calendar } from "ionicons/icons";
 import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
 import { AuthService } from "../services/auth.service";
-import {NgIf} from "@angular/common";
+import { MedicoService } from "../services/medico.service";
+import { ActivatedRoute } from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import {DatePipe, NgForOf} from "@angular/common";
+import { jsPDF } from "jspdf";
 
 @Component({
   selector: 'app-medical-appointment',
   templateUrl: './medical-appointment.component.html',
   styleUrls: ['./medical-appointment.component.scss'],
+  providers: [DatePipe],
   imports: [
     IonicModule,
-    MenuSuperiorComponent
+    MenuSuperiorComponent,
+    FormsModule,
+    NgForOf
   ]
 })
 export class MedicalAppointmentComponent implements OnInit {
   nombreMedico: string = '';
+  consultas: any[] = [];
+  medicos: any[] = [];
+  paciente: any;
   showDatePicker: boolean = false;
   selectedDate: string = new Date().toISOString();
 
-
-  constructor(private menuCtrl: MenuController, private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private medicoService: MedicoService,
+    private route: ActivatedRoute,
+    private datePipe: DatePipe
+  ) {
     addIcons({
       'calendar': calendar
     });
@@ -29,6 +43,93 @@ export class MedicalAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.nombreMedico = this.authService.getUsernameFromToken();
+    this.cargarMedicos();
+    this.fetchConsultas();
+
+  }
+
+  cargarMedicos() {
+    this.medicoService.obtenerMedicos().subscribe(
+      (data) => {
+        this.medicos = data;
+      },
+      (error) => {
+        console.error('Error al cargar la lista de médicos:', error);
+      }
+    );
+  }
+
+  generarPDF(consulta: any) {
+    const doc = new jsPDF();
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    doc.setFontSize(16);
+    doc.text("Junta de Andalucía", pageWidth / 2, 20, { align: 'center' });
+    doc.setFontSize(12);
+    doc.text("Justificante de Consulta Médica", pageWidth / 2, 30, { align: 'center' });
+
+    doc.setFontSize(10);
+    doc.text(`Fecha: ${consulta.fechaConsulta}`, 50, 50);
+    doc.text(`Hora: ${consulta.horaConsulta}`, 110, 50);
+    doc.text(`Paciente: ${consulta.paciente.nombre + " " + consulta.paciente.primerApellido + " " + consulta.paciente.segundoApellido}`, 50, 60);
+    doc.text(`NUHSA: ${consulta.paciente.nuhsa}`, 110, 60);
+    doc.text(`Motivo: ${consulta.motivoConsulta || "No especificado"}`, 50, 70);
+    doc.text(`Observaciones: ${consulta.observaciones || "No especificado"}`, 110, 70);
+    doc.text(`Profesional: ${this.nombreMedico}`, 50, 80);
+
+    doc.setFontSize(12);
+    doc.text("Sello:", 45, 110);
+
+    doc.text("Firma Medico:", 135, 110);
+
+
+    doc.save(`Justificante_Consulta_${consulta.paciente.nuhsa}.pdf`);
+  }
+
+  cambiarMedico(consulta: any, nuevoUsernameMedico: string) {
+    const nh = consulta.paciente.nuhsa;
+
+    if (!nh || !nuevoUsernameMedico) {
+      console.error('Faltan datos para cambiar el médico.');
+      return;
+    }
+
+    this.medicoService.cambiarMedicoDePaciente(nh, nuevoUsernameMedico).subscribe(
+      (data) => {
+        console.log('Médico cambiado exitosamente:', data);
+        this.fetchConsultas();
+      },
+      (error) => {
+        console.error('Error al cambiar el médico:', error);
+      }
+    );
+  }
+
+  anadirConsulta() {
+    const nh = (document.querySelector('ion-input[name="nh"]') as HTMLInputElement)?.value;
+    const usernameMedico = this.nombreMedico;
+    const motivoConsulta = (document.querySelector('ion-input[name="motivoConsulta"]') as HTMLInputElement)?.value;
+    const observaciones = (document.querySelector('ion-input[name="observaciones"]') as HTMLInputElement)?.value;
+
+    if (nh && observaciones && this.selectedDate) {
+      const nuevaConsulta = {
+        fechaConsulta: this.selectedDate,
+        motivoConsulta: motivoConsulta,
+        observaciones: observaciones,
+      };
+      this.medicoService.crearConsulta(nh, nuevaConsulta, usernameMedico).subscribe(
+        (data) => {
+          this.consultas.push(data);
+        },
+        (error) => {
+          console.error('Error al añadir consulta:', error);
+        }
+      );
+    } else {
+      console.error('Faltan datos para añadir la consulta.');
+    }
   }
 
   openDatePicker() {
@@ -42,6 +143,33 @@ export class MedicalAppointmentComponent implements OnInit {
   onDateSelected(event: any) {
     const selectedDate = event.detail.value;
     console.log('Fecha seleccionada:', selectedDate);
+    this.selectedDate = selectedDate;
     this.closeDatePicker();
+  }
+
+  fetchConsultas() {
+    const usernameMedico = this.nombreMedico;
+
+    if (!usernameMedico) {
+      console.error('El nombre del médico no está definido.');
+      return;
+    }
+
+    const today = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
+
+    this.medicoService.verConsultasPorMedico(usernameMedico).subscribe(
+      (data) => {
+        this.consultas = data
+          .map(consulta => ({
+            ...consulta,
+            fechaConsulta: this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy'),
+            horaConsulta: this.datePipe.transform(consulta.fechaConsulta, 'HH:mm')
+          }))
+          .filter(consulta => consulta.fechaConsulta === today);
+      },
+      (error) => {
+        console.error('Error al obtener las consultas:', error);
+      }
+    );
   }
 }

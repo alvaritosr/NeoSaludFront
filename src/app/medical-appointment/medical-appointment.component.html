@@ -17,60 +17,81 @@
           </ion-button>
         </div>
       </ion-col>
-      <ion-col size="12" size-md="6">
-        <ion-select placeholder="Profesional">
-          <ion-select-option value="sanchez">SANCHEZ RUBIO, ÁLVARO</ion-select-option>
-        </ion-select>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" size-md="3">
+        <ion-label position="stacked">NH Paciente</ion-label>
+        <ion-input name="nh"></ion-input>
+      </ion-col>
+      <ion-col size="12" size-md="3">
+        <ion-label position="stacked">Motivo de la consulta</ion-label>
+        <ion-input name="motivoConsulta"></ion-input>
+      </ion-col>
+      <ion-col size="12" size-md="3">
+        <ion-label position="stacked">Observaciones</ion-label>
+        <ion-input name="observaciones"></ion-input>
       </ion-col>
     </ion-row>
 
     <ion-row class="ion-justify-content-start">
       <ion-col size="6" size-md="auto">
-        <ion-button expand="block" color="primary">Actualizar</ion-button>
+        <ion-button expand="block" color="primary" (click)="fetchConsultas()">Actualizar</ion-button>
       </ion-col>
       <ion-col size="6" size-md="auto">
-        <ion-button expand="block" color="success">Añadir nueva consulta</ion-button>
+        <ion-button expand="block" color="success" (click)="anadirConsulta()">Añadir nueva consulta</ion-button>
       </ion-col>
     </ion-row>
 
-    <ion-row class="ion-align-items-center">
-      <ion-col size="12" size-md="3">
-        <ion-select placeholder="Seleccionar profesional"></ion-select>
-      </ion-col>
-      <ion-col size="12" size-md="3">
-        <ion-select placeholder="Actividad">
-          <ion-select-option value="actividad1">Actividad 1</ion-select-option>
-        </ion-select>
-      </ion-col>
-      <ion-col size="12" size-md="3">
-        <ion-select placeholder="Tramo">
-          <ion-select-option value="manana">Mañana</ion-select-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
+
   </ion-grid>
 
   <table>
     <thead>
     <tr>
       <th>Orden</th>
+      <th>Fecha</th>
       <th>Hora</th>
       <th>Usuario</th>
       <th>NUHSA</th>
-      <th>Tarea</th>
       <th>Profesional</th>
-      <th>Obs.</th>
       <th>Imprimir</th>
-      <th>Acciones</th>
+      <th>Ver Consulta</th>
+      <th>Cambiar Medico</th>
     </tr>
     </thead>
     <tbody>
+    <tr *ngFor="let consulta of consultas, let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ consulta.fechaConsulta }}</td>
+      <td>{{ consulta.horaConsulta }}</td>
+      <td>{{ consulta.paciente.nombre }}</td>
+      <td>{{ consulta.paciente.nuhsa }}</td>
+      <td>{{ nombreMedico }}</td>
+      <td>
+        <ion-button fill="clear" color="primary" (click)="generarPDF(consulta)">Imprimir</ion-button>
+      </td>
+      <td>
+        <ion-button fill="clear" color="primary">Ver Consulta</ion-button>
+      </td>
+      <td>
+
+        <ion-select placeholder="Seleccionar Médico" [(ngModel)]="consulta.nuevoMedico">
+          <ion-select-option *ngFor="let medico of medicos" [value]="medico.username">
+            {{ medico.nombre }} {{ medico.apellidos }}
+          </ion-select-option>
+        </ion-select>
+        <ion-button fill="clear" color="primary" (click)="cambiarMedico(consulta, consulta.nuevoMedico)">
+          Cambiar Médico
+        </ion-button>
+      </td>
+    </tr>
     </tbody>
   </table>
 
 </ion-content>
 
-<ion-modal [isOpen]="showDatePicker" (didDismiss)="closeDatePicker()"  style="--width: 250px; --height: 390px; --border-radius: 10px;">
+<ion-modal [isOpen]="showDatePicker" (didDismiss)="closeDatePicker()" style="--width: 250px; --height: 390px; --border-radius: 10px;">
   <ng-template>
     <ion-content>
       <ion-datetime
