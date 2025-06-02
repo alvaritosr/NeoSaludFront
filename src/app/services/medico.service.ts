@@ -33,6 +33,14 @@ export class MedicoService {
     return this.http.post(url, paciente, { headers });
   }
 
+  verConsultas(nh: string, usernameMedico: string): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `api/medicos/pacientes/${nh}/consultas`;
+    const params = { usernameMedico };
+    return this.http.get<any[]>(url, { headers, params });
+  }
+
   obtenerMedicos(): Observable<any[]> {
     const token = this.authService.getToken();
     const headers = { Authorization: `Bearer ${token}` };
@@ -47,40 +55,10 @@ export class MedicoService {
     return this.http.get<any[]>(url, { headers });
   }
 
-  verConsultas(nh: string, usernameMedico: string): Observable<any[]> {
-    const token = this.authService.getToken();
-    const headers = { Authorization: `Bearer ${token}` };
-    const url = `/api/medicos/pacientes/${nh}/consultas`;
-    const params = { usernameMedico };
-    return this.http.get<any[]>(url, { headers, params });
-  }
-
-  verTodasLasConsultas(): Observable<any[]> {
-    const token = this.authService.getToken();
-    const headers = { Authorization: `Bearer ${token}` };
-    const url = `/api/medicos/consultas`;
-    return this.http.get<any[]>(url, { headers });
-  }
-
-  verDetalleConsulta(nh: string, idConsulta: number, usernameMedico: string): Observable<any> {
-    const token = this.authService.getToken();
-    const headers = { Authorization: `Bearer ${token}` };
-    const url = `/api/medicos/pacientes/${nh}/consultas/${idConsulta}`;
-    const params = { usernameMedico };
-    return this.http.get<any>(url, { headers, params });
-  }
-
-  modificarConsulta(nh: string, idConsulta: number, consulta: any): Observable<any> {
-    const token = this.authService.getToken();
-    const headers = { Authorization: `Bearer ${token}` };
-    const url = `/pacientes/${nh}/consultas/${idConsulta}`;
-    return this.http.put<any>(url, {motivoConsulta: consulta.motivoConsulta, observaciones: consulta.observaciones, headers});
-  }
-
   cambiarMedicoDePaciente(nh: string, nuevoUsernameMedico: string): Observable<any> {
     const token = this.authService.getToken();
     const headers = { Authorization: `Bearer ${token}` };
-    const url = `/api/medicos/pacientes/${nh}/cambiar-medico`;
+    const url = `/api/pacientes/${nh}/cambiar-medico`;
     const params = { nuevoUsernameMedico };
     return this.http.put(url, {}, { headers, params });
   }

@@ -5,7 +5,7 @@ import { calendar } from "ionicons/icons";
 import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
 import { AuthService } from "../services/auth.service";
 import { MedicoService } from "../services/medico.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {DatePipe, NgForOf} from "@angular/common";
 import { jsPDF } from "jspdf";
@@ -33,8 +33,8 @@ export class MedicalAppointmentComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private medicoService: MedicoService,
-    private datePipe: DatePipe,
-    private router: Router
+    private route: ActivatedRoute,
+    private datePipe: DatePipe
   ) {
     addIcons({
       'calendar': calendar
@@ -45,6 +45,7 @@ export class MedicalAppointmentComponent implements OnInit {
     this.nombreMedico = this.authService.getUsernameFromToken();
     this.cargarMedicos();
     this.fetchConsultas();
+
   }
 
   cargarMedicos() {
@@ -84,11 +85,11 @@ export class MedicalAppointmentComponent implements OnInit {
     doc.text("Firma Medico:", 135, 110);
 
 
-    doc.save(`Justificante_Consulta_${consulta.paciente.nh}.pdf`);
+    doc.save(`Justificante_Consulta_${consulta.paciente.nuhsa}.pdf`);
   }
 
   cambiarMedico(consulta: any, nuevoUsernameMedico: string) {
-    const nh = consulta.paciente.nuhsa; // Cambiar a consulta.paciente.nuhsa si es el identificador correcto
+    const nh = consulta.paciente.nuhsa;
 
     if (!nh || !nuevoUsernameMedico) {
       console.error('Faltan datos para cambiar el médico.');
@@ -98,7 +99,7 @@ export class MedicalAppointmentComponent implements OnInit {
     this.medicoService.cambiarMedicoDePaciente(nh, nuevoUsernameMedico).subscribe(
       (data) => {
         console.log('Médico cambiado exitosamente:', data);
-        this.fetchConsultas(); // Actualiza la lista de consultas después del cambio
+        this.fetchConsultas();
       },
       (error) => {
         console.error('Error al cambiar el médico:', error);
@@ -109,8 +110,8 @@ export class MedicalAppointmentComponent implements OnInit {
   anadirConsulta() {
     const nh = (document.querySelector('ion-input[name="nh"]') as HTMLInputElement)?.value;
     const usernameMedico = this.nombreMedico;
-    const motivoConsulta = null;
-    const observaciones = null;
+    const motivoConsulta = (document.querySelector('ion-input[name="motivoConsulta"]') as HTMLInputElement)?.value;
+    const observaciones = (document.querySelector('ion-input[name="observaciones"]') as HTMLInputElement)?.value;
 
     if (nh && observaciones && this.selectedDate) {
       const nuevaConsulta = {
@@ -170,9 +171,5 @@ export class MedicalAppointmentComponent implements OnInit {
         console.error('Error al obtener las consultas:', error);
       }
     );
-  }
-
-  navigateToAppointment(nh: String, appointmentId: number): void {
-    this.router.navigate(['/appointment', nh, appointmentId]);
   }
 }
