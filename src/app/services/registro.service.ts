@@ -19,6 +19,6 @@ export class RegistroService {
   }
 
   registrarUsuario(registro: Registro): Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/auth/registro/perfil`,registro) ;
+    return this.http.post<any>(`/api/auth/registro`,registro) ;
   }
 }

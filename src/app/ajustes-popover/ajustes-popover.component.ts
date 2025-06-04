@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { IonicModule } from '@ionic/angular';
 import { NgForOf } from '@angular/common';
 import {addIcons} from "ionicons";
-import { create, logOut, close } from 'ionicons/icons';
+import { construct, logOut, close } from 'ionicons/icons';
 
 @Component({
   selector: 'app-ajustes-popover',
@@ -31,16 +31,19 @@ import { create, logOut, close } from 'ionicons/icons';
 export class AjustesPopoverComponent implements OnInit {
   opciones = [
     { text: 'Cerrar sesión', icon: 'log-out' },
-    { text: 'Cancelar', icon: 'close', role: 'cancel' }
+    { text: 'Cancelar', icon: 'close', role: 'cancel' },
+    { text: 'Administración', icon: 'construct' }
   ];
 
   constructor(
     private popoverCtrl: PopoverController,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: Router
   ) {
     addIcons({
     'log-out': logOut,
-    'close': close
+    'close': close,
+    'construct': construct
   });
   }
 
@@ -52,6 +55,10 @@ export class AjustesPopoverComponent implements OnInit {
         this.authService.cerrarSesion();
         break;
       case 'Cancelar':
+        break;
+      case 'Administración':
+        sessionStorage.removeItem('authToken');
+        this.route.navigate(['/register']);
         break;
     }
     this.popoverCtrl.dismiss();

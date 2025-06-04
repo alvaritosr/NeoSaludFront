@@ -13,10 +13,10 @@ import {Router} from "@angular/router";
 import {CommonModule, NgClass} from '@angular/common';
 
 import {
-  IonButton,
+  IonButton, IonCheckbox,
   IonContent,
   IonImg,
-  IonInput,
+  IonInput, IonItem, IonLabel,
   IonList, IonSelect, IonSelectOption,
   IonText
 } from "@ionic/angular/standalone";
@@ -37,12 +37,12 @@ export const comprobarPassword: ValidatorFn = (control: AbstractControl): Valida
     [
       FormsModule,
       IonContent,
-      IonImg,
       IonInput,
       IonList,
-      IonText,
       ReactiveFormsModule,
       IonButton,
+      IonText,
+      IonImg,
     ],
   styleUrls: ['./register.component.scss']
 })
@@ -55,40 +55,53 @@ export class RegisterComponent
 
   constructor(private fb: FormBuilder, private registroService: RegistroService, private router: Router, private alertController: AlertController) {
     this.registroForm = this.fb.group({
-      colegiado: ['', Validators.required],
-      username: [this.registro.username, Validators.required],
-      password: [this.registro.password, Validators.required],
-      confirmarPassword: ["", Validators.required],
-      acceptTerms: [false, Validators.requiredTrue]
+      numero_colegiado: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmarPassword: ['', Validators.required],
     }, { validator: comprobarPassword });
   }
 
   ngOnInit() {}
 
-  doRegister() {
-    if (this.registroForm.valid) {
-      this.registro = { ...this.registro, ...this.registroForm.value };
-      this.registroService.registrarUsuario(this.registro).subscribe(
-        response => {
-          console.log('Registro exitoso:', response);
-          this.registroForm.reset()
-          this.router.navigate(['/login']);
-        },
-        error => {
-          console.error('Error en el registro:', error);
-          if (error.error.usernameExists) {
-            this.usernameError = 'El nombre de usuario ya está registrado.';
-          }
+doRegister() {
+  if (this.registroForm.valid) {
+    const registroPayload = {
+      numero_colegiado: this.registroForm.value.numero_colegiado,
+      nombre: this.registroForm.value.nombre,
+      apellidos: this.registroForm.value.apellidos,
+      rol: 'MEDICO', // Rol fijo
+      email: this.registroForm.value.email,
+      username: this.registroForm.value.username,
+      password: this.registroForm.value.password
+    };
+
+    console.log('Payload enviado:', registroPayload); // Log para verificar el payload
+
+    this.registroService.registrarUsuario(registroPayload).subscribe(
+      response => {
+        console.log('Registro exitoso:', response);
+        this.registroForm.reset();
+        this.router.navigate(['/login']);
+      },
+      error => {
+        console.error('Error en el registro:', error);
+        if (error.error.usernameExists) {
+          this.usernameError = 'El nombre de usuario ya está registrado.';
         }
-      );
-    } else {
-      if (this.registroForm.errors?.['noCoinciden']) {
-        console.error('Las contraseñas no coinciden');
-      } else {
-        console.error('Formulario inválido');
       }
+    );
+  } else {
+    if (this.registroForm.errors?.['noCoinciden']) {
+      console.error('Las contraseñas no coinciden');
+    } else {
+      console.error('Formulario inválido');
     }
   }
+}
 
   navigateToLogin() {
     this.router.navigate(['/login']);

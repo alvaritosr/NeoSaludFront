@@ -7,43 +7,61 @@
 
       <form [formGroup]="registroForm" class="register-form">
         <ion-list class="lista">
+          <div class="form-columns">
+            <div class="column">
+              <ion-text class="colegiado">Nº Colegiado</ion-text>
+              <div class="contenedor1">
+                <ion-input class="colegiadoInput" placeholder="Introduce tu nº colegiado" fill="outline" formControlName="numero_colegiado"></ion-input>
+              </div>
 
-          <ion-text class="colegiado">Nº Colegiado</ion-text>
-          <div class="contenedor1">
-            <ion-input class="colegiadoInput" placeholder="Introduce tu nº colegiado" fill="outline" formControlName="colegiado"></ion-input>
+              <ion-text class="colegiado">Nombre</ion-text>
+              <div>
+                <ion-input class="colegiadoInput" placeholder="Introduce el nombre" fill="outline" formControlName="nombre" type="text"></ion-input>
+              </div>
+
+              <ion-text position="floating">Apellidos</ion-text>
+              <div>
+                <ion-input class="colegiadoInput" placeholder="Introduce los apellidos" fill="outline" formControlName="apellidos" type="text"></ion-input>
+              </div>
+
+              <ion-text position="floating">Correo electrónico</ion-text>
+              <div>
+                <ion-input class="colegiadoInput" placeholder="Introduce el correo electrónico" fill="outline" formControlName="email" type="email"></ion-input>
+              </div>
+            </div>
+
+            <div class="column">
+              <ion-text class="username">Usuario</ion-text>
+              <div class="contenedor2">
+                <ion-input class="usernameInput" placeholder="Introduce tu usuario" fill="outline" formControlName="username"></ion-input>
+              </div>
+
+              <ion-text class="password">Contraseña</ion-text>
+              <div class="contenedor3">
+                <ion-input
+                  class="passwordInput"
+                  type="password"
+                  placeholder="Introduce tu contraseña"
+                  fill="outline"
+                  formControlName="password">
+                </ion-input>
+              </div>
+
+              <ion-text class="confirmar-password">Repetir Contraseña</ion-text>
+              <div class="contenedor4">
+                <ion-input
+                  class="confirmPasswordInput"
+                  type="password"
+                  placeholder="Repite tu contraseña"
+                  fill="outline"
+                  formControlName="confirmarPassword">
+                </ion-input>
+              </div>
+
+              <ion-button expand="block" [disabled]="!registroForm.valid" (click)="doRegister()" color="dark">Registrarse</ion-button>
+              <ion-text class="iniciar-sesion" (click)="navigateToLogin()">Iniciar sesión</ion-text>
+            </div>
           </div>
-
-          <ion-text class="username">Usuario</ion-text>
-          <div class="contenedor2">
-            <ion-input class="usernameInput" placeholder="Introduce tu usuario" fill="outline" formControlName="username"></ion-input>
-          </div>
-
-          <ion-text class="password">Contraseña</ion-text>
-          <div class="contenedor3">
-            <ion-input
-              class="passwordInput"
-              type="password"
-              placeholder="Introduce tu contraseña"
-              fill="outline"
-              formControlName="password">
-            </ion-input>
-          </div>
-
-          <ion-text class="confirmar-password">Repetir Contraseña</ion-text>
-          <div class="contenedor4">
-            <ion-input
-              class="confirmPasswordInput"
-              type="password"
-              placeholder="Repite tu contraseña"
-              fill="outline"
-              formControlName="confirmarPassword">
-            </ion-input>
-          </div>
-
-          <ion-button expand="block" (click)="doRegister()" color="dark">Registrarse</ion-button>
-
-          <ion-text class="iniciar-sesion" (click)="navigateToLogin()">Iniciar sesión</ion-text>
-
         </ion-list>
       </form>
     </div>
