@@ -33,6 +33,20 @@
             {{ antecedente }}
           </ion-select-option>
         </ion-select>
+
+        <p><strong>Cosultas:</strong></p>
+        <ion-select placeholder="Selecciona una consulta" (ionChange)="cargarDetalleConsulta($event.detail.value)">
+          <ion-select-option *ngFor="let consulta of consultas" [value]="consulta.id">
+            {{ consulta.fechaConsulta }}
+          </ion-select-option>
+        </ion-select>
+
+        <ion-button [routerLink]="['/vacunas']" [queryParams]="{ nh: paciente?.nh }"><strong>Vacunas</strong></ion-button>
+        <br>
+        <ion-button [routerLink]="['/hcdm-visor']" [queryParams]="{ nh: paciente?.nh }"><strong>Radiografias</strong></ion-button>
+        <br>
+        <ion-button [routerLink]="['/visor-dicom']" [queryParams]="{ nh: paciente?.nh }"><strong>Tacs</strong></ion-button>
+        <br>
       </ion-card-content>
     </ion-card>
 
@@ -51,6 +65,23 @@
         <p><strong>Enfermedad:</strong> {{ detalleAntecedente.enfermedad }}</p>
         <p><strong>Familiar:</strong> {{ detalleAntecedente.familiar }}</p>
         <p><strong>Comentarios:</strong> {{ detalleAntecedente.comentarios }}</p>
+      </div>
+
+      <div *ngIf="detalleConsulta">
+        <p><strong>Fecha:</strong> {{detalleConsulta.fechaConsulta}}</p>
+        <p><strong>Hora:</strong> {{ detalleConsulta.horaConsulta }}</p>
+        <br>
+        <p><strong>Paciente:</strong> {{ detalleConsulta.paciente.nombre }} {{ detalleConsulta.paciente.primerApellido }} {{ detalleConsulta.paciente.segundoApellido }}</p>
+        <p><strong>Fecha de Nacimiento: </strong> {{ detalleConsulta.paciente.anyoNacimiento }}</p>
+        <p><strong>DNI: </strong> {{ detalleConsulta.paciente.dni }}</p>
+        <p><strong>NH: </strong> {{ detalleConsulta.paciente.nh }}</p>
+        <p><strong>NUHSA: </strong> {{ detalleConsulta.paciente.nuhsa }}</p>
+        <p><strong>NUSS: </strong> {{ detalleConsulta.paciente.nuss }}</p>
+        <p><strong>Telefono: </strong> {{ detalleConsulta.paciente.telefono }}</p>
+        <br>
+        <p><strong>Motivo:</strong> {{ detalleConsulta.motivoConsulta }}</p>
+        <p><strong>Observaciones:</strong> {{ detalleConsulta.observaciones }}</p>
+
       </div>
     </div>
   </div>

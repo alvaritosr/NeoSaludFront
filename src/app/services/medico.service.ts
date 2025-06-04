@@ -47,6 +47,14 @@ export class MedicoService {
     return this.http.get<any[]>(url, { headers });
   }
 
+  verConsultas(nh: string, usernameMedico: string): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `/api/medicos/pacientes/${nh}/consultas`;
+    const params = { usernameMedico };
+    return this.http.get<any[]>(url, { headers, params });
+  }
+
   verDetalleConsulta(nh: string, idConsulta: number, usernameMedico: string): Observable<any> {
     const token = this.authService.getToken();
     const headers = { Authorization: `Bearer ${token}` };
