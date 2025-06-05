@@ -5,6 +5,9 @@ import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component"
 import { AuthService } from "../services/auth.service";
 import { ChatService } from "../services/chat.service";
 import {NgForOf} from "@angular/common";
+import {addIcons} from "ionicons";
+import {close, construct, logOut, mail} from 'ionicons/icons';
+
 
 @Component({
   selector: 'app-chats-selector',
@@ -20,7 +23,9 @@ export class ChatsSelectorComponent implements OnInit {
   idMedico: number | null = 0;
   chats: any[] = [];
 
-  constructor(private authService: AuthService, private chatService: ChatService, private router: Router) { }
+  constructor(private authService: AuthService, private chatService: ChatService, private router: Router) {    addIcons({
+    'mail': mail
+  }); }
 
   ngOnInit() {
     this.idMedico = this.authService.getPerfilIdFromToken();
@@ -38,5 +43,18 @@ export class ChatsSelectorComponent implements OnInit {
 
   navigateToChat(chatId: number): void {
     this.router.navigate(['/chat', chatId]);
+  }
+
+  navigateToCorreo(): void {
+    this.router.navigate(['/enviarCorreo']);
+  }
+
+  enviarCorreo(): void {
+    const correo = this.authService.getEmailFromToken();
+    if (correo) {
+      window.location.href = `mailto:${correo}`;
+    } else {
+      console.error('No se pudo obtener el correo electrónico del token.');
+    }
   }
 }

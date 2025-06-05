@@ -50,5 +50,9 @@ export const routes: Routes = [
     path: 'visor-dicom',
     loadComponent: () => import('./visor-dicom/visor-dicom.component').then((m) => m.VisorDicomComponent),
   },
+  {
+    path: 'enviarCorreo',
+    loadComponent: () => import('./enviar-correo/enviar-correo.component').then((m) => m.EnviarCorreoComponent),
+  },
 
 ];

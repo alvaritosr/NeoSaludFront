@@ -105,4 +105,18 @@ export class AuthService {
     }
     return '';
   }
+
+  getEmailFromToken(): string {
+    const token = sessionStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        return decodedToken.tokenDataDTO?.email || '';
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return '';
+      }
+    }
+    return '';
+  }
 }

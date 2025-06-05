@@ -1,0 +1,37 @@
+<app-menu-superior></app-menu-superior>
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<ion-content>
+  <div class="centrado">
+    <div class="login-container">
+
+      <form [formGroup]="correoForm" class="login-form">
+        <ion-list class="lista">
+
+          <ion-text class="username">Destinatario</ion-text>
+          <div class="contenedor1">
+            <ion-input class="usernameInput" placeholder="Correo del paciente" fill="outline" formControlName="destinatario"></ion-input>
+          </div>
+
+          <ion-text class="password">Asunto</ion-text>
+          <div class="contenedor2">
+            <ion-input class="passwordInput" placeholder="Asunto del correo" fill="outline" formControlName="asunto"></ion-input>
+          </div>
+
+          <ion-text class="unidad-perfil">Contenido</ion-text>
+          <div class="contenedor3">
+            <ion-textarea
+              placeholder="Escribe el contenido del correo aquí..."
+              class="contenidoInput"
+              autoGrow="true"
+              formControlName="contenido">
+            </ion-textarea>
+          </div>
+
+          <ion-button expand="block" (click)="enviarCorreo()" color="dark">Enviar Correo</ion-button>
+
+        </ion-list>
+      </form>
+    </div>
+  </div>
+</ion-content>
