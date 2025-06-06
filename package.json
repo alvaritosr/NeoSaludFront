@@ -29,6 +29,7 @@
     "@cornerstonejs/core": "^3.17.0",
     "@cornerstonejs/tools": "^3.17.0",
     "@ionic/angular": "^8.0.0",
+    "@stomp/stompjs": "^7.1.1",
     "angular-calendar": "^0.31.1",
     "cornerstone-core": "^2.6.1",
     "cornerstone-tools": "^6.0.10",
@@ -38,6 +39,7 @@
     "ionicons": "^7.4.0",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
+    "sockjs-client": "^1.6.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
@@ -54,6 +56,7 @@
     "@capacitor/cli": "7.1.0",
     "@ionic/angular-toolkit": "^12.0.0",
     "@types/jasmine": "~5.1.0",
+    "@types/sockjs-client": "^1.5.4",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
     "eslint": "^9.16.0",

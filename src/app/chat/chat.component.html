@@ -17,6 +17,10 @@
             [name]="(mensaje.idEmisor?.toString() ?? '') === (idMedicoActual?.toString() ?? '') ? 'person-outline' : 'medkit-outline'"
           ></ion-icon>
           <div>{{ mensaje.contenido }}</div>
+          <div class="mensaje-fecha">
+            {{ mensaje.fecha | date:'shortTime' }}
+          </div>
+
         </ion-card-content>
       </ion-card>
     </ng-container>

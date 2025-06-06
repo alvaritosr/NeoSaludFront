@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
@@ -8,7 +8,8 @@ import { ChatService } from "../services/chat.service";
 import { Mensaje } from "../models/Mensaje";
 import { addIcons } from "ionicons";
 import { FormsModule } from "@angular/forms";
-import {OtroParticipanteChat} from "../models/OtroParticipanteChat";
+import { OtroParticipanteChat } from "../models/OtroParticipanteChat";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -21,7 +22,7 @@ import {OtroParticipanteChat} from "../models/OtroParticipanteChat";
     FormsModule
   ]
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
   nombreReceptor: string = '';
@@ -30,6 +31,8 @@ export class ChatComponent implements OnInit {
   idMedicoActual: number | null = null;
   nuevoMensaje: string = '';
   idReceptor: number | null = null;
+
+  private wsSubscription: Subscription | null = null;
 
   constructor(
     private authService: AuthService,
@@ -57,11 +60,19 @@ export class ChatComponent implements OnInit {
         }
       });
 
-      // Cargamos los mensajes del chat
       this.chatService.getMensajes(this.chatId).subscribe({
         next: (data) => {
           this.mensajes = data;
-          console.log('Mensajes cargados:', this.mensajes);
+          this.scrollToBottom();
+          // Conectamos al websocket para recibir mensajes en tiempo real
+          this.chatService.connectWebSocket(this.chatId!);
+          this.wsSubscription = this.chatService.onNewMessage().subscribe((mensaje) => {
+            // Solo añadimos mensajes que correspondan a este chat
+            if (mensaje.idChat === this.chatId) {
+              this.mensajes.push(mensaje);
+              this.scrollToBottom();
+            }
+          });
         },
         error: (err) => {
           console.error('Error cargando mensajes:', err);
@@ -82,8 +93,8 @@ export class ChatComponent implements OnInit {
     mensajeDTO.contenido = this.nuevoMensaje;
 
     this.chatService.enviarMensaje(mensajeDTO).subscribe({
-      next: (nuevoMensaje) => {
-        this.mensajes.push(nuevoMensaje);
+      next: () => {
+        // No añadimos el mensaje aquí para evitar duplicados
         this.nuevoMensaje = '';
         this.scrollToBottom();
       },
@@ -93,9 +104,18 @@ export class ChatComponent implements OnInit {
     });
   }
 
+
   private scrollToBottom(): void {
-    try {
-      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    setTimeout(() => {
+      try {
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      } catch (err) {}
+    }, 100);
+  }
+
+
+  ngOnDestroy() {
+    this.wsSubscription?.unsubscribe();
+    this.chatService.disconnectWebSocket();
   }
 }
