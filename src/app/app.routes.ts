@@ -35,7 +35,7 @@ export const routes: Routes = [
     loadComponent: () => import('./chats-selector/chats-selector.component').then((m) => m.ChatsSelectorComponent),
   },
   {
-    path: 'chat',
+    path: 'chat/:chatId',
     loadComponent: () => import('./chat/chat.component').then((m) => m.ChatComponent),
   },
   {

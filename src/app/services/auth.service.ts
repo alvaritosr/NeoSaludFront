@@ -30,19 +30,9 @@ export class AuthService {
     return false;
   }
 
-  getIdActivarCuenta(token: string): number | null {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.tokenDataDTO?.id || null;
-    } catch (e) {
-      console.error('Error extracting perfilId from token', e);
-      return null;
-    }
-  }
-
-  activarCuenta(idPerfil: number): Observable<any> {
-    const options = this.getAuthHeaders();
-    return this.httpClient.put(`/api/auth/activar`, { idPerfil }, options);
+  verDetallesMedico(id: number): Observable<any> {
+    const token = this.getToken();
+    return this.httpClient.get<any[]>(`/api/medicos/${id}`);
   }
 
   cerrarSesion(){

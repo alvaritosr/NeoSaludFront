@@ -9,7 +9,7 @@
 <ion-content>
   <ion-list class="chat-list">
     <ion-item class="chat-card selected" *ngFor="let chat of chats" (click)="navigateToChat(chat.id)">
-      <div class="chat-avatar">{{ chat.nombre_receptor.charAt(0) }}</div>
+      <div class="chat-avatar">{{ chat.nombre_receptor }}</div>
       <div class="chat-name">{{ chat.nombre_receptor }}</div>
       <div class="chat-time">13:45</div>
     </ion-item>

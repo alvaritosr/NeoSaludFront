@@ -1,47 +1,40 @@
 <app-menu-superior> </app-menu-superior>
 
 <ion-toolbar>
-  <ion-title>Chat con X</ion-title>
+  <ion-title>Chat con {{ nombreReceptor }}</ion-title>
 </ion-toolbar>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <ion-card class="chat-bubble other">
-          <ion-card-content>
-            <ion-icon name="medkit-outline"></ion-icon>
-            <div>Buenos días, ¿cómo van los pacientes en planta hoy?</div>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card class="chat-bubble me">
-          <ion-card-content>
-            <ion-icon name="person-outline"></ion-icon>
-            <div>Todo estable. El paciente de la habitación 203 ya se encuentra consciente.</div>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card class="chat-bubble other">
-          <ion-card-content>
-            <ion-icon name="medkit-outline"></ion-icon>
-            <div>Perfecto. ¿Le administraste el nuevo tratamiento?</div>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card class="chat-bubble me">
-          <ion-card-content>
-            <ion-icon name="person-outline"></ion-icon>
-            <div>Sí, a las 08:00h. Está respondiendo bien.</div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-footer>
-    <ion-toolbar>
-      <ion-input placeholder="Escribe un mensaje..." class="chat-input"></ion-input>
-    </ion-toolbar>
-  </ion-footer>
+  <div class="chat-container" #chatContainer>
+    <ng-container *ngFor="let mensaje of mensajes">
+      <ion-card
+        class="chat-bubble"
+        [class.me]="(mensaje.idEmisor?.toString() ?? '') === (idMedicoActual?.toString() ?? '')"
+        [class.other]="(mensaje.idEmisor?.toString() ?? '') !== (idMedicoActual?.toString() ?? '')"
+      >
+        <ion-card-content>
+          <ion-icon
+            [name]="(mensaje.idEmisor?.toString() ?? '') === (idMedicoActual?.toString() ?? '') ? 'person-outline' : 'medkit-outline'"
+          ></ion-icon>
+          <div>{{ mensaje.contenido }}</div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input
+      [(ngModel)]="nuevoMensaje"
+      placeholder="Escribe un mensaje..."
+      (keyup.enter)="enviarMensaje()"
+      class="chat-input"
+    ></ion-input>
+    <ion-buttons slot="end">
+      <ion-button (click)="enviarMensaje()">
+        <ion-icon name="send-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

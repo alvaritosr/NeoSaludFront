@@ -4,6 +4,7 @@ import { RouterLink } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { NgIf } from "@angular/common";
 import { AjustesPopoverComponent } from "../ajustes-popover/ajustes-popover.component";
+import { Medico } from '../models/Medico';
 
 @Component({
   selector: 'app-menu-superior',
@@ -19,14 +20,30 @@ import { AjustesPopoverComponent } from "../ajustes-popover/ajustes-popover.comp
 export class MenuSuperiorComponent implements OnInit {
 
   nombreMedico: string = '';
+  medicoDetalles: Medico = {};
+  idPerfil: number | null = null;
   ajustesreportes: boolean = true;
-  popoverAbierto: boolean = false; // Nueva variable para rastrear el estado del popover
+  popoverAbierto: boolean = false;
 
   constructor(private authService: AuthService, private popoverCtrl: PopoverController) { }
 
   ngOnInit() {
-    this.nombreMedico = this.authService.getUsernameFromToken();
+    this.idPerfil = this.authService.getPerfilIdFromToken();
+
+    if (this.idPerfil) {
+      this.authService.verDetallesMedico(this.idPerfil).subscribe({
+        next: (datos) => {
+          this.medicoDetalles = datos;
+          this.nombreMedico = datos.nombre + ' ' + datos.apellidos;
+          console.log('Nombre del médico logueado:', this.nombreMedico);
+        },
+        error: (error) => {
+          console.error('Error obteniendo detalles del médico:', error);
+        }
+      });
+    }
   }
+
 
   async mostrarAjustes(ev: Event) {
     if (!this.nombreMedico) return;

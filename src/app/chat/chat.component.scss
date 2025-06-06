@@ -1,42 +1,37 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: calc(100vh - 120px); /* ajusta según header y footer */
+  overflow-y: auto;
+  background-color: #f8f8f8;
+}
+
 .chat-bubble {
-  max-width: 80%;
-  margin: 8px;
+  max-width: 90%; /* o elimina para testear */
+  white-space: normal !important; /* forzar que el texto se adapte */
+  height: auto;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  overflow: visible !important;  margin: 8px;
   border-radius: 20px;
   padding: 10px;
-  word-wrap: break-word;
   font-size: 14px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-  ion-icon {
-    margin-right: 5px;
-  }
+  align-self: flex-start;
+  display: flex;
+  align-items: center; /* para que el icono y texto estén alineados */
+  background-clip: padding-box; /* para evitar problemas con borde redondeado */
 }
 
-ion-toolbar {
-  --background: #fff4f4;
-  --color: #d62f4d;
+.chat-bubble ion-icon {
+  margin-right: 8px;
+  flex-shrink: 0; /* que el icono no se reduzca */
+  font-size: 20px;
+  color: inherit;
 }
 
-ion-header ion-title[slot="end"] {
-  text-align: right;
-}
-
-ion-header.header2 ion-title[slot="start"] {
-  margin-left: 1%;
-  text-align: left;
-}
-
-.header2 {
-  --background: #f8e4e4;
-  --color: #d62f4d;
-}
-
-ion-title {
-  text-align: left;
-  font-weight: bold;
-  --color: #d62f4d;
-}
-
+/* Mensajes propios a la derecha */
 .chat-bubble.me {
   background-color: #d62f4d;
   color: white;
@@ -44,30 +39,10 @@ ion-title {
   margin-left: auto;
 }
 
+/* Mensajes otros a la izquierda */
 .chat-bubble.other {
   background-color: #e89ca0;
   color: white;
   align-self: flex-start;
   margin-right: auto;
-}
-
-.chat-input {
-  --background: #fff;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  margin: 15px;
-  width: 98%;
-}
-
-ion-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 10;
-}
-
-ion-content {
-  --background: white;
 }
