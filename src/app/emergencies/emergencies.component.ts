@@ -11,9 +11,9 @@ import {DatePipe, NgForOf} from "@angular/common";
 import { jsPDF } from "jspdf";
 
 @Component({
-  selector: 'app-medical-appointment',
-  templateUrl: './medical-appointment.component.html',
-  styleUrls: ['./medical-appointment.component.scss'],
+  selector: 'app-emergencies',
+  templateUrl: './emergencies.component.html',
+  styleUrls: ['./emergencies.component.scss'],
   providers: [DatePipe],
   imports: [
     IonicModule,
@@ -22,7 +22,7 @@ import { jsPDF } from "jspdf";
     NgForOf
   ]
 })
-export class MedicalAppointmentComponent implements OnInit {
+export class EmergenciesComponent implements OnInit {
   nombreMedico: string = '';
   consultas: any[] = [];
   medicos: any[] = [];
@@ -147,17 +147,9 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   fetchConsultas() {
-    const usernameMedico = this.nombreMedico;
-
-    if (!usernameMedico) {
-      console.error('El nombre del médico no está definido.');
-      return;
-    }
-
-    const today = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-
-    this.medicoService.verConsultasPorMedico(usernameMedico).subscribe(
+    this.medicoService.verTodasLasConsultas().subscribe(
       (data) => {
+        const today = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.consultas = data
           .map(consulta => ({
             ...consulta,

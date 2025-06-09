@@ -55,7 +55,16 @@ export const routes: Routes = [
     loadComponent: () => import('./ingresos/ingresos.component').then((m) => m.IngresosComponent),
   },
   {
+    path: 'modificar-cama/:id',
+    loadComponent: () => import('./camas/camas.component').then((m) => m.CamasComponent),
+  },
+  {
+    path: 'emergencies',
+    loadComponent: () => import('./emergencies/emergencies.component').then((m) => m.EmergenciesComponent),
+  },
+  {
     path: 'vacunas',
     loadComponent: () => import('./vacunas/vacunas.component').then((m) => m.VacunasComponent),
   }
+
 ];

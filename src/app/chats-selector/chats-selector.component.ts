@@ -12,7 +12,6 @@ import {NgForOf} from "@angular/common";
   styleUrls: ['./chats-selector.component.scss'],
   imports: [
     IonicModule,
-    RouterLink,
     MenuSuperiorComponent,
     NgForOf
   ]
