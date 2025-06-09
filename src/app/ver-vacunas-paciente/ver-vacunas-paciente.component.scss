@@ -1,26 +1,21 @@
 ion-content {
   --background: #FFFFFF;
-  display: block;
 }
 
 .modal-container {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   padding-top: 3rem;
-  width: 90%;
-  margin: 0 auto;
-  gap: 20px;
 }
 
 .modal-card {
-  flex: 1;
   background-color: #F9E5E4;
   border: 5px solid #D9534F;
   border-radius: 20px;
   padding: 20px;
   box-sizing: border-box;
+  width: 95%;
   max-width: 1000px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 
@@ -63,6 +58,13 @@ ion-content {
         margin-bottom: 4px;
       }
 
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #333333;
+        margin-bottom: 4px;
+      }
+
       p {
         font-size: 0.9rem;
         color: #515151;
@@ -76,37 +78,20 @@ ion-content {
   }
 }
 
-ion-button {
+ion-button{
   --color: #FFFFFF;
   --background: #D9534F;
-  margin-top: 10px;
-}
-
-.section-separator {
-  margin: 20px 0;
-}
-
-h2, h3 {
-  color: #000000 !important;
-}
-
-ion-input {
-  color: #000000 !important;
-}
-
-ion-label {
-  color: #000000 !important;
 }
 
 @media (max-width: 1024px) {
-  .modal-container {
-    flex-direction: column;
-    align-items: center;
+  .modal-card {
+    width: 80%;
   }
+}
 
+@media (max-width: 768px) {
   .modal-card {
     width: 90%;
-    margin-bottom: 1.5rem;
   }
 }
 
@@ -115,4 +100,10 @@ ion-label {
     padding: 10px;
     border-width: 3px;
   }
+}
+
+h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
 }

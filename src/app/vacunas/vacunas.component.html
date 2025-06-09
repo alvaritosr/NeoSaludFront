@@ -1,3 +1,70 @@
-<p>
-  vacunas works!
-</p>
+<app-menu-superior></app-menu-superior>
+
+<ion-content>
+  <ion-button [routerLink]="['/ver-vacunas-paciente', nhPaciente]" class="back-button">
+    Ver Vacunas Paciente
+  </ion-button>
+  <div class="modal-container">
+    <!-- Lista de Vacunas -->
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Lista de Vacunas</h2>
+      </div>
+      <ion-list>
+        <ion-item *ngFor="let vacuna of vacunas">
+          <ion-label>
+            <h2>ID: {{ vacuna.id }}</h2>
+            <h3>Nombre: {{ vacuna.nombre }}</h3>
+            <p>Descripción: {{ vacuna.descripcion }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- Asignar y Crear Vacuna -->
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Asignar Vacuna</h2>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Número de Historia Clínica</ion-label>
+        <ion-input id="nhPaciente" type="text" [(ngModel)]="nhPaciente"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">ID de la Vacuna</ion-label>
+        <ion-input id="vacunaId" type="number" [(ngModel)]="vacunaId"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Dosis</ion-label>
+        <ion-input id="dosis" type="text" [(ngModel)]="dosis"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-datetime id="fechaAplicacion" [(ngModel)]="fechaAplicacion" style="margin-top: 20px; margin-bottom: 20px"> </ion-datetime>
+      </ion-item>
+
+      <ion-button expand="block" (click)="asignarVacuna()">Asignar Vacuna</ion-button>
+
+      <div class="section-separator"></div>
+
+      <div class="modal-header">
+        <h2>Crear Vacuna</h2>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Nombre de la Vacuna</ion-label>
+        <ion-input id="nombreVacuna" type="text" [(ngModel)]="vacuna.nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-input id="descripcionVacuna" type="text" [(ngModel)]="vacuna.descripcion"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="crearVacuna()">Crear Vacuna</ion-button>
+    </div>
+  </div>
+</ion-content>
