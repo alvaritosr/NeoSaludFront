@@ -1,0 +1,35 @@
+<app-menu-superior></app-menu-superior>
+
+<ion-content>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <ion-item>
+        <ion-label position="stacked">Paciente (NH):</ion-label>
+        <ion-input
+          formControlName="nh"
+          placeholder="Si la cama está libre, dejar vacío este campo">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Estado:</ion-label>
+        <ion-select formControlName="status">
+          <ion-select-option value="OCUPADA">Ocupada</ion-select-option>
+          <ion-select-option value="LIBRE">Libre</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Gravedad:</ion-label>
+        <ion-select formControlName="severidad">
+          <ion-select-option value="GRAVE">Grave</ion-select-option>
+          <ion-select-option value="MEDIO">Medio</ion-select-option>
+          <ion-select-option value="LEVE">Leve</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" [disabled]="form.invalid">Guardar</ion-button>
+      <ion-button expand="block" color="light" type="button" (click)="toggleEdit()">Cancelar</ion-button>
+    </form>
+  </div>
+</ion-content>

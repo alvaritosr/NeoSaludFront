@@ -1,26 +1,23 @@
-<app-menu-superior></app-menu-superior>
-
-<ion-toolbar>
-  <ion-title>Pacientes ingresados</ion-title>
-</ion-toolbar>
+<app-menu-superior> </app-menu-superior>
 
 <ion-content>
   <ion-grid>
     <ion-row *ngFor="let room of rooms">
       <ion-col size="12">
-        <h3>Habitación {{ room.number }}</h3>
+        <h3>Habitación {{ room.numero || '---' }}</h3>
       </ion-col>
 
-      <ion-col size="3" *ngFor="let bed of room.beds">
-        <ion-card [ngClass]="bed.severity">
+      <ion-col size="12">
+        <ion-card [ngClass]="room.severidad?.toLowerCase()" [routerLink]="['/modificar-cama', room.id]">
           <ion-card-content class="ion-text-center">
-            <ion-label><strong>Cama {{ bed.number }}</strong></ion-label>
+            <ion-label><strong>Cama {{ room.id || '---' }}</strong></ion-label>
             <br />
-            <ion-label>Estado: {{ bed.status }}</ion-label>
+            <ion-label><strong>Estado: {{ room.status || '---' }}</strong></ion-label>
             <br />
-            <ion-label>Paciente: {{ bed.patient || '---' }}</ion-label>
+            <ion-label><strong>Paciente: {{ room.paciente?.nombre || '---' }} {{ room.paciente?.primerApellido || '' }} {{ room.paciente?.segundoApellido || '' }}</strong></ion-label>
             <br />
-            <ion-label>Gravedad: {{ bed.severity }}</ion-label>
+            <ion-label><strong>Gravedad: {{ room.severidad || '---' }}</strong></ion-label>
+            <br />
           </ion-card-content>
         </ion-card>
       </ion-col>
