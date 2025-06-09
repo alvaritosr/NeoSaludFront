@@ -39,7 +39,7 @@ export const routes: Routes = [
     loadComponent: () => import('./chats-selector/chats-selector.component').then((m) => m.ChatsSelectorComponent),
   },
   {
-    path: 'chat/:id',
+    path: 'chat/:chatId',
     loadComponent: () => import('./chat/chat.component').then((m) => m.ChatComponent),
   },
   {
@@ -54,6 +54,11 @@ export const routes: Routes = [
     path: 'visor-dicom',
     loadComponent: () => import('./visor-dicom/visor-dicom.component').then((m) => m.VisorDicomComponent),
   },
+  {
+    path: 'enviarCorreo',
+    loadComponent: () => import('./enviar-correo/enviar-correo.component').then((m) => m.EnviarCorreoComponent),
+  },
+
   {
     path: 'ingresos',
     loadComponent: () => import('./ingresos/ingresos.component').then((m) => m.IngresosComponent),

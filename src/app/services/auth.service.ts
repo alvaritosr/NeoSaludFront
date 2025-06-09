@@ -30,19 +30,9 @@ export class AuthService {
     return false;
   }
 
-  getIdActivarCuenta(token: string): number | null {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.tokenDataDTO?.id || null;
-    } catch (e) {
-      console.error('Error extracting perfilId from token', e);
-      return null;
-    }
-  }
-
-  activarCuenta(idPerfil: number): Observable<any> {
-    const options = this.getAuthHeaders();
-    return this.httpClient.put(`/api/auth/activar`, { idPerfil }, options);
+  verDetallesMedico(id: number): Observable<any> {
+    const token = this.getToken();
+    return this.httpClient.get<any[]>(`/api/medicos/${id}`);
   }
 
   cerrarSesion(){
@@ -98,6 +88,20 @@ export class AuthService {
       try {
         const decodedToken: any = jwtDecode(token);
         return decodedToken.tokenDataDTO?.username || '';
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return '';
+      }
+    }
+    return '';
+  }
+
+  getEmailFromToken(): string {
+    const token = sessionStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        return decodedToken.tokenDataDTO?.email || '';
       } catch (error) {
         console.error('Error decoding token:', error);
         return '';

@@ -19,6 +19,7 @@ export class LoginService {
   }
 
   loguearUsuario(login: Login): Observable<any>{
+    console.log(`/api/auth/login`, login);
     return this.http.post<any>(`/api/auth/login`,login) ;
   }
 }
