@@ -33,6 +33,14 @@
             {{ antecedente }}
           </ion-select-option>
         </ion-select>
+
+        <p><strong>Hábito de vida:</strong></p>
+        <ion-select placeholder="Selecciona un hábito" (ionChange)="cargarDetalleHabito($event.detail.value)">
+          <ion-select-option *ngFor="let habito of habitos" [value]="habito">
+            {{ habito }}
+          </ion-select-option>
+        </ion-select>
+
       </ion-card-content>
     </ion-card>
 
@@ -51,6 +59,13 @@
         <p><strong>Enfermedad:</strong> {{ detalleAntecedente.enfermedad }}</p>
         <p><strong>Familiar:</strong> {{ detalleAntecedente.familiar }}</p>
         <p><strong>Comentarios:</strong> {{ detalleAntecedente.comentarios }}</p>
+      </div>
+
+      <div *ngIf="detalleHabito">
+        <p><strong>Tipo:</strong> {{ detalleHabito.tipo }}</p>
+        <p><strong>Frecuencia:</strong> {{ detalleHabito.frecuencia }}</p>
+        <p><strong>Duración:</strong> {{ detalleHabito.duracion }}</p>
+        <p><strong>Observaciones:</strong> {{ detalleHabito.observaciones }}</p>
       </div>
     </div>
   </div>

@@ -8,6 +8,8 @@ import {NgForOf, NgIf} from '@angular/common';
 import {AntecedentesService} from "../services/antecedentes.service";
 import {AlergiasService} from "../services/alergias.service";
 import {AnalisisService} from "../services/analisis.service";
+import {HabitosVidaService} from "../services/habitos-vida.service";
+
 
 @Component({
   selector: 'app-heal-history',
@@ -29,6 +31,8 @@ export class HealHistoryComponent implements OnInit {
   detalleAlergias: any;
   detalleAnalisis: any;
   detalleAntecedente: any;
+  habitos: string[] = [];
+  detalleHabito: any;
 
   constructor(
     private medicoService: MedicoService,
@@ -36,7 +40,8 @@ export class HealHistoryComponent implements OnInit {
     private analisisService: AnalisisService,
     private antecedentesService: AntecedentesService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private habitosVidaService: HabitosVidaService,
   ) {}
 
   ngOnInit() {
@@ -60,6 +65,9 @@ export class HealHistoryComponent implements OnInit {
         this.antecedentesService.verAntecedentesFamiliares(nh, this.nombreMedico).subscribe(data => {
           this.antecedentes = data;
         });
+        this.habitosVidaService.obtenerTiposDeHabitosDeVida(nh, this.nombreMedico).subscribe(data => {
+          this.habitos = data;
+        });
       }
     });
   }
@@ -70,6 +78,7 @@ export class HealHistoryComponent implements OnInit {
     if (nh && usernameMedico) {
       this.detalleAnalisis = null;
       this.detalleAntecedente = null;
+      this.detalleHabito = null;
       this.alergiasService.verAlergiasDetalles(nh, nombreAlergia, usernameMedico).subscribe((data: any) => {
         this.detalleAlergias = data;
       });
@@ -81,6 +90,7 @@ export class HealHistoryComponent implements OnInit {
     if (nh) {
       this.detalleAlergias = null;
       this.detalleAntecedente = null;
+      this.detalleHabito = null;
       this.analisisService.verAnaliticasDetalle(nh, nombreAnalisis).subscribe((data: any) => {
         this.detalleAnalisis = data;
       });
@@ -93,8 +103,23 @@ export class HealHistoryComponent implements OnInit {
     if (nh && usernameMedico) {
       this.detalleAlergias = null;
       this.detalleAnalisis = null;
+      this.detalleHabito = null;
       this.antecedentesService.verAntecedenteFamiliarDetalle(nh, nombreAntecedente, usernameMedico).subscribe((data: any) => {
         this.detalleAntecedente = data;
+      });
+    }
+  }
+
+  cargarDetalleHabito(tipoHabito: string) {
+    const nh = this.paciente?.nh;
+    const usernameMedico = this.nombreMedico;
+    if (nh && usernameMedico) {
+      this.detalleAlergias = null;
+      this.detalleAnalisis = null;
+      this.detalleAntecedente = null;
+      this.detalleHabito = null;
+      this.habitosVidaService.obtenerHabitoDeVidaPorTipo(nh, tipoHabito, usernameMedico).subscribe((data: any) => {
+        this.detalleHabito = data;
       });
     }
   }
