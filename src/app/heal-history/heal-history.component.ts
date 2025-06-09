@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
 import { MedicoService } from '../services/medico.service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import {NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {AntecedentesService} from "../services/antecedentes.service";
 import {AlergiasService} from "../services/alergias.service";
 import {AnalisisService} from "../services/analisis.service";
@@ -47,7 +47,6 @@ export class HealHistoryComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private habitosVidaService: HabitosVidaService,
-    private authService: AuthService,
     private router: Router,
     private datePipe: DatePipe
   ) {}
