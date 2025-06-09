@@ -1,14 +1,15 @@
+<app-menu-superior> </app-menu-superior>
+
 <ion-content class="ion-padding">
   <div class="modal-container">
     <ion-card class="modal-card">
       <ion-card-header class="modal-header">
-        <ion-card-title>Prescripción de fármacos</ion-card-title>
+        <ion-card-title style="color: #D9534F" >Prescripción de fármacos</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
         <form [formGroup]="prescripcionForm" (ngSubmit)="onSubmit()">
           <ion-grid>
-            <!-- Datos del Prescriptor -->
             <ion-item-divider>
               <ion-label>Datos del Prescriptor</ion-label>
             </ion-item-divider>
@@ -34,7 +35,6 @@
               </ion-col>
             </ion-row>
 
-            <!-- Datos del Fármaco -->
             <ion-item-divider>
               <ion-label>Datos del Fármaco</ion-label>
             </ion-item-divider>
@@ -76,7 +76,6 @@
               </ion-col>
             </ion-row>
 
-            <!-- Datos de Emisión -->
             <ion-item-divider>
               <ion-label>Datos de Emisión</ion-label>
             </ion-item-divider>
@@ -99,12 +98,11 @@
               </ion-col>
             </ion-row>
 
-            <!-- Botones -->
             <ion-row class="button-row">
               <ion-col class="ion-text-center">
-                <ion-button type="submit" [disabled]="!prescripcionForm.valid" color="primary">Guardar Prescripción</ion-button>
-                <ion-button type="button" color="medium" (click)="prescripcionForm.reset()">Limpiar Formulario</ion-button>
-              </ion-col>
+                <ion-button type="submit" [disabled]="!prescripcionForm.valid" style="background: #D9534F; border: black solid 2px; border-radius: var(--border-radius)">Guardar Prescripción</ion-button>
+                <ion-button type="button" (click)="prescripcionForm.reset()" style="--background: gray; color: white; border-radius: var(--border-radius)">Limpiar Formulario</ion-button>
+                <ion-button type="button"  (click)="navigateToVerPrescripciones() " style="background: #D9534F; border: black solid 2px; border-radius: var(--border-radius)">Ver Todas las Prescripciones</ion-button>              </ion-col>
             </ion-row>
           </ion-grid>
         </form>

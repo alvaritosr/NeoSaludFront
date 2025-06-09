@@ -1,5 +1,5 @@
 ion-content {
-  --background: #F9E5E4;
+  --background: #ffffff;
 }
 
 .modal-container {
@@ -10,8 +10,8 @@ ion-content {
 }
 
 .modal-card {
-  background-color: #FFFFFF;
-  border: 5px solid #000000;
+  background-color: #F9E5E4;
+  border: 5px solid #D9534F;
   border-radius: 20px;
   padding: 20px;
   box-sizing: border-box;
@@ -23,7 +23,7 @@ ion-content {
 .modal-header {
   position: relative;
   background-color: #FFFFFF;
-  border: 2px solid #D9D9D9;
+  border: 2px solid #D9534F;
   border-radius: 10px;
   padding: 15px 20px;
   margin-bottom: 10px;
@@ -39,14 +39,47 @@ ion-content {
 }
 
 .button-row ion-button {
+  --background: #D9534F;
   color: #FFFFFF;
   margin: 0 5px;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  --background: #FFFFFF;
+  --color: #000000;
+  border: 1px solid #D9534F;
+  border-radius: 10px;
+  padding: 5px;
+  padding-left: 5px; 
+  overflow: hidden;
 }
 
 ion-button {
   color: #FFFFFF;
   margin-bottom: 15px;
+  background: #D9534F;
 }
+
+ion-item-divider {
+  --background: #D9534F;
+  color: white;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: black solid 2px;
+}
+
+ion-datetime {
+  --background: #FFFFFF;
+  --color: #000000;
+  --placeholder-color: #A9A9A9;
+  --border-radius: 10px;
+  --padding-start: 10px;
+  border: #D9534F solid 1px;
+  border-radius: var(--border-radius);
+}
+
 
 @media (max-width: 1024px) {
   .modal-card {

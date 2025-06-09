@@ -1,4 +1,3 @@
-// prescription.service.ts (asegúrate de que esté en la misma carpeta que el componente)
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,7 +7,7 @@ import { Prescripcion } from '../models/Prescripcion';
   providedIn: 'root'
 })
 export class PrescripcionesService {
-  private apiUrl = 'http://localhost:8080/api/prescripciones';
+  private apiUrl = 'http://localhost:5433/api/prescripciones';
 
   constructor(private http: HttpClient) {}
 

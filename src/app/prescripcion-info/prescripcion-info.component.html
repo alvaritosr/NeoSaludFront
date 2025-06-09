@@ -1,3 +1,166 @@
-<p>
-  prescripcion-info works!
-</p>
+<app-menu-superior> </app-menu-superior>
+
+<ion-content class="ion-padding">
+  <div class="modal-container">
+    <ion-card class="modal-card">
+      <ion-card-header class="modal-header">
+        <ion-card-title style="color: #D9534F; font-weight: bold ">Información de la Prescripción</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-item-divider>
+            <ion-label>Datos del Prescriptor</ion-label>
+          </ion-item-divider>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Nombre del Médico:</ion-label>
+                <ion-text style="color: #000000">{{ prescripcion.nombrePrescriptor }}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Número de Colegiado:</ion-label>
+                <ion-text>{{ prescripcion.numeroColegiado }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Especialidad:</ion-label>
+                <ion-text>{{ prescripcion.especialidad }}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Firma Digital:</ion-label>
+                <ion-text>{{ prescripcion.firmaDigital }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item>
+                <ion-label>Contacto del Prescriptor:</ion-label>
+                <ion-text>{{ prescripcion.contactoPrescriptor }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-item-divider>
+            <ion-label>Datos del Fármaco</ion-label>
+          </ion-item-divider>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Nombre Genérico:</ion-label>
+                <ion-text>{{ prescripcion.nombreGenerico }}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Nombre Comercial:</ion-label>
+                <ion-text>{{ prescripcion.nombreComercial }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Concentración:</ion-label>
+                <ion-text>{{ prescripcion.concentracion }}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Forma Farmacéutica:</ion-label>
+                <ion-text>{{ prescripcion.formaFarmaceutica }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Vía de Administración:</ion-label>
+                <ion-text>{{ prescripcion.viaAdministracion }}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Dosis:</ion-label>
+                <ion-text>{{ prescripcion.dosis }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Frecuencia:</ion-label>
+                <ion-text>{{ prescripcion.frecuencia }}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Duración (días):</ion-label>
+                <ion-text>{{ prescripcion.duracionDias }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Cantidad de Envases:</ion-label>
+                <ion-text>{{ prescripcion.cantidadEnvases }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-item-divider>
+            <ion-label>Datos de Emisión</ion-label>
+          </ion-item-divider>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Lugar de Emisión:</ion-label>
+                <ion-text>{{ prescripcion.lugarEmision }}</ion-text>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Fecha de Emisión:</ion-label>
+                <ion-text>{{ prescripcion.fechaEmision | date }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item>
+                <ion-label>Indicaciones Específicas:</ion-label>
+                <ion-text>{{ prescripcion.indicacionesEspecificas }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item>
+                <ion-label>Notas Adicionales:</ion-label>
+                <ion-text>{{ prescripcion.notasAdicionales }}</ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+<style>
+  ion-item-divider {
+    --background: #D9534F;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 2px solid #000000;
+  }
+</style>
