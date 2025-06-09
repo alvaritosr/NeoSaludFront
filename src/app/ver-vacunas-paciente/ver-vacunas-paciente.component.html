@@ -1,0 +1,32 @@
+<app-menu-superior></app-menu-superior>
+
+<ion-content>
+  <ion-button [routerLink]="['/vacunas']" class="back-button">
+    Volver a Vacunas
+  </ion-button>
+  <div class="modal-container">
+    <h1>Vacunas del Paciente</h1>
+    <div class="modal-card" *ngFor="let vacuna of vacunas">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center;">
+
+      </div>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <div>
+              <h2>ID: {{ vacuna.id }}</h2>
+              <h3>Nombre: {{ vacuna.nombre }}</h3>
+              <p>Descripción: {{ vacuna.descripcion }}</p>
+            </div>
+          </ion-label>
+          <div>
+            <ion-button fill="clear" color="danger" (click)="eliminarVacuna(vacuna.id)">
+              <ion-icon name="trash-outline"></ion-icon>
+              Eliminar
+            </ion-button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
