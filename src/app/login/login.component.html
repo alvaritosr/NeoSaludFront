@@ -36,9 +36,7 @@
 
           <ion-button expand="block" (click)="doLogin()" color="dark">Iniciar Sesión</ion-button>
 
-          <ion-text class="forgot-password" (click)="forgotPassword()">¿Has olvidado la contraseña?</ion-text>
-
-        </ion-list>
+          <ion-button class="forgot-password" fill="clear" [routerLink]="'/recuperar'">¿Has olvidado la contraseña?</ion-button>        </ion-list>
       </form>
     </div>
   </div>

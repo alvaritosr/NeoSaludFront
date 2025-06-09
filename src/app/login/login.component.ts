@@ -12,7 +12,7 @@ import {
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {Login} from "../models/Login";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {LoginService} from "../services/login.service";
 import {AlertController} from "@ionic/angular";
 
@@ -33,6 +33,7 @@ import {AlertController} from "@ionic/angular";
     IonSelect,
     IonSelectOption,
     IonButton,
+    RouterLink,
   ]
 })
 

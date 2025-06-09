@@ -1,22 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PrescripcionService } from '../services/prescripcion.service';
 import { Prescripcion } from '../models/Prescripcion';
-import { IonicModule } from '@ionic/angular';
-import { NgForOf } from '@angular/common';
+import { IonicModule } from "@ionic/angular";
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router} from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
+import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
 
 @Component({
   selector: 'app-prescripciones',
   templateUrl: './prescripciones.component.html',
-  styleUrls: ['./prescripciones.component.scss'],
-  imports: [IonicModule, ReactiveFormsModule]
+  imports: [
+    IonicModule,
+    ReactiveFormsModule,
+    MenuSuperiorComponent
+  ],
+  styleUrls: ['./prescripciones.component.scss']
 })
 export class PrescripcionesComponent implements OnInit {
-  prescripcionForm: FormGroup;
   prescripciones: Prescripcion[] = [];
+  prescripcionSeleccionada: Prescripcion | null = null;
+  mensajeError: string = '';
+  prescripcionForm!: FormGroup;
+  nhPaciente!: string;
 
-  constructor(private fb: FormBuilder, private prescripcionService: PrescripcionService) {
-    this.prescripcionForm = this.fb.group({
+  constructor(
+    private prescripcionService: PrescripcionService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe(params => {
+      this.nhPaciente = params.get('nh') || '';
+    });
+
+    this.prescripcionForm = this.formBuilder.group({
       nombrePrescriptor: ['', Validators.required],
       numeroColegiado: ['', Validators.required],
       especialidad: ['', Validators.required],
@@ -29,80 +49,108 @@ export class PrescripcionesComponent implements OnInit {
       viaAdministracion: ['', Validators.required],
       dosis: ['', Validators.required],
       frecuencia: ['', Validators.required],
-      duracionDias: [0, [Validators.required, Validators.min(1)]],
-      cantidadEnvases: [0, [Validators.required, Validators.min(1)]],
+      duracionDias: ['', [Validators.required, Validators.min(1)]],
+      cantidadEnvases: ['', [Validators.required, Validators.min(1)]],
       lugarEmision: ['', Validators.required],
       fechaEmision: ['', Validators.required],
       indicacionesEspecificas: ['', Validators.required],
-      notasAdicionales: [''],
+      notasAdicionales: ['']
     });
-  }
 
-  ngOnInit(): void {
-    this.cargarPrescripciones();
-  }
-
-  cargarPrescripciones(): void {
-    this.prescripcionService.obtenerTodas().subscribe(
-      (data) => {
-        this.prescripciones = data;
-      },
-      (error) => {
-        console.error('Error al cargar las prescripciones:', error);
-      }
-    );
+    this.obtenerTodas();
   }
 
   onSubmit(): void {
     if (this.prescripcionForm.valid) {
-      const prescripcionConValoresHardcoded = {
+      const prescripcion = {
         ...this.prescripcionForm.value,
-        medico: { id: 1 }, // Estructura requerida para medico
-        paciente: { id: 1 }, // Estructura requerida para paciente
-        cantidadEnvases: this.prescripcionForm.value.cantidadEnvases || 1,
-        concentracion: this.prescripcionForm.value.concentracion || '500mg',
-        contactoPrescriptor: this.prescripcionForm.value.contactoPrescriptor || 'Sin contacto',
-        dosis: this.prescripcionForm.value.dosis || '1 dosis',
-        duracionDias: this.prescripcionForm.value.duracionDias || 7,
-        especialidad: this.prescripcionForm.value.especialidad || 'General',
-        fechaEmision: this.prescripcionForm.value.fechaEmision || new Date().toISOString().split('T')[0],
-        firmaDigital: this.prescripcionForm.value.firmaDigital || 'Sin firma',
-        formaFarmaceutica: this.prescripcionForm.value.formaFarmaceutica || 'Tableta',
-        frecuencia: this.prescripcionForm.value.frecuencia || 'Cada 8 horas',
-        indicacionesEspecificas: this.prescripcionForm.value.indicacionesEspecificas || 'Sin indicaciones',
-        lugarEmision: this.prescripcionForm.value.lugarEmision || 'Hospital Central',
-        nombreComercial: this.prescripcionForm.value.nombreComercial || 'Sin nombre comercial',
-        nombreGenerico: this.prescripcionForm.value.nombreGenerico || 'Sin nombre genérico',
-        nombrePrescriptor: this.prescripcionForm.value.nombrePrescriptor || 'Dr. Ejemplo',
-        notasAdicionales: this.prescripcionForm.value.notasAdicionales || 'Sin notas adicionales',
-        numeroColegiado: this.prescripcionForm.value.numeroColegiado || '0000',
-        viaAdministracion: this.prescripcionForm.value.viaAdministracion || 'Oral'
+        fechaEmision: new Date(this.prescripcionForm.value.fechaEmision).toISOString()
       };
+      console.log('nhPaciente:', this.nhPaciente);
+      console.log('Prescripción:', prescripcion);
 
-      console.log('Payload enviado:', prescripcionConValoresHardcoded);
-
-      this.prescripcionService.añadir(prescripcionConValoresHardcoded).subscribe(
-        (response) => {
-          console.log('Prescripción añadida:', response);
-          this.prescripciones.push(response);
-          this.prescripcionForm.reset();
+      this.prescripcionService.crearPrescripcion(this.nhPaciente, prescripcion).subscribe({
+        next: (data) => {
+          console.log('Prescripción enviada correctamente:', data);
+          this.obtenerTodas();
         },
-        (error) => {
-          console.error('Error al añadir la prescripción:', error);
+        error: (err) => {
+          console.error('Error al enviar la prescripción:', err);
         }
-      );
+      });
+    } else {
+      console.error('El formulario no es válido');
     }
   }
 
-  eliminarPrescripcion(id: number): void {
-    this.prescripcionService.eliminar(id).subscribe(
-      () => {
-        this.prescripciones = this.prescripciones.filter((p) => p.id !== id);
-        console.log('Prescripción eliminada');
+  obtenerTodas(): void {
+    this.prescripcionService.obtenerTodas().subscribe({
+      next: (data) => {
+        this.prescripciones = data;
       },
-      (error) => {
-        console.error('Error al eliminar la prescripción:', error);
+      error: (err) => {
+        this.mensajeError = 'Error al obtener las prescripciones';
+        console.error(err);
       }
-    );
+    });
+  }
+
+
+  obtenerPorId(id: number): void {
+    this.prescripcionService.obtenerPorId(id).subscribe({
+      next: (data) => {
+        this.prescripcionSeleccionada = data;
+      },
+      error: (err) => {
+        this.mensajeError = `Error al obtener la prescripción con ID ${id}`;
+        console.error(err);
+      }
+    });
+  }
+
+  obtenerPorPaciente(nombre: string): void {
+    this.prescripcionService.obtenerPorPaciente(nombre).subscribe({
+      next: (data) => {
+        this.prescripciones = data;
+      },
+      error: (err) => {
+        this.mensajeError = `Error al obtener las prescripciones del paciente ${nombre}`;
+        console.error(err);
+      }
+    });
+  }
+
+  obtenerPorMedico(nombrePrescriptor: string): void {
+    this.prescripcionService.obtenerPorMedico(nombrePrescriptor).subscribe({
+      next: (data) => {
+        this.prescripciones = data;
+      },
+      error: (err) => {
+        this.mensajeError = `Error al obtener las prescripciones del médico ${nombrePrescriptor}`;
+        console.error(err);
+      }
+    });
+  }
+
+  navigateToVerPrescripciones(): void {
+    this.router.navigate(['/ver-prescripciones']);
+  }
+
+  crearPrescripcion(nhPaciente: string, prescripcion: Prescripcion): void {
+    const prescripcionFormateada = {
+      ...prescripcion,
+      fechaEmision: new Date(prescripcion.fechaEmision).toISOString()
+    };
+
+    this.prescripcionService.crearPrescripcion(nhPaciente, prescripcionFormateada).subscribe({
+      next: (data) => {
+        this.prescripcionSeleccionada = data;
+        this.obtenerTodas();
+      },
+      error: (err) => {
+        this.mensajeError = 'Error al crear la prescripción';
+        console.error(err);
+      }
+    });
   }
 }

@@ -69,25 +69,29 @@ export class RecuperarContrasenaComponent implements OnInit {
 
       console.log('Datos enviados al servidor:', data);
 
-      this.recuperarService.restablecerContrasena(data).subscribe({
-        next: () => {
+      fetch('http://localhost:5433/api/auth/restablecer-contrasena', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*', // Este encabezado no es necesario en el cliente, pero lo incluyo para referencia
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error en la solicitud');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Respuesta del servidor:', data);
           this.presentAlert('Contraseña restablecida con éxito');
           this.router.navigate(['/login']);
-        },
-        error: (error: HttpErrorResponse) => {
-          let mensaje = 'Ha ocurrido un error al restablecer la contraseña';
-          if (error.status === 400) {
-            mensaje = error.error || 'El token no es válido o ha expirado. Verifica que el token y la contraseña sean correctos.';
-          } else if (error.status === 500) {
-            mensaje = 'Error interno del servidor. Intenta nuevamente más tarde.';
-          } else {
-            mensaje = `Error inesperado: ${error.message}`;
-          }
-          this.presentAlert(mensaje);
-          console.error('Error completo:', error);
-          console.error('Respuesta del servidor:', error.error);
-        }
-      });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          this.presentAlert('Ha ocurrido un error al restablecer la contraseña');
+        });
     } else {
       this.presentAlert('Por favor, completa todos los campos correctamente.');
     }

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import {VerVacunasPacienteComponent} from "./ver-vacunas-paciente/ver-vacunas-paciente.component";
 
 export const routes: Routes = [
   {
@@ -25,6 +26,13 @@ export const routes: Routes = [
   {
     path: 'ver-prescripciones',
     loadComponent: () => import('./ver-prescripciones/ver-prescripciones.component').then((m) => m.VerPrescripcionesComponent),
+  },
+  {
+    path: 'prescripcion-info/:idPrescripcion',
+    loadComponent: () =>
+      import('./prescripcion-info/prescripcion-info.component').then(
+        (m) => m.PrescripcionInfoComponent
+      ),
   },
   {
     path: 'recuperar',
@@ -66,5 +74,13 @@ export const routes: Routes = [
     path: 'visor-dicom',
     loadComponent: () => import('./visor-dicom/visor-dicom.component').then((m) => m.VisorDicomComponent),
   },
+  {
+    path: 'vacunas',
+    loadComponent: () => import('./vacunas/vacunas.component').then((m) => m.VacunasComponent),
+  },
 
+  {
+    path: 'ver-vacunas-paciente/:nhPaciente',
+    loadComponent: () => import('./ver-vacunas-paciente/ver-vacunas-paciente.component').then((m) => m.VerVacunasPacienteComponent)
+  }
 ];
