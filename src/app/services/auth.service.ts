@@ -11,7 +11,7 @@ export class AuthService {
 
   private readonly TOKEN_KEY = 'authToken';
 
-  private authState = new BehaviorSubject<boolean>(!!localStorage.getItem('authToken'));
+  private authState = new BehaviorSubject<boolean>(!!sessionStorage.getItem('authToken'));
   authState$ = this.authState.asObservable();
 
   constructor(private httpClient: HttpClient, private route: Router) {}
@@ -42,7 +42,7 @@ export class AuthService {
 
 
   setToken(token: string): void {
-    localStorage.setItem(this.TOKEN_KEY, token);
+    sessionStorage.setItem(this.TOKEN_KEY, token);
   }
 
   getToken(): string | null {

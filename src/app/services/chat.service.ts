@@ -3,7 +3,6 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 
-// Importa stompjs y sockjs-client
 import * as Stomp from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
