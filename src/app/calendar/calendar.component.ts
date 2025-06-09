@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { MenuSuperiorComponent } from '../menu-superior/menu-superior.component';
+import { AuthService } from '../services/auth.service';
+import { MedicoService } from '../services/medico.service';
 
 @Component({
   selector: 'app-calendar',
@@ -12,16 +14,24 @@ import { MenuSuperiorComponent } from '../menu-superior/menu-superior.component'
     MenuSuperiorComponent,
   ],
   templateUrl: './calendar.component.html',
+  providers: [DatePipe],
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent {
+  nombreMedico: string = '';
+  consultas: any[] = [];
   daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
   hours = Array.from({ length: 7 }, (_, i) => `${i + 8}:00`);
   currentDate = new Date();
-  weekDates: { day: string; date: string }[] = [];
+  weekDates: { day: string; date: string; consultas?: any[] }[] = [];
 
-  constructor() {
+  constructor(private authService: AuthService, private medicoService: MedicoService, private datePipe: DatePipe) {
     this.calculateWeekDates();
+  }
+
+  ngOnInit() {
+    this.nombreMedico = this.authService.getUsernameFromToken();
+    this.fetchConsultas();
   }
 
   calculateWeekDates() {
@@ -33,7 +43,8 @@ export class CalendarComponent {
       date.setDate(startOfWeek.getDate() + index);
       return {
         day,
-        date: `${date.getDate()} ${date.toLocaleString('es-ES', { month: 'long' })} ${date.getFullYear()}`,
+        date: this.datePipe.transform(date, 'dd/MM/yyyy') || '',
+        consultas: [],
       };
     });
   }
@@ -41,5 +52,41 @@ export class CalendarComponent {
   moveWeek(direction: number) {
     this.currentDate.setDate(this.currentDate.getDate() + direction * 7);
     this.calculateWeekDates();
+    this.fetchConsultas();
+  }
+
+  fetchConsultas() {
+    const usernameMedico = this.nombreMedico;
+
+    if (!usernameMedico) {
+      console.error('El nombre del médico no está definido.');
+      return;
+    }
+
+    this.medicoService.verConsultasPorMedico(usernameMedico).subscribe(
+      (data) => {
+        const consultasPorDia: { [key: string]: any[] } = {};
+
+        data.forEach(consulta => {
+          const fechaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy');
+          if (fechaConsulta) {
+            if (!consultasPorDia[fechaConsulta]) {
+              consultasPorDia[fechaConsulta] = [];
+            }
+            consultasPorDia[fechaConsulta].push({
+              ...consulta,
+              horaConsulta: this.datePipe.transform(consulta.fechaConsulta, 'HH:mm'),
+            });
+          }
+        });
+
+        this.weekDates.forEach(day => {
+          day.consultas = consultasPorDia[day.date] || [];
+        });
+      },
+      (error) => {
+        console.error('Error al obtener las consultas:', error);
+      }
+    );
   }
 }

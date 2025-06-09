@@ -80,9 +80,6 @@ export class SelectUserComponent {
         case 'prescripciones':
           this.router.navigate(['/prescripciones'], { queryParams: { nh: this.selectedPaciente.nh } });
           break;
-        case 'urgencias-ap':
-          this.router.navigate(['/urgencias-ap'], { queryParams: { nh: this.selectedPaciente.nh } });
-          break;
         case 'telederma':
           this.router.navigate(['/telederma'], { queryParams: { nh: this.selectedPaciente.nh } });
           break;

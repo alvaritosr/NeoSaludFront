@@ -1,0 +1,99 @@
+<app-menu-superior></app-menu-superior>
+
+<ion-header class="header2">
+  <ion-toolbar>
+    <ion-title slot="start">Citas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" size-md="6" class="agenda-container">
+        <div class="agenda-flex">
+          <strong style="color: #d62f4d;">AGENDA</strong>
+          <ion-button id="open-date" fill="clear" class="calendar-button" size="small" (click)="openDatePicker()">
+            <ion-icon name="calendar"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" size-md="3">
+        <ion-label position="stacked">NH Paciente</ion-label>
+        <ion-input name="nh"></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-start">
+      <ion-col size="6" size-md="auto">
+        <ion-button expand="block" color="primary" (click)="fetchConsultas()">Actualizar</ion-button>
+      </ion-col>
+      <ion-col size="6" size-md="auto">
+        <ion-button expand="block" color="success" (click)="anadirConsulta()">Añadir nueva consulta</ion-button>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Orden</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Usuario</th>
+      <th>NUHSA</th>
+      <th>Profesional</th>
+      <th>Imprimir</th>
+      <th>Ver Consulta</th>
+      <th>Cambiar Medico</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let consulta of consultas, let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ consulta.fechaConsulta }}</td>
+      <td>{{ consulta.horaConsulta }}</td>
+      <td>{{ consulta.paciente.nombre }}</td>
+      <td>{{ consulta.paciente.nuhsa }}</td>
+      <td>{{ nombreMedico }}</td>
+      <td>
+        <ion-button fill="clear" color="primary" (click)="generarPDF(consulta)">Imprimir</ion-button>
+      </td>
+      <td>
+        <ion-button fill="clear" color="primary" (click)="navigateToAppointment(consulta.paciente.nh, consulta.id)">Ver Consulta</ion-button>
+      </td>
+      <td>
+        <ion-select placeholder="Seleccionar Médico" [(ngModel)]="consulta.nuevoMedico">
+          <ion-select-option *ngFor="let medico of medicos" [value]="medico.username">
+            {{ medico.nombre }} {{ medico.apellidos }}
+          </ion-select-option>
+        </ion-select>
+        <ion-button fill="clear" color="primary" (click)="cambiarMedico(consulta, consulta.nuevoMedico)">
+          Cambiar Médico
+        </ion-button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</ion-content>
+
+<ion-modal [isOpen]="showDatePicker" (didDismiss)="closeDatePicker()" style="--width: 250px; --height: 390px; --border-radius: 10px;">
+  <ng-template>
+    <ion-content>
+      <ion-datetime
+        presentation="date"
+        (ionChange)="onDateSelected($event)"
+        [value]="selectedDate"
+      ></ion-datetime>
+
+      <ion-button expand="block" color="primary" (click)="closeDatePicker()">
+        Cerrar
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
