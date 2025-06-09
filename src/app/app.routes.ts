@@ -53,6 +53,9 @@ export const routes: Routes = [
   {
     path: 'ingresos',
     loadComponent: () => import('./ingresos/ingresos.component').then((m) => m.IngresosComponent),
+  },
+  {
+    path: 'vacunas',
+    loadComponent: () => import('./vacunas/vacunas.component').then((m) => m.VacunasComponent),
   }
-
 ];
