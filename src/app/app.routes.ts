@@ -87,6 +87,10 @@ export const routes: Routes = [
     loadComponent: () => import('./emergencies/emergencies.component').then((m) => m.EmergenciesComponent),
   },
   {
+    path: 'ingresos',
+    loadComponent: () => import('./ingresos/ingresos.component').then((m) => m.IngresosComponent),
+  },
+  {
     path: 'ver-vacunas-paciente/:nhPaciente',
     loadComponent: () => import('./ver-vacunas-paciente/ver-vacunas-paciente.component').then((m) => m.VerVacunasPacienteComponent)
   }
