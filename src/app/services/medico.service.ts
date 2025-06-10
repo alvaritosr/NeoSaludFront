@@ -75,7 +75,7 @@ export class MedicoService {
   modificarConsulta(nh: string, idConsulta: number, consulta: any): Observable<any> {
     const token = this.authService.getToken();
     const headers = { Authorization: `Bearer ${token}` };
-    const url = `${this.baseUrl}/pacientes/${nh}/consultas/${idConsulta}`;
+    const url = `${this.baseUrl}/medicos/pacientes/${nh}/consultas/${idConsulta}`;
     return this.http.put<any>(url, {motivoConsulta: consulta.motivoConsulta, observaciones: consulta.observaciones, headers});
   }
 
