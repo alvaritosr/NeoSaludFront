@@ -1,32 +1,35 @@
 <app-menu-superior></app-menu-superior>
 
 <ion-content>
-  <ion-button [routerLink]="['/vacunas']" class="back-button">
-    Volver a Vacunas
-  </ion-button>
   <div class="modal-container">
-    <h1>Vacunas del Paciente</h1>
-    <div class="modal-card" *ngFor="let vacuna of vacunas">
-      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center;">
-
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Vacunas del paciente</h2>
       </div>
-      <ion-list>
-        <ion-item>
+
+      <ion-button expand="block" routerLink="/vacunas" style="margin-bottom: 20px;">
+        Volver a vacunas
+      </ion-button>
+
+      <ion-list *ngIf="vacunas && vacunas.length > 0; else sinVacunas">
+        <ion-item *ngFor="let v of vacunas">
           <ion-label>
-            <div>
-              <h2>ID: {{ vacuna.id }}</h2>
-              <h3>Nombre: {{ vacuna.nombre }}</h3>
-              <p>Descripción: {{ vacuna.descripcion }}</p>
-            </div>
+            <h2>{{ v.vacuna.nombre }}</h2>
+            <p><strong>Descripción:</strong> {{ v.vacuna.descripcion }}</p>
+            <p><strong>Dosis:</strong> {{ v.dosis }}</p>
+            <p><strong>Fecha administración:</strong> {{ v.fechaAdministracion | date:'short' }}</p>
           </ion-label>
-          <div>
-            <ion-button fill="clear" color="danger" (click)="eliminarVacuna(vacuna.id)">
-              <ion-icon name="trash-outline"></ion-icon>
-              Eliminar
-            </ion-button>
-          </div>
+          <ion-button color="danger" slot="end" (click)="eliminarVacuna(v.id)">
+            Eliminar
+          </ion-button>
         </ion-item>
       </ion-list>
+
+      <ng-template #sinVacunas>
+        <ion-item>
+          <ion-label>No hay vacunas registradas para este paciente.</ion-label>
+        </ion-item>
+      </ng-template>
     </div>
   </div>
 </ion-content>

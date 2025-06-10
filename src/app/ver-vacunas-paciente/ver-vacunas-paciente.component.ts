@@ -11,7 +11,8 @@ import { RouterLink } from '@angular/router';
   selector: 'app-ver-vacunas-paciente',
   standalone: true,
   imports: [IonicModule, CommonModule, MenuSuperiorComponent, RouterLink],
-  templateUrl: './ver-vacunas-paciente.component.html'
+  templateUrl: './ver-vacunas-paciente.component.html',
+  styleUrls: ['./ver-vacunas-paciente.component.scss']
 })
 export class VerVacunasPacienteComponent implements OnInit {
   vacunas: any[] = [];
@@ -34,6 +35,17 @@ export class VerVacunasPacienteComponent implements OnInit {
     });
   }
 
+  obtenerVacunasPorId(id: number): void {
+    this.vacunasService.obtenerVacunaPorId(id).subscribe(
+      vacuna => {
+        console.log('Vacuna obtenida por ID:', vacuna);
+      },
+      error => {
+        console.error('Error al obtener la vacuna por ID:', error);
+      }
+    );
+  }
+
   obtenerUsernameMedicoDesdeToken(): void {
     this.usernameMedico = this.authService.getUsernameFromToken();
     console.log('usernameMedico obtenido desde el token:', this.usernameMedico);
@@ -41,7 +53,13 @@ export class VerVacunasPacienteComponent implements OnInit {
 
   cargarVacunas(): void {
     this.vacunasService.obtenerVacunasDePaciente(this.pacienteId).subscribe(
-      data => this.vacunas = data
+      vacunas => {
+        this.vacunas = vacunas;
+        console.log('Vacunas del paciente:', this.vacunas);
+      },
+      error => {
+        console.error('Error al cargar las vacunas del paciente:', error);
+      }
     );
   }
 

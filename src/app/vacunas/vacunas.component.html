@@ -1,9 +1,11 @@
 <app-menu-superior></app-menu-superior>
 
 <ion-content>
-  <ion-button [routerLink]="['/ver-vacunas-paciente', nhPaciente]" class="back-button">
-    Ver Vacunas Paciente
-  </ion-button>
+  <div class="ion-text-center">
+    <ion-button [routerLink]="['/ver-vacunas-paciente', nhPaciente]" class="back-button">
+      Ver Vacunas Paciente
+    </ion-button>
+  </div>
   <div class="modal-container">
     <!-- Lista de Vacunas -->
     <div class="modal-card">
@@ -13,8 +15,8 @@
       <ion-list>
         <ion-item *ngFor="let vacuna of vacunas">
           <ion-label>
-            <h2>ID: {{ vacuna.id }}</h2>
-            <h3>Nombre: {{ vacuna.nombre }}</h3>
+            <h2>Nombre: {{ vacuna.nombre }}</h2>
+            <h3>ID: {{ vacuna.id }}</h3>
             <p>Descripción: {{ vacuna.descripcion }}</p>
           </ion-label>
         </ion-item>
