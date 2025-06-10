@@ -107,12 +107,13 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   anadirConsulta() {
-    const nh = (document.querySelector('ion-input[name="nh"]') as HTMLInputElement)?.value;
+    const nhInput = document.querySelector('ion-input[name="nh"]') as HTMLInputElement;
+    const nh = nhInput?.value?.trim();
     const usernameMedico = this.nombreMedico;
-    const motivoConsulta = null;
-    const observaciones = null;
+    const motivoConsulta = "";
+    const observaciones = "";
 
-    if (nh && observaciones && this.selectedDate) {
+    if (nh && this.selectedDate) {
       const nuevaConsulta = {
         fechaConsulta: this.selectedDate,
         motivoConsulta: motivoConsulta,
@@ -121,13 +122,14 @@ export class MedicalAppointmentComponent implements OnInit {
       this.medicoService.crearConsulta(nh, nuevaConsulta, usernameMedico).subscribe(
         (data) => {
           this.consultas.push(data);
+          console.log('Consulta añadida exitosamente:', data);
         },
         (error) => {
           console.error('Error al añadir consulta:', error);
         }
       );
     } else {
-      console.error('Faltan datos para añadir la consulta.');
+      console.error('Faltan datos para añadir la consulta. Verifica que todos los campos estén completos.');
     }
   }
 
