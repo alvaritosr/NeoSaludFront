@@ -55,7 +55,8 @@ export const routes: Routes = [
     loadComponent: () => import('./medical-appointment/medical-appointment.component').then((m) => m.MedicalAppointmentComponent),
   },
   {
-    path: 'appointment/:nhPaciente/:id',
+    path: 'appointment/:nh/:id',
+    loadComponent: () => import('./appointment/appointment.component').then((m) => m.AppointmentComponent),
   },
   {
     path: 'chats-selector',
