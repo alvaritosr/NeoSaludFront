@@ -52,15 +52,17 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
   constructor(  private router: Router, private activatedRoute: ActivatedRoute, private http: HttpClient, private tacService: TacService) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      const nombreCarpeta = params.get('nombreCarpeta');
-      if (nombreCarpeta) {
-        this.cargarTac(nombreCarpeta);
-      }
-    });
-
+    // Configurar dependencias externas
+    cornerstoneTools.external.cornerstone = cornerstone;
+    cornerstoneTools.external.cornerstone2 = cornerstone; // ← AÑADE ESTA LÍNEA AQUÍ
     cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
+
+    // Verificar inicialización
+    if (!cornerstoneTools.external.cornerstone) {
+      console.error('cornerstoneTools no está correctamente configurado.');
+      return;
+    }
 
     const pacienteId = 1;
     this.tacService.getTacsByPaciente(pacienteId).subscribe((data) => {
@@ -75,7 +77,6 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
             cornerstone.loadImage(imageId).then((image: any) => {
               const dataSet = image.data;
               const studyDescription = dataSet.string('x00081030') || 'Sin descripción';
-
               tac.descripcion = studyDescription;
             });
           } else {
@@ -84,25 +85,31 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
         });
       });
     });
-
   }
+
 
   ngAfterViewInit() {
     setTimeout(() => {
       if (this.dicomImage && this.dicomImage.nativeElement) {
         cornerstone.enable(this.dicomImage.nativeElement);
         this.cornerstoneEnabled = true;
-        this.loadDicomImage();
 
-        // Inicializar cornerstone-tools
         cornerstoneTools.init();
 
-        // Crear herramienta de zoom
-        const ZoomTool = cornerstoneTools.ZoomTool;
-        cornerstoneTools.addTool(ZoomTool);
+        if (!cornerstoneTools.external.cornerstone) {
+          console.error('cornerstoneTools no está correctamente inicializado.');
+          return;
+        }
 
-        // Activar zoom con la rueda del ratón
-        cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 0 }); // 0 para click izquierdo o solo rueda
+        const ZoomTool = cornerstoneTools.ZoomTool;
+        if (ZoomTool) {
+          cornerstoneTools.addTool(ZoomTool);
+          cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 1 });
+        } else {
+          console.error('ZoomTool no está disponible.');
+        }
+
+        this.loadDicomImage();
       }
     }, 0);
   }
