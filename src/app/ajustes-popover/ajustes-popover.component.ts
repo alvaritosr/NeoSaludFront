@@ -30,9 +30,9 @@ import { construct, logOut, close } from 'ionicons/icons';
 })
 export class AjustesPopoverComponent implements OnInit {
   opciones = [
+    { text: 'Administración', icon: 'construct' },
     { text: 'Cerrar sesión', icon: 'log-out' },
-    { text: 'Cancelar', icon: 'close', role: 'cancel' },
-    { text: 'Administración', icon: 'construct' }
+    { text: 'Cancelar', icon: 'close', role: 'cancel' }
   ];
 
   constructor(

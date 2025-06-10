@@ -29,10 +29,10 @@
             <p><strong>Profesional:</strong> {{ consulta.paciente.medico.nombre }} {{ consulta.paciente.medico.apellidos }}</p>
             <br>
 
-            <ion-button expand="block" color="primary" (click)="modificarConsulta()">Motivo y Observaciones</ion-button>
+            <ion-button expand="block" (click)="modificarConsulta()">Motivo y Observaciones</ion-button>
             <br>
 
-            <ion-button expand="block" color="primary" (click)="generarPDF(consulta)">Imprimir Justificante</ion-button>
+            <ion-button expand="block" color="light" (click)="generarPDF(consulta)">Imprimir Justificante</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

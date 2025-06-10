@@ -34,6 +34,13 @@
           </ion-select-option>
         </ion-select>
 
+        <p><strong>Cosultas:</strong></p>
+        <ion-select placeholder="Selecciona una consulta" (ionChange)="cargarDetalleConsulta($event.detail.value)">
+          <ion-select-option *ngFor="let consulta of consultas" [value]="consulta.id">
+            {{ consulta.fechaConsulta }}
+          </ion-select-option>
+        </ion-select>
+
         <p><strong>Hábito de vida:</strong></p>
         <ion-select placeholder="Selecciona un hábito" (ionChange)="cargarDetalleHabito($event.detail.value)">
           <ion-select-option *ngFor="let habito of habitos" [value]="habito">
@@ -41,10 +48,17 @@
           </ion-select-option>
         </ion-select>
 
+        <ion-button [routerLink]="['/vacunas']" [queryParams]="{ nh: paciente?.nh }"><strong>Vacunas</strong></ion-button>
+        <br>
+        <ion-button [routerLink]="['/hcdm-visor']" [queryParams]="{ nh: paciente?.nh }"><strong>Radiografias</strong></ion-button>
+        <br>
+        <ion-button [routerLink]="['/visor-dicom']" [queryParams]="{ nh: paciente?.nh }"><strong>Tacs</strong></ion-button>
+        <br>
+
       </ion-card-content>
     </ion-card>
 
-    <div class="icon-bar">
+    <div class="icon-bar" *ngIf="detalleAlergias || detalleAnalisis || detalleAntecedente || detalleConsulta || detalleHabito">
       <div *ngIf="detalleAlergias">
         <p><strong>Sustancia:</strong> {{ detalleAlergias.sustancia }}</p>
         <p><strong>Reacción:</strong> {{ detalleAlergias.reaccion }}</p>

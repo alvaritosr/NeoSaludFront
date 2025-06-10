@@ -1,0 +1,147 @@
+ion-card {
+  background-color: #e89ca0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: auto;
+  display: flex;
+  width: fit-content;
+  flex-grow: 0;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+  padding: 20px;
+  margin: 20px;
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  width: 100%;
+}
+
+ion-item {
+  --background: transparent;
+  --color: white;
+  width: 100%;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+ion-label {
+  color: white;
+  font-weight: bold;
+}
+
+ion-input,
+ion-select {
+  --color: white;
+  --placeholder-color: rgba(255, 255, 255, 0.7);
+  --placeholder-opacity: 1;
+  caret-color: white;
+}
+
+.select-popover-md .popover-content {
+  background: #e89ca0;
+}
+
+.select-popover-md .item-native {
+  color: white;
+}
+
+ion-button {
+  margin-top: 20px;
+  --background: #d62f4d;
+  --background-activated: #bb2840;
+  --color: white;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+ion-button[color="light"] {
+  --background: #f8e4e4;
+  --background-activated: #e0d0d0;
+  --color: #d62f4d;
+}
+
+ion-content {
+  --background: white;
+}
+
+ion-grid {
+  --background: white;
+}
+
+ion-row {
+  --background: white;
+}
+
+ion-col {
+  --background: white;
+}
+
+ion-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.selected {
+  border: 2px solid #004a77;
+}
+
+ion-toolbar {
+  --background: #fff4f4;
+  --color: #d62f4d;
+}
+
+.header2 {
+  --background: #f8e4e4;
+  --color: #d62f4d;
+}
+
+ion-searchbar {
+  --background: #fff;
+  --color: #000;
+  --placeholder-color: #000;
+  max-width: 20%;
+  margin: 0 auto;
+  --border-radius: 10%;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+ion-title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.header-title-img {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .header-title-img {
+    display: block;
+    max-width: 50%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  ion-card {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  ion-button {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

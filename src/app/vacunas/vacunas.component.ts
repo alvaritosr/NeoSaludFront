@@ -75,6 +75,10 @@ export class VacunasComponent implements OnInit {
     });
   }
 
+  selectVacuna(vacunaId: number): void {
+    this.vacunaId = vacunaId;
+  }
+
   asignarVacuna(): void {
     const nhPacienteString = this.nhPaciente?.trim();
     const usernameMedico = this.usernameMedico?.trim();
@@ -85,7 +89,7 @@ export class VacunasComponent implements OnInit {
       return;
     }
     if (!this.vacunaId || !this.dosis || !fechaAplicacion) {
-      console.error('Faltan datos para asignar la vacuna.' + ' ' + this.vacunaId + ' ' + this.dosis + ' ' + fechaAplicacion);
+      console.error('Faltan datos para asignar la vacuna.');
       return;
     }
 
