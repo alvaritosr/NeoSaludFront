@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmailService {
+  private apiUrl = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -15,6 +17,6 @@ export class EmailService {
       .set('asunto', asunto)
       .set('contenido', contenido);
 
-    return this.httpClient.post('/api/email/enviar', null, { params, responseType: 'text' });
+    return this.httpClient.post(`${this.apiUrl}/email/enviar`, null, { params, responseType: 'text' });
   }
 }

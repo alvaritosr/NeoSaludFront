@@ -8,7 +8,8 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = environment.apiUrl;
+  private baseUrl = environment.apiUrl;
+
   private authState = new BehaviorSubject<boolean>(!!sessionStorage.getItem('authToken'));
   authState$ = this.authState.asObservable();
 
@@ -19,7 +20,7 @@ export class LoginService {
   }
 
   loguearUsuario(login: Login): Observable<any>{
-    console.log(`/api/auth/login`, login);
-    return this.http.post<any>(`/api/auth/login`,login) ;
+    console.log(`${this.baseUrl}/auth/login`, login);
+    return this.http.post<any>(`${this.baseUrl}/auth/login`,login) ;
   }
 }

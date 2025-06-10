@@ -8,7 +8,8 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class RegistroService {
-  private apiUrl = environment.apiUrl;
+  private baseUrl = environment.apiUrl;
+
   private authState = new BehaviorSubject<boolean>(!!sessionStorage.getItem('authToken'));
   authState$ = this.authState.asObservable();
 
@@ -19,6 +20,6 @@ export class RegistroService {
   }
 
   registrarUsuario(registro: Registro): Observable<any>{
-    return this.http.post<any>(`/api/auth/registro`,registro) ;
+    return this.http.post<any>(`${this.baseUrl}/auth/registro`,registro) ;
   }
 }

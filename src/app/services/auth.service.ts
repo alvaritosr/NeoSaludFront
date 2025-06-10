@@ -3,11 +3,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Router} from "@angular/router";
 import jwt_decode, {jwtDecode} from 'jwt-decode';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = environment.apiUrl;
 
   private readonly TOKEN_KEY = 'authToken';
 
@@ -32,7 +34,7 @@ export class AuthService {
 
   verDetallesMedico(id: number): Observable<any> {
     const token = this.getToken();
-    return this.httpClient.get<any[]>(`/api/medicos/${id}`);
+    return this.httpClient.get<any[]>(`${this.apiUrl}/medicos/${id}`);
   }
 
   cerrarSesion(){
@@ -74,12 +76,12 @@ export class AuthService {
 
   recuperarContrasena(email: string): Observable<any> {
     const options = this.getAuthHeaders();
-    return this.httpClient.post(`/api/auth/recuperar-contrasena`, { email }, options);
+    return this.httpClient.post(`${this.apiUrl}/auth/recuperar-contrasena`, { email }, options);
   }
 
   restablecerContrasena(token: string, newPassword: string): Observable<any> {
     const options = this.getAuthHeaders();
-    return this.httpClient.post(`/api/auth/restablecer-contrasena`, { token, newPassword }, options);
+    return this.httpClient.post(`${this.apiUrl}/auth/restablecer-contrasena`, { token, newPassword }, options);
   }
 
   getUsernameFromToken(): string {

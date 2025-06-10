@@ -12,10 +12,11 @@ interface RecuperarContrasenaData {
   providedIn: 'root'
 })
 export class RecuperarCuentaService {
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   recuperarContrasena(data: RecuperarContrasenaData): Observable<void> {
-    return this.http.post<void>(`api/auth/recuperar-contrasena`, data);
+    return this.http.post<void>(`${this.baseUrl}/auth/recuperar-contrasena`, data);
   }
 }

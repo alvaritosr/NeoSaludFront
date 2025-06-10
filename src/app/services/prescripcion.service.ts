@@ -2,32 +2,33 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Prescripcion } from '../models/Prescripcion';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrescripcionService {
-  private baseUrl = 'api/prescripciones';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   obtenerTodas(): Observable<Prescripcion[]> {
-    return this.http.get<Prescripcion[]>(`${this.baseUrl}`);
+    return this.http.get<Prescripcion[]>(`${this.baseUrl}/prescripciones`);
   }
 
   obtenerPorId(prescripcionId: number): Observable<Prescripcion> {
-    return this.http.get<Prescripcion>(`${this.baseUrl}/${prescripcionId}`);
+    return this.http.get<Prescripcion>(`${this.baseUrl}/prescripciones/${prescripcionId}`);
   }
 
   obtenerPorPaciente(nombre: string): Observable<Prescripcion[]> {
-    return this.http.get<Prescripcion[]>(`${this.baseUrl}/paciente/${encodeURIComponent(nombre)}`);
+    return this.http.get<Prescripcion[]>(`${this.baseUrl}/prescripciones/paciente/${encodeURIComponent(nombre)}`);
   }
 
   obtenerPorMedico(nombrePrescriptor: string): Observable<Prescripcion[]> {
-    return this.http.get<Prescripcion[]>(`${this.baseUrl}/medico/${encodeURIComponent(nombrePrescriptor)}`);
+    return this.http.get<Prescripcion[]>(`${this.baseUrl}/prescripciones/medico/${encodeURIComponent(nombrePrescriptor)}`);
   }
   crearPrescripcion(nhPaciente: string, prescripcion: Prescripcion): Observable<Prescripcion> {
-    return this.http.post<Prescripcion>(`${this.baseUrl}/crear?nhPaciente=${encodeURIComponent(nhPaciente)}`, prescripcion);
+    return this.http.post<Prescripcion>(`${this.baseUrl}/prescripciones/crear?nhPaciente=${encodeURIComponent(nhPaciente)}`, prescripcion);
   }
 
 }
