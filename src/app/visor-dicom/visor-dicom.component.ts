@@ -52,15 +52,16 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
   constructor(  private router: Router, private activatedRoute: ActivatedRoute, private http: HttpClient, private tacService: TacService) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      const nombreCarpeta = params.get('nombreCarpeta');
-      if (nombreCarpeta) {
-        this.cargarTac(nombreCarpeta);
-      }
-    });
-
+    // Configurar dependencias externas
+    cornerstoneTools.external.cornerstone = cornerstone;
     cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
+
+    // Verificar inicialización
+    if (!cornerstoneTools.external.cornerstone) {
+      console.error('cornerstoneTools no está correctamente configurado.');
+      return;
+    }
 
     const pacienteId = 1;
     this.tacService.getTacsByPaciente(pacienteId).subscribe((data) => {
@@ -84,35 +85,29 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
         });
       });
     });
-
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       if (this.dicomImage && this.dicomImage.nativeElement) {
-        // Habilitar cornerstone en el elemento
         cornerstone.enable(this.dicomImage.nativeElement);
         this.cornerstoneEnabled = true;
 
-        // Inicializar cornerstone-tools
         cornerstoneTools.init();
 
-        // Verificar si cornerstoneTools está correctamente inicializado
-        if (!cornerstoneTools) {
-          console.error('cornerstoneTools no se inicializó correctamente.');
+        if (!cornerstoneTools.external.cornerstone) {
+          console.error('cornerstoneTools no está correctamente inicializado.');
           return;
         }
 
-        // Crear y agregar herramienta de zoom
         const ZoomTool = cornerstoneTools.ZoomTool;
         if (ZoomTool) {
           cornerstoneTools.addTool(ZoomTool);
-          cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 1 }); // Activar zoom con clic izquierdo
+          cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 1 });
         } else {
           console.error('ZoomTool no está disponible.');
         }
 
-        // Cargar imagen DICOM
         this.loadDicomImage();
       }
     }, 0);
