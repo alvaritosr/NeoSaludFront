@@ -118,7 +118,17 @@ th {
   background: white;
 }
 
+.boton {
+  --background: #d62f4d;
+  --background-activated: #bb2840;
+  --color: white;
+}
 
+ion-button[color="light"] {
+  --background: #f8e4e4;
+  --background-activated: #e0d0d0;
+  --color: #d62f4d;
+}
 
 @media screen and (max-width: 600px) {
   .agenda-flex {
