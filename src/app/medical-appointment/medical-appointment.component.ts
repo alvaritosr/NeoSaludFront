@@ -109,8 +109,8 @@ export class MedicalAppointmentComponent implements OnInit {
   anadirConsulta() {
     const nh = (document.querySelector('ion-input[name="nh"]') as HTMLInputElement)?.value;
     const usernameMedico = this.nombreMedico;
-    const motivoConsulta = null;
-    const observaciones = null;
+    const motivoConsulta = "";
+    const observaciones = "";
 
     if (nh && observaciones && this.selectedDate) {
       const nuevaConsulta = {
