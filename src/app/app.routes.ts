@@ -89,7 +89,7 @@ export const routes: Routes = [
   },
   {
     path: 'modificar-cama/:id',
-    loadComponent: () => import('./ingresos/ingresos.component').then((m) => m.IngresosComponent),
+    loadComponent: () => import('./camas/camas.component').then((m) => m.CamasComponent),
   },
   {
     path: 'emergencies',
