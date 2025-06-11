@@ -80,6 +80,7 @@ export class HealHistoryComponent implements OnInit {
             consulta.fechaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy HH:mm');
           });
         });
+
         this.habitosVidaService.obtenerTiposDeHabitosDeVida(nh, this.nombreMedico).subscribe(data => {
           this.habitos = data;
         });
@@ -129,7 +130,6 @@ export class HealHistoryComponent implements OnInit {
   }
 
   cargarDetalleConsulta(idConsulta: number) {
-    console.log('ID recibido:', idConsulta);
     const nh = this.paciente?.nh;
     const usernameMedico = this.nombreMedico;
     if (nh && usernameMedico) {
