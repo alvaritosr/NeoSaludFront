@@ -22,7 +22,7 @@
 
         <p><strong>Análisis Médico:</strong></p>
         <ion-select placeholder="Selecciona un antecedente" (ionChange)="cargarDetalleAnalisis($event.detail.value)">
-          <ion-select-option *ngFor="let analitica of analisis" [value]="analisis">
+          <ion-select-option *ngFor="let analitica of analisis" [value]="analitica">
             {{ analitica }}
           </ion-select-option>
         </ion-select>
