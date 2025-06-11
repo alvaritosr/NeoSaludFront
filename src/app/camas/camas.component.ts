@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { IngresosService } from '../services/ingresos.service';
 import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
 import { IonicModule } from "@ionic/angular";
@@ -27,7 +27,8 @@ export class CamasComponent implements OnInit {
     private fb: FormBuilder,
     private ingresosService: IngresosService,
     private authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.form = this.fb.group({
       numero: ['', Validators.required],
@@ -61,13 +62,12 @@ export class CamasComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       const updatedData = this.form.value;
-
-      updatedData.nh = updatedData.nh?.trim() || null;
-
+      updatedData.nh = updatedData.nh || null;
       this.ingresosService.modificarIngreso(this.room.id, updatedData).subscribe(
         (response) => {
           this.room = { ...this.room, ...updatedData };
           this.isEditing = false;
+          this.router.navigate(['/ingresos']);
         },
         (error) => {
           console.error('Error updating bed:', error);
