@@ -129,6 +129,7 @@ export class HealHistoryComponent implements OnInit {
   }
 
   cargarDetalleConsulta(idConsulta: number) {
+    console.log('ID recibido:', idConsulta);
     const nh = this.paciente?.nh;
     const usernameMedico = this.nombreMedico;
     if (nh && usernameMedico) {
