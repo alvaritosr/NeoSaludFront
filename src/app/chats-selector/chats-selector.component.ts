@@ -25,9 +25,11 @@ export class ChatsSelectorComponent implements OnInit {
   nombreReceptor: string = '';
   chatId: number | null = null;
 
-  constructor(private authService: AuthService, private chatService: ChatService, private router: Router, private route: ActivatedRoute) {    addIcons({
+  constructor(private authService: AuthService, private chatService: ChatService, private router: Router, private route: ActivatedRoute) {
+    addIcons({
     'mail': mail
-  }); }
+  });
+  }
 
   ngOnInit() {
     this.idMedico = this.authService.getPerfilIdFromToken();

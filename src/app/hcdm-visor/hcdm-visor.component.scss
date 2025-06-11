@@ -1,48 +1,24 @@
 ion-content {
-  --background: white;
+  --background:  #fff4f4;
+}
+
+ion-list {
+  --background:  #fff4f4;
+  --ion-item-background: #fff4f4;
+  --ion-item-color: #d23c3c;
+  --ion-item-border-color: #d23c3c;
+}
+
+ion-item {
+  --background:  #fff4f4;
 }
 
 .health-history-container {
-  margin: 1rem;
+  margin: 0.5rem;
   display: flex;
   flex-direction: row;
-  gap: 2rem;
-  justify-content: start;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-ion-card {
-  max-width: 300px;
-  flex-shrink: 0;
-}
-
-.icon-bar {
-  position: relative;
-  max-width: 100%;
-  max-height: 80vh;
-  overflow: auto;
-  padding: 1rem;
-  border: 2px solid #d23c3c;
-  border-radius: 20px;
-  background-color: #fff4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#image {
-  transform-origin: top left;
-  cursor: grab;
-  user-select: none;
-}
-
-.button-bar {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+  gap: 0.2rem;
+  justify-content: space-between;
 }
 
 ion-toolbar {
@@ -56,13 +32,132 @@ ion-toolbar {
 }
 
 ion-card {
-  width: 100%;
-  max-width: 300px;
+  width: 20%;
   border: 2px solid #d23c3c;
   border-radius: 20px;
   background-color: #fff4f4;
   padding: 1rem;
 }
+
+.dicom-viewer {
+  width: 80%;
+  margin: 0px;
+}
+
+.zoom-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin: 20px;
+
+  .left-controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  .right-controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  ion-button,
+  button {
+    --background: #fff4f4;
+    --color: #d23c3c;
+    --border-color: #d23c3c;
+    --border-width: 2px;
+    --border-radius: 10px;
+    font-weight: bold;
+  }
+}
+
+.movButtons {
+  background-color: transparent;
+  font-size: 25px;
+  color: #d23c3c;
+  margin: 0px;
+}
+
+.movButtons2 {
+  background-color: transparent;
+  font-size: 50px;
+  color: #d23c3c;
+  display: flex;
+}
+
+.zoom-controls {
+  padding: 1rem;
+  margin: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.zoom-controls ion-button {
+  --background: #fff4f4;
+  --color: #d23c3c;
+  --border-color: #d23c3c;
+  --border-width: 2px;
+  --border-radius: 10px;
+  font-weight: bold;
+}
+
+.radiografia-card {
+max-height: 550px;
+}
+
+.radiografia {
+  width: 97%;
+  border: 2px solid #d23c3c;
+  border-radius: 20px;
+  background-color: #f8e4e4;
+  padding: 1rem;
+  margin: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+#dicomImage {
+  touch-action: none;
+}
+
+input[type="range"] {
+  width: 100%;
+  max-width: 512px;
+  margin: 10px auto 0 auto;
+  display: block;
+  appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: #e89ca0;
+  outline: none;
+  transition: background 0.3s ease-in-out;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #d62f4d;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease-in-out;
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #d62f4d;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &:hover {
+    background:#f2b3b6;
+  }
+}
+
 
 ion-card-header,
 ion-card-content {
@@ -82,6 +177,18 @@ p {
   color: #000;
 }
 
+.icon-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #d23c3c;
+  border-radius: 20px;
+  background-color: #fff4f4;
+  align-items: flex-start;
+  justify-content: start;
+  max-width: 100%;
+}
 
 .icon-bar ion-icon {
   font-size: 1.8rem;

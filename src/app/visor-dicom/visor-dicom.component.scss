@@ -55,6 +55,65 @@ ion-card {
   gap: 20px;
 }
 
+.zoom-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin: 20px;
+
+  .left-controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  .right-controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  ion-button,
+  button {
+    --background: #fff4f4;
+    --color: #d23c3c;
+    --border-color: #d23c3c;
+    --border-width: 2px;
+    --border-radius: 10px;
+    font-weight: bold;
+  }
+}
+
+.movButtons {
+  background-color: transparent;
+  font-size: 25px;
+  color: #d23c3c;
+  margin: 0px;
+}
+
+.movButtons2 {
+  background-color: transparent;
+  font-size: 50px;
+  color: #d23c3c;
+  display: flex;
+}
+
+.zoom-controls {
+  padding: 1rem;
+  margin: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.zoom-controls ion-button {
+  --background: #fff4f4;
+  --color: #d23c3c;
+  --border-color: #d23c3c;
+  --border-width: 2px;
+  --border-radius: 10px;
+  font-weight: bold;
+}
+
+
 #dicomImage {
   touch-action: none;
 }

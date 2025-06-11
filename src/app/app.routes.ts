@@ -43,7 +43,7 @@ export const routes: Routes = [
     loadComponent: () => import('./chat/chat.component').then((m) => m.ChatComponent),
   },
   {
-    path: 'hcdm-visor',
+    path: 'hcdm-visor/:pacienteId/:nombrePaciente/:apellidoPaciente/:segundoApellido',
     loadComponent: () => import('./hcdm-visor/hcdm-visor.component').then((m) => m.HcdmVisorComponent),
   },
   {
@@ -51,14 +51,13 @@ export const routes: Routes = [
     loadComponent: () => import('./calendar/calendar.component').then((m) => m.CalendarComponent),
   },
   {
-    path: 'visor-dicom',
+    path: 'visor-dicom/:pacienteId/:nombrePaciente/:apellidoPaciente/:segundoApellido',
     loadComponent: () => import('./visor-dicom/visor-dicom.component').then((m) => m.VisorDicomComponent),
   },
   {
     path: 'enviarCorreo',
     loadComponent: () => import('./enviar-correo/enviar-correo.component').then((m) => m.EnviarCorreoComponent),
   },
-
   {
     path: 'ingresos',
     loadComponent: () => import('./ingresos/ingresos.component').then((m) => m.IngresosComponent),
@@ -70,5 +69,9 @@ export const routes: Routes = [
   {
     path: 'emergencies',
     loadComponent: () => import('./emergencies/emergencies.component').then((m) => m.EmergenciesComponent),
+  },
+  {
+    path: 'dicom-viewer',
+    loadComponent: () => import('./dicom-viewer/dicom-viewer.component').then((m) => m.DicomViewerComponent),
   }
 ];

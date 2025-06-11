@@ -1,42 +1,51 @@
-<app-menu-superior></app-menu-superior>
+<app-menu-superior> </app-menu-superior>
 
-<ion-content class="ion-padding">
-  <div class="health-history-container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ paciente.nombre }} [{{ paciente.dni }}]</ion-card-title>
-      </ion-card-header>
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Paciente: {{ nombrePaciente }} {{ apellidoPaciente }} {{ segundoApellidoPaciente }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-      <ion-card-content>
-        <p><strong>NH:</strong> {{ paciente.nh }}, {{ paciente.sexo }}, {{ paciente.edad }} años</p>
-        <p><strong>Fecha nacimiento:</strong> {{ paciente.fecha }}</p>
-        <p><strong>Fecha último control:</strong> 08/04/2019</p>
-        <p><a>Radiografia 22/05/2025</a></p>
-        <p><a>Radiografia 22/05/2024</a></p>
-        <p><a>Radiografia 22/05/2023</a></p>
-        <p><a>Radiografia 22/05/2022</a></p>
-        <p><a>Radiografia 22/05/2021</a></p>
-        <p><a>Radiografia 22/05/2020</a></p>
-      </ion-card-content>
+  <div class="radiografia">
+    <ion-card class="radiografia-card">
+      <ion-list>
+        <ion-item *ngFor="let radiografia of dicomFiles">
+          <ion-label>
+            <h2>{{ radiografia.descripcion }}</h2>
+          </ion-label>
+          <ion-button slot="end" (click)="cargarRadiografia(radiografia.nombreArchivo)">Ver</ion-button>
+        </ion-item>
+      </ion-list>
     </ion-card>
 
-    <div>
-      <div class="icon-bar">
-        <ion-img
-          id="image"
-          src="./assets/Radiografia-de-torax.jpg"
-          (mousedown)="onMouseDown($event)"
-          (mousemove)="onMouseMove($event)"
-          (mouseup)="onMouseUp()"
-          (mouseleave)="onMouseUp()"
-        ></ion-img>
+    <div class="dicom-viewer" style="margin-top: 20px;">
+      <div>
+        <div #dicomImage id="dicomImage" style="width:100%; height:470px; background-color: black;"></div>
       </div>
-
-      <div class="button-bar">
-        <ion-button (click)="zoomIn()" color="primary">Ampliar</ion-button>
-        <ion-button (click)="zoomOut()" color="secondary" [disabled]="zoomLevel <= 1.0">Reducir</ion-button>
-        <ion-button (click)="toggleFullScreen()" color="tertiary">Pantalla completa</ion-button>
-        <ion-button (click)="resetImage()" color="danger">Reset</ion-button>
+      <div class="zoom-controls">
+        <div class="left-controls">
+          <ion-button class="movButtons" (click)="zoomIn()">
+            <ion-icon name="expand"></ion-icon>
+          </ion-button>
+          <ion-button class="movButtons" (click)="zoomOut()">
+            <ion-icon name="contract"></ion-icon>
+          </ion-button>
+        </div>
+        <div class="right-controls">
+          <button class="movButtons2" (click)="moveImage(0, -40)">
+            <ion-icon name="1"></ion-icon>
+          </button>
+          <button class="movButtons2" (click)="moveImage(0, 40)">
+            <ion-icon name="4"></ion-icon>
+          </button>
+          <button class="movButtons2" (click)="moveImage(-40, 0)">
+            <ion-icon name="2"></ion-icon>
+          </button>
+          <button class="movButtons2" (click)="moveImage(40, 0)">
+            <ion-icon name="3"></ion-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>

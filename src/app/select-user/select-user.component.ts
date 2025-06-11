@@ -90,10 +90,10 @@ export class SelectUserComponent {
           this.router.navigate(['/visados'], { queryParams: { nh: this.selectedPaciente.nh } });
           break;
         case 'visorHCDM':
-          this.router.navigate(['/hcdm-visor'], { queryParams: { nh: this.selectedPaciente.nh } });
+          this.router.navigate(['/hcdm-visor', this.selectedPaciente.id, this.selectedPaciente.nombre, this.selectedPaciente.primerApellido, this.selectedPaciente.segundoApellido]);
           break;
         case 'visorPACS':
-          this.router.navigate(['/visor-dicom'], { queryParams: { nh: this.selectedPaciente.nh } });
+          this.router.navigate(['/visor-dicom', this.selectedPaciente.id, this.selectedPaciente.nombre, this.selectedPaciente.primerApellido, this.selectedPaciente.segundoApellido]);
           break;
         default:
           console.error('Destino no definido para el cardId:', this.cardId);
