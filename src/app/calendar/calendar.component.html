@@ -18,6 +18,7 @@
       <ion-col *ngFor="let weekDate of weekDates" size="2.20">
         <ion-card>
           <ion-card-content>
+            <pre>{{ weekDate | json }}</pre> <!-- Depuración de weekDate -->
             <div *ngIf="weekDate.consultas && weekDate.consultas.length > 0">
               <div *ngFor="let consulta of weekDate.consultas">
                 <div *ngIf="consulta.horaConsulta === hour">
