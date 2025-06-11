@@ -1,6 +1,13 @@
 <app-menu-superior> </app-menu-superior>
 
+
 <ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Paciente: {{ nombrePaciente }} {{ apellidoPaciente }} {{ segundoApellidoPaciente }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
   <div class="tac">
     <ion-card>
       <ion-list>
@@ -11,7 +18,6 @@
           <ion-button slot="end" (click)="cargarTac(tac.nombreCarpeta)">Ver</ion-button>
         </ion-item>
       </ion-list>
-
     </ion-card>
 
     <div class="dicom-viewer" style="margin-top: 20px;">
@@ -21,6 +27,30 @@
 
       <div style="margin-top: 20px;">
         <input type="range" min="0" [max]="dicomFiles.length - 1" [(ngModel)]="currentIndex" (input)="loadDicomImage(currentTac)" />
+      </div>
+      <div class="zoom-controls">
+        <div class="left-controls">
+          <ion-button class="movButtons" (click)="zoomIn()">
+            <ion-icon name="expand"></ion-icon>
+          </ion-button>
+          <ion-button class="movButtons" (click)="zoomOut()">
+            <ion-icon name="contract"></ion-icon>
+          </ion-button>
+        </div>
+        <div class="right-controls">
+          <button class="movButtons2" (click)="moveImage(0, -40)">
+            <ion-icon name="1"></ion-icon>
+          </button>
+          <button class="movButtons2" (click)="moveImage(0, 40)">
+            <ion-icon name="4"></ion-icon>
+          </button>
+          <button class="movButtons2" (click)="moveImage(-40, 0)">
+            <ion-icon name="2"></ion-icon>
+          </button>
+          <button class="movButtons2" (click)="moveImage(40, 0)">
+            <ion-icon name="3"></ion-icon>
+          </button>
+        </div>
       </div>
     </div>
 
