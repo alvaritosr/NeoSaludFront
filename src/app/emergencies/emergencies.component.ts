@@ -88,7 +88,7 @@ export class EmergenciesComponent implements OnInit {
   }
 
   cambiarMedico(consulta: any, nuevoUsernameMedico: string) {
-    const nh = consulta.paciente.nuhsa; // Cambiar a consulta.paciente.nuhsa si es el identificador correcto
+    const nh = consulta.paciente.nh;
 
     if (!nh || !nuevoUsernameMedico) {
       console.error('Faltan datos para cambiar el médico.');
@@ -98,7 +98,7 @@ export class EmergenciesComponent implements OnInit {
     this.medicoService.cambiarMedicoDePaciente(nh, nuevoUsernameMedico).subscribe(
       (data) => {
         console.log('Médico cambiado exitosamente:', data);
-        this.fetchConsultas(); // Actualiza la lista de consultas después del cambio
+        this.fetchConsultas();
       },
       (error) => {
         console.error('Error al cambiar el médico:', error);

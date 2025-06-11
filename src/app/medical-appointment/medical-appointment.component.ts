@@ -88,7 +88,7 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   cambiarMedico(consulta: any, nuevoUsernameMedico: string) {
-    const nh = consulta.paciente.nuhsa; // Cambiar a consulta.paciente.nuhsa si es el identificador correcto
+    const nh = consulta.paciente.nh;
 
     if (!nh || !nuevoUsernameMedico) {
       console.error('Faltan datos para cambiar el médico.');
