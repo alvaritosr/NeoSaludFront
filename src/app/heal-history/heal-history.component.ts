@@ -9,7 +9,7 @@ import {AntecedentesService} from "../services/antecedentes.service";
 import {AlergiasService} from "../services/alergias.service";
 import {AnalisisService} from "../services/analisis.service";
 import {HabitosVidaService} from "../services/habitos-vida.service";
-import { ToastErrorService } from '../services/toast-error.service';
+
 
 @Component({
   selector: 'app-heal-history',
@@ -48,8 +48,7 @@ export class HealHistoryComponent implements OnInit {
     private authService: AuthService,
     private habitosVidaService: HabitosVidaService,
     private router: Router,
-    private datePipe: DatePipe,
-    private toastErrorService: ToastErrorService
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -58,18 +57,9 @@ export class HealHistoryComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const nh = params['nh'];
       if (nh && this.nombreMedico) {
-        this.medicoService.verDetallePaciente(nh, this.nombreMedico).subscribe({
-          next: data => {
-            this.paciente = data;
-            this.paciente.fecha = this.datePipe.transform(this.paciente.fecha, 'dd/MM/yyyy HH:mm');
-          },
-          error: err => {
-            if (err.status === 400) {
-              this.toastErrorService.presentToast('El paciente no tiene médico asignado', 3000, 'error-center');
-            } else {
-              this.toastErrorService.presentToast('Error al cargar el paciente', 3000, 'error-center');
-            }
-          }
+        this.medicoService.verDetallePaciente(nh, this.nombreMedico).subscribe(data => {
+          this.paciente = data;
+          this.paciente.fecha = this.datePipe.transform(this.paciente.fecha, 'dd/MM/yyyy HH:mm');
         });
 
         this.alergiasService.verAlergias(nh, this.nombreMedico).subscribe(data => {
