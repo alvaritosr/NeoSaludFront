@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { MenuSuperiorComponent } from '../menu-superior/menu-superior.component';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-ver-prescripciones',
@@ -16,6 +17,7 @@ import autoTable from 'jspdf-autotable';
   imports: [CommonModule, IonicModule, MenuSuperiorComponent],
 })
 export class VerPrescripcionesComponent implements OnInit {
+  private baseUrl = environment.apiUrl;
   prescripciones: any[] = [];
 
   constructor(
@@ -45,7 +47,7 @@ export class VerPrescripcionesComponent implements OnInit {
   }
 
   eliminarPrescripcion(id: number): void {
-    const url = `http://localhost:5433/prescripciones/eliminar/${id}`;
+    const url = `${this.baseUrl}/prescripciones/eliminar/${id}`;
     this.http.delete(url).subscribe({
       next: () => {
         this.prescripciones = this.prescripciones.filter((p) => p.id !== id);
