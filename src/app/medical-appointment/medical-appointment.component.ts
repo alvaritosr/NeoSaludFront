@@ -147,7 +147,7 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   fetchConsultas() {
-    this.medicoService.verTodasLasConsultas().subscribe(
+    this.medicoService.verConsultasPorMedico(this.nombreMedico).subscribe(
       (data) => {
         const today = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.consultas = data
