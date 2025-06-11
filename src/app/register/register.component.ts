@@ -73,17 +73,15 @@ doRegister() {
       numero_colegiado: this.registroForm.value.numero_colegiado,
       nombre: this.registroForm.value.nombre,
       apellidos: this.registroForm.value.apellidos,
-      rol: 'MEDICO', // Rol fijo
+      rol: 'MEDICO',
       email: this.registroForm.value.email,
       username: this.registroForm.value.username,
       password: this.registroForm.value.password
     };
 
-    console.log('Payload enviado:', registroPayload); // Log para verificar el payload
 
     this.registroService.registrarUsuario(registroPayload).subscribe(
       response => {
-        console.log('Registro exitoso:', response);
         this.registroForm.reset();
         this.router.navigate(['/login']);
       },

@@ -1,4 +1,3 @@
-// src/app/recuperar-cuenta/recuperar-cuenta.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';

@@ -97,8 +97,7 @@ export class MedicalAppointmentComponent implements OnInit {
 
     this.medicoService.cambiarMedicoDePaciente(nh, nuevoUsernameMedico).subscribe(
       (data) => {
-        console.log('Médico cambiado exitosamente:', data);
-        this.fetchConsultas(); // Actualiza la lista de consultas después del cambio
+        this.fetchConsultas();
       },
       (error) => {
         console.error('Error al cambiar el médico:', error);
@@ -141,7 +140,6 @@ export class MedicalAppointmentComponent implements OnInit {
 
   onDateSelected(event: any) {
     const selectedDate = event.detail.value;
-    console.log('Fecha seleccionada:', selectedDate);
     this.selectedDate = selectedDate;
     this.closeDatePicker();
   }

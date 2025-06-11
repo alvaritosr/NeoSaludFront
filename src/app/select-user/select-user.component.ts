@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
+import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
 import { IonicModule, MenuController } from "@ionic/angular";
 import { MedicoService } from '../services/medico.service';
 import { FormsModule } from "@angular/forms";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { AuthService } from "../services/auth.service";
-import {NgForOf} from "@angular/common";
+import { NgForOf } from "@angular/common";
+import { ToastErrorService } from '../services/toast-error.service'; // Importa el servicio
 
 @Component({
   selector: 'app-select-user',
@@ -41,7 +42,13 @@ export class SelectUserComponent {
 
   cardId: string | null = null;
 
-  constructor(private pacienteService: MedicoService, private router: Router, private authService: AuthService, private route: ActivatedRoute) {}
+  constructor(
+    private pacienteService: MedicoService,
+    private router: Router,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private toastErrorService: ToastErrorService
+  ) {}
 
   ngOnInit() {
     this.nombreMedico = this.authService.getUsernameFromToken();
@@ -52,14 +59,12 @@ export class SelectUserComponent {
     const filteredParams = Object.fromEntries(
       Object.entries(this.searchParams).filter(([_, value]) => value)
     );
-    console.log('Parámetros filtrados:', filteredParams);
     this.pacienteService.buscarPacientes(filteredParams).subscribe(
       (data) => {
-        console.log('Pacientes encontrados:', data);
         this.pacientes = data;
       },
       (error) => {
-        console.error('Error fetching patients:', error);
+        this.toastErrorService.presentToast('Error al buscar pacientes', 3000);
       }
     );
   }
@@ -96,11 +101,10 @@ export class SelectUserComponent {
           this.router.navigate(['/visor-dicom', this.selectedPaciente.id, this.selectedPaciente.nombre, this.selectedPaciente.primerApellido, this.selectedPaciente.segundoApellido]);
           break;
         default:
-          console.error('Destino no definido para el cardId:', this.cardId);
+          this.toastErrorService.presentToast('Destino no definido para el cardId', 3000);
       }
     }
   }
-
 
   cancelarBusqueda() {
     this.searchParams = {
@@ -142,7 +146,6 @@ export class SelectUserComponent {
 
     this.pacienteService.crearPaciente(this.nombreMedico, paciente).subscribe(
       (response) => {
-        console.log('Paciente creado:', response);
         this.searchParams = {
           nombre: '',
           primerApellido: '',
@@ -160,7 +163,7 @@ export class SelectUserComponent {
         };
       },
       (error) => {
-        console.error('Error al crear paciente:', error);
+        this.toastErrorService.presentToast('Error al crear paciente', 3000);
       }
     );
   }

@@ -81,7 +81,6 @@ export class ChatsSelectorComponent implements OnInit {
       this.chatService.getOtroParticipante(this.chatId, idMedico).subscribe({
         next: (response) => {
           this.nombreReceptor = response.nombre;
-          console.log('Nombre receptor:', this.nombreReceptor);
         },
         error: (err) => {
           console.error('Error obteniendo el otro participante:', err);

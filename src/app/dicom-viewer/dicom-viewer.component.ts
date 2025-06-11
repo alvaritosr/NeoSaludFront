@@ -50,7 +50,6 @@ export class DicomViewerComponent implements OnInit {
       return;
     }
 
-    console.log('Cargando DICOM:', this.filename);
     const imageId = `wadouri:http://localhost:5433/radiografia/dicom/${this.filename}`;
 
     cornerstone.loadImage(imageId).then((image: any) => {

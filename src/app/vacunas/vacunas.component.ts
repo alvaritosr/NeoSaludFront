@@ -110,7 +110,6 @@ export class VacunasComponent implements OnInit {
         this.pacienteId = data.id;
         this.vacunasService.asignarVacuna(this.pacienteId, this.vacunaId, this.dosis, fechaAplicacion).subscribe({
           next: async (response) => {
-            console.log('Vacuna asignada exitosamente:', response);
             await this.mostrarAlertaExito('La vacuna se ha asignado correctamente.');
           },
           error: (err) => console.error('Error al asignar la vacuna:', err)
