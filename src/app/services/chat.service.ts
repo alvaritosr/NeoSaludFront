@@ -41,7 +41,7 @@ export class ChatService {
     const token = this.authService.getToken();
     console.log('Enviando mensaje:', JSON.stringify(mensaje), 'con token:', token);
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.post<any>('${this.apiUrl}/mensaje/enviar', mensaje, { headers });
+    return this.http.post<any>(`${this.apiUrl}/mensaje/enviar`, mensaje, { headers });
   }
 
   connectWebSocket(chatId: number): void {
@@ -60,7 +60,6 @@ export class ChatService {
 
     this.stompClient.onConnect = (frame) => {
       console.log('Conectado a WebSocket');
-      // Suscribirse al topic del chat
       this.stompClient?.subscribe(`/topic/chat/${chatId}`, (message) => {
         if (message.body) {
           const mensajeRecibido = JSON.parse(message.body);
