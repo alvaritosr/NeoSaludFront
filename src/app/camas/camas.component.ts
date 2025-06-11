@@ -5,6 +5,7 @@ import { IngresosService } from '../services/ingresos.service';
 import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
 import { IonicModule } from "@ionic/angular";
 import { NgIf } from "@angular/common";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-camas',
@@ -20,10 +21,12 @@ export class CamasComponent implements OnInit {
   @Input() room: any;
   form: FormGroup;
   isEditing: boolean = false;
+  nombreMedico: string = '';
 
   constructor(
     private fb: FormBuilder,
     private ingresosService: IngresosService,
+    private authService: AuthService,
     private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
@@ -36,13 +39,13 @@ export class CamasComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    const username = 'exampleUsername'; // Reemplaza con el username real
+    this.nombreMedico = this.authService.getUsernameFromToken();
 
     if (id) {
-      this.ingresosService.verIngresoPorId(+id, username).subscribe(
+      this.ingresosService.verIngresoPorId(+id, this.nombreMedico).subscribe(
         (data) => {
           this.room = data;
-          this.form.patchValue(this.room); // Rellenar el formulario con los datos obtenidos
+          this.form.patchValue(this.room);
         },
         (error) => {
           console.error('Error al obtener los datos del ingreso:', error);
