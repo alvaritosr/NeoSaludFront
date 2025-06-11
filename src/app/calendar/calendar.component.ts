@@ -21,7 +21,7 @@ export class CalendarComponent {
   nombreMedico: string = '';
   consultas: any[] = [];
   daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-  hours = Array.from({ length: 7 }, (_, i) => `${i + 8}:00`); // 8:00 to 14:00 (7 hours)
+  hours = Array.from({ length: 7 }, (_, i) => `${i + 8}:00`);
   currentDate = new Date();
   weekDates: { day: string; date: string; consultas?: any[] }[] = [];
 
@@ -36,8 +36,7 @@ export class CalendarComponent {
 
   calculateWeekDates() {
     const startOfWeek = new Date(this.currentDate);
-    // Adjust to Monday of the current week
-    startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay() + 1);
+    startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay() + 1); // Lunes
 
     this.weekDates = this.daysOfWeek.map((day, index) => {
       const date = new Date(startOfWeek);
@@ -48,6 +47,10 @@ export class CalendarComponent {
         consultas: [],
       };
     });
+  }
+
+  hasConsultasForHour(weekDate: any, hour: string): boolean {
+    return weekDate.consultas?.some((consulta: any) => consulta.horaConsulta === hour) || false;
   }
 
   moveWeek(direction: number) {
@@ -89,12 +92,5 @@ export class CalendarComponent {
         console.error('Error al obtener las consultas:', error);
       }
     );
-  }
-
-  hasConsultationForHour(consultas: any[] | undefined, hour: string): boolean {
-    if (!consultas || consultas.length === 0) {
-      return false;
-    }
-    return consultas.some(consulta => consulta.horaConsulta === hour);
   }
 }
