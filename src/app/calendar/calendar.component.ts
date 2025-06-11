@@ -50,10 +50,7 @@ export class CalendarComponent {
   }
 
   hasConsultasForHour(weekDate: any, hour: string): boolean {
-    if (!weekDate || !weekDate.consultas) {
-      return false;
-    }
-    return weekDate.consultas.some((consulta: any) => consulta.horaConsulta === hour);
+    return weekDate.consultas?.some((consulta: any) => consulta.horaConsulta === hour) || false;
   }
 
   moveWeek(direction: number) {
