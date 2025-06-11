@@ -62,6 +62,9 @@ export class SelectUserComponent {
     this.pacienteService.buscarPacientes(filteredParams).subscribe(
       (data) => {
         this.pacientes = data;
+        if (!this.pacientes || this.pacientes.length === 0) {
+          this.toastErrorService.presentToast('No se encontraron pacientes', 3000);
+        }
       },
       (error) => {
         this.toastErrorService.presentToast('Error al buscar pacientes', 3000);
