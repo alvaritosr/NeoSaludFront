@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrescripcionService } from '../services/prescripcion.service';
 import { Prescripcion } from '../models/Prescripcion';
-import { IonicModule } from "@ionic/angular";
+import { IonicModule, AlertController } from "@ionic/angular";
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router} from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
@@ -28,7 +28,8 @@ export class PrescripcionesComponent implements OnInit {
     private prescripcionService: PrescripcionService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {}
 
   ngOnInit(): void {
@@ -60,19 +61,26 @@ export class PrescripcionesComponent implements OnInit {
     this.obtenerTodas();
   }
 
+  async mostrarAlertaExito() {
+    const alert = await this.alertController.create({
+      header: 'Éxito',
+      message: 'La prescripción se ha guardado correctamente.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
   onSubmit(): void {
     if (this.prescripcionForm.valid) {
       const prescripcion = {
         ...this.prescripcionForm.value,
         fechaEmision: new Date(this.prescripcionForm.value.fechaEmision).toISOString()
       };
-      console.log('nhPaciente:', this.nhPaciente);
-      console.log('Prescripción:', prescripcion);
 
       this.prescripcionService.crearPrescripcion(this.nhPaciente, prescripcion).subscribe({
-        next: (data) => {
-          console.log('Prescripción enviada correctamente:', data);
+        next: async (data) => {
           this.obtenerTodas();
+          await this.mostrarAlertaExito();
         },
         error: (err) => {
           console.error('Error al enviar la prescripción:', err);
@@ -94,7 +102,6 @@ export class PrescripcionesComponent implements OnInit {
       }
     });
   }
-
 
   obtenerPorId(id: number): void {
     this.prescripcionService.obtenerPorId(id).subscribe({
@@ -143,9 +150,10 @@ export class PrescripcionesComponent implements OnInit {
     };
 
     this.prescripcionService.crearPrescripcion(nhPaciente, prescripcionFormateada).subscribe({
-      next: (data) => {
+      next: async (data) => {
         this.prescripcionSeleccionada = data;
         this.obtenerTodas();
+        await this.mostrarAlertaExito();
       },
       error: (err) => {
         this.mensajeError = 'Error al crear la prescripción';
