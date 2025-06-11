@@ -14,7 +14,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { EmailService } from "../services/email.service";
 import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular'; // <- ✅ aquí es donde realmente está
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-enviar-correo',
@@ -40,7 +40,7 @@ export class EnviarCorreoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private emailService: EmailService,
-    private alertController: AlertController,  // <- ✅ corregido aquí también
+    private alertController: AlertController,
     private router: Router
   ) {
     this.correoForm = this.fb.group({

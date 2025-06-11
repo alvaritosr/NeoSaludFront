@@ -35,7 +35,6 @@ export class MenuSuperiorComponent implements OnInit {
         next: (datos) => {
           this.medicoDetalles = datos;
           this.nombreMedico = datos.nombre + ' ' + datos.apellidos;
-          console.log('Nombre del médico logueado:', this.nombreMedico);
         },
         error: (error) => {
           console.error('Error obteniendo detalles del médico:', error);

@@ -89,7 +89,6 @@ export class HcdmVisorComponent implements OnInit, AfterViewInit {
 
     cornerstoneWADOImageLoader.configure({
       beforeSend: (xhr: XMLHttpRequest) => {
-        // por ejemplo: xhr.setRequestHeader("Authorization", "Bearer " + token);
       },
       useWebWorkers: true,
     });
@@ -100,7 +99,6 @@ export class HcdmVisorComponent implements OnInit, AfterViewInit {
       this.dicomFiles = data;
 
       data.forEach(radiografia => {
-        console.log("Radiografía:", radiografia);
 
         this.radiografiaService.getStudyDescription(radiografia.nombreArchivo).subscribe(desc => {
           radiografia.descripcion = desc;
@@ -180,7 +178,7 @@ export class HcdmVisorComponent implements OnInit, AfterViewInit {
   zoomOut() {
     const viewport = cornerstone.getViewport(this.dicomImage.nativeElement);
     if (viewport) {
-      viewport.scale = Math.max(viewport.scale - 0.1, 0.1); // Reduce el zoom, pero no permite valores negativos
+      viewport.scale = Math.max(viewport.scale - 0.1, 0.1);
       cornerstone.setViewport(this.dicomImage.nativeElement, viewport);
     }
   }

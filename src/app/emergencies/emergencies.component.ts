@@ -97,7 +97,6 @@ export class EmergenciesComponent implements OnInit {
 
     this.medicoService.cambiarMedicoDePaciente(nh, nuevoUsernameMedico).subscribe(
       (data) => {
-        console.log('Médico cambiado exitosamente:', data);
         this.fetchConsultas();
       },
       (error) => {
@@ -141,7 +140,6 @@ export class EmergenciesComponent implements OnInit {
 
   onDateSelected(event: any) {
     const selectedDate = event.detail.value;
-    console.log('Fecha seleccionada:', selectedDate);
     this.selectedDate = selectedDate;
     this.closeDatePicker();
   }

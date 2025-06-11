@@ -62,7 +62,6 @@ export class AppointmentComponent  implements OnInit {
       this.medicoService.modificarConsulta(nh, idConsulta, this.consulta).subscribe(
         (updatedConsulta) => {
           this.consulta = updatedConsulta;
-          console.log('Consulta modificada exitosamente:', updatedConsulta);
         },
         (error) => {
           console.error('Error al modificar la consulta:', error);
