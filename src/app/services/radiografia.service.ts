@@ -20,7 +20,7 @@ export class RadiografiaService {
   }
 
   getStudyDescription(nombreArchivo: string): Observable<string> {
-    const imageId = `wadouri:${this.baseUrl}/radiografia/dicom/${nombreArchivo}`;
+    const imageId = `wadouri:/${this.baseUrl}/radiografia/dicom/${nombreArchivo}`;
 
     return from<string>(
       cornerstone.loadImage(imageId).then((image: any) => {
@@ -32,7 +32,7 @@ export class RadiografiaService {
   }
 
   cargarDicomImage(nombreArchivo: string): Observable<any> {
-    const imageId = `wadouri:${this.baseUrl}/radiografia/dicom/${nombreArchivo}`;
+    const imageId = `wadouri:/${this.baseUrl}/radiografia/dicom/${nombreArchivo}`;
     return from(cornerstone.loadImage(imageId));
   }
 }

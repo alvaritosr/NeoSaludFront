@@ -53,8 +53,6 @@ import {
 export class VisorDicomComponent implements OnInit, AfterViewInit {
   @ViewChild('dicomImage', { static: false }) dicomImage!: ElementRef;
 
-  private baseUrl: 'https://neosaludback.onrender.com' | undefined;
-
   dicomFiles: any[] = [];
   currentIndex: number = 0;
   cornerstoneEnabled = false;
@@ -145,7 +143,7 @@ export class VisorDicomComponent implements OnInit, AfterViewInit {
     const fileName = this.dicomFiles[this.currentIndex].fileName;
     const carpeta = nombreCarpeta || '301D3YOC'; // fallback por si acaso
 
-    const imageId = `wadouri:${this.baseUrl}/tac/${carpeta}/${fileName}`;
+    const imageId = `wadouri:https://neosaludback.onrender.com/tac/${carpeta}/${fileName}`;
 
     cornerstone.loadImage(imageId).then((image: any) => {
       cornerstone.displayImage(this.dicomImage.nativeElement, image);
