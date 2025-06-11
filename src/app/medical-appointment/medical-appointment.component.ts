@@ -88,7 +88,7 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   cambiarMedico(consulta: any, nuevoUsernameMedico: string) {
-    const nh = consulta.paciente.nuhsa;
+    const nh = consulta.paciente.nuhsa; // Cambiar a consulta.paciente.nuhsa si es el identificador correcto
 
     if (!nh || !nuevoUsernameMedico) {
       console.error('Faltan datos para cambiar el médico.');
@@ -107,13 +107,12 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   anadirConsulta() {
-    const nhInput = document.querySelector('ion-input[name="nh"]') as HTMLInputElement;
-    const nh = nhInput?.value?.trim();
+    const nh = (document.querySelector('ion-input[name="nh"]') as HTMLInputElement)?.value;
     const usernameMedico = this.nombreMedico;
     const motivoConsulta = "";
     const observaciones = "";
 
-    if (nh && this.selectedDate) {
+    if (nh && observaciones && this.selectedDate) {
       const nuevaConsulta = {
         fechaConsulta: this.selectedDate,
         motivoConsulta: motivoConsulta,
@@ -122,14 +121,13 @@ export class MedicalAppointmentComponent implements OnInit {
       this.medicoService.crearConsulta(nh, nuevaConsulta, usernameMedico).subscribe(
         (data) => {
           this.consultas.push(data);
-          console.log('Consulta añadida exitosamente:', data);
         },
         (error) => {
           console.error('Error al añadir consulta:', error);
         }
       );
     } else {
-      console.error('Faltan datos para añadir la consulta. Verifica que todos los campos estén completos.');
+      console.error('Faltan datos para añadir la consulta.');
     }
   }
 
@@ -149,17 +147,9 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   fetchConsultas() {
-    const usernameMedico = this.nombreMedico;
-
-    if (!usernameMedico) {
-      console.error('El nombre del médico no está definido.');
-      return;
-    }
-
-    const today = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-
-    this.medicoService.verConsultasPorMedico(usernameMedico).subscribe(
+    this.medicoService.verTodasLasConsultas().subscribe(
       (data) => {
+        const today = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.consultas = data
           .map(consulta => ({
             ...consulta,
