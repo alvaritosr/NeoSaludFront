@@ -26,7 +26,7 @@ export class TacService {
       switchMap((files: any[]) => {
         if (files.length > 0) {
           const firstFileName = files[0].fileName;
-          const imageId = `wadouri:${this.baseUrl}/tac/${nombreCarpeta}/${firstFileName}`;
+          const imageId = `wadouri:/${this.baseUrl}/tac/${nombreCarpeta}/${firstFileName}`;
 
           return from<string>(cornerstone.loadImage(imageId).then((image: any) => {
             const dataSet = image.data;
