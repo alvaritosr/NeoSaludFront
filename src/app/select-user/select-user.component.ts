@@ -59,15 +59,25 @@ export class SelectUserComponent {
     const filteredParams = Object.fromEntries(
       Object.entries(this.searchParams).filter(([_, value]) => value)
     );
+
+    if (Object.keys(filteredParams).length === 0) {
+      this.toastErrorService.presentToast('Introduce al menos un criterio de búsqueda', 3000);
+      return;
+    }
+
     this.pacienteService.buscarPacientes(filteredParams).subscribe(
       (data) => {
         this.pacientes = data;
+        if (!this.pacientes || this.pacientes.length === 0) {
+          this.toastErrorService.presentToast('Paciente no encontrado', 3000);
+        }
       },
       (error) => {
         this.toastErrorService.presentToast('Error al buscar pacientes', 3000);
       }
     );
   }
+
 
   selectPaciente(paciente: any) {
     this.selectedPaciente = paciente;
