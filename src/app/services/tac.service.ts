@@ -13,6 +13,11 @@ export class TacService {
   constructor(private http: HttpClient) {}
 
   getTacsByPaciente(pacienteId: number): Observable<Tac[]> {
-    return this.http.get<Tac[]>(`${this.baseUrl}/tac/paciente/${pacienteId}`);
+    return this.http.get<Tac[]>(`${this.baseUrl}/tac/paciente/${pacienteId}`, { responseType: 'json' }).pipe(
+      catchError((error) => {
+        console.error('Error en la solicitud:', error);
+        return throwError(() => new Error('Error al obtener los TACs del paciente'));
+      })
+    );
   }
 }
