@@ -6,7 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { NgForOf } from "@angular/common";
-import { ToastErrorService } from '../services/toast-error.service'; // Importa el servicio
+import { ToastErrorService } from '../services/toast-error.service';
 
 @Component({
   selector: 'app-select-user',
@@ -74,6 +74,10 @@ export class SelectUserComponent {
   }
 
   verDetallePaciente() {
+    if (!this.selectedPaciente) {
+      this.toastErrorService.presentToast('Selecciona un paciente antes de continuar', 3000);
+      return;
+    }
     if (this.cardId) {
       switch (this.cardId) {
         case 'consultas':
