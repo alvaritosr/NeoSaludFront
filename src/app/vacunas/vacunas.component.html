@@ -13,7 +13,7 @@
         <h2>Lista de Vacunas</h2>
       </div>
       <ion-list>
-        <ion-item *ngFor="let vacuna of vacunas" (click)="selectVacuna(vacuna.id)" [class.selected]="vacuna.id === vacunaId">>
+        <ion-item *ngFor="let vacuna of vacunas" (click)="selectVacuna(vacuna.id)" [ngClass]="{'selected': vacuna.id === selectedVacunaId}">
           <ion-label>
             <h2>Nombre: {{ vacuna.nombre }}</h2>
             <p>Descripción: {{ vacuna.descripcion }}</p>

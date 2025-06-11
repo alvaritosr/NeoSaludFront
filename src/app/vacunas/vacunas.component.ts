@@ -28,6 +28,7 @@ export class VacunasComponent implements OnInit {
   vacunaId = 0;
   dosis = '';
   fechaAplicacion = '';
+  selectedVacunaId: number | null = null;
   private usernameMedico: string = '';
 
   constructor(
@@ -87,7 +88,7 @@ export class VacunasComponent implements OnInit {
   }
 
   selectVacuna(vacunaId: number): void {
-    this.vacunaId = vacunaId;
+    this.selectedVacunaId = vacunaId;
   }
 
   asignarVacuna(): void {
