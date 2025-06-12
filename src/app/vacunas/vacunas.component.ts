@@ -56,6 +56,7 @@ export class VacunasComponent implements OnInit {
   obtenerNhDesdeUrl(): void {
     this.route.queryParams.subscribe(params => {
       this.nhPaciente = params['nh'] || '';
+      console.log(this.nhPaciente);
     });
   }
 
@@ -89,6 +90,7 @@ export class VacunasComponent implements OnInit {
 
   selectVacuna(vacunaId: number): void {
     this.selectedVacunaId = vacunaId;
+    console.log(this.selectedVacunaId);
   }
 
   asignarVacuna(): void {
@@ -101,31 +103,13 @@ export class VacunasComponent implements OnInit {
       return;
     }
     if (!this.vacunaId || !this.dosis || !fechaAplicacion) {
-      console.error('Faltan datos para asignar la vacuna.:' + {
-        vacunaId: this.vacunaId,
-        dosis: this.dosis,
-        fechaAplicacion: fechaAplicacion,
-        pacienteId: this.pacienteId
-
-      });
-      console.log('Datos enviados a la vacuna:', {
-        pacienteId: this.pacienteId,
-        vacunaId: this.vacunaId,
-        dosis: this.dosis,
-        fechaAplicacion: fechaAplicacion
-      })
+      console.error('Faltan datos para asignar la vacuna.');
       return;
     }
 
     this.vacunasService.infoPaciente(nhPacienteString, usernameMedico).subscribe({
       next: (data) => {
         this.pacienteId = data.id;
-        console.log('Datos enviados a la vacuna:', {
-          pacienteId: this.pacienteId,
-          vacunaId: this.vacunaId,
-          dosis: this.dosis,
-          fechaAplicacion: fechaAplicacion
-        });
         this.vacunasService.asignarVacuna(this.pacienteId, this.vacunaId, this.dosis, fechaAplicacion).subscribe({
           next: async (response) => {
             await this.mostrarAlertaExito('La vacuna se ha asignado correctamente.');
