@@ -69,23 +69,31 @@ export class CalendarComponent {
 
     this.medicoService.verConsultasPorMedico(usernameMedico).subscribe(
       (data) => {
-        const consultasPorDia: { [key: string]: any[] } = {};
+        const consultasPorDia: { [key: string]: { [key: string]: any[] } } = {};
 
         data.forEach(consulta => {
           const fechaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy');
-          if (fechaConsulta) {
+          const horaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'HH:mm');
+
+          if (fechaConsulta && horaConsulta) {
             if (!consultasPorDia[fechaConsulta]) {
-              consultasPorDia[fechaConsulta] = [];
+              consultasPorDia[fechaConsulta] = {};
             }
-            consultasPorDia[fechaConsulta].push({
+            if (!consultasPorDia[fechaConsulta][horaConsulta]) {
+              consultasPorDia[fechaConsulta][horaConsulta] = [];
+            }
+            consultasPorDia[fechaConsulta][horaConsulta].push({
               ...consulta,
-              horaConsulta: this.datePipe.transform(consulta.fechaConsulta, 'HH:mm'),
+              horaConsulta,
             });
           }
         });
 
         this.weekDates.forEach(day => {
-          day.consultas = consultasPorDia[day.date] || [];
+          day.consultas = this.hours.map(hour => ({
+            hora: hour,
+            consultas: consultasPorDia[day.date]?.[hour] || [],
+          }));
         });
       },
       (error) => {
