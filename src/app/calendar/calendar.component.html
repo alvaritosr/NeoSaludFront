@@ -16,6 +16,10 @@
         <strong>{{ weekDate.day }}</strong>
         <br />
         <small>{{ weekDate.date }}</small>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let weekDate of weekDates" size="2.20">
         <ion-card>
           <ion-card-content>
             <div *ngIf="weekDate.consultas && weekDate.consultas.length > 0">
