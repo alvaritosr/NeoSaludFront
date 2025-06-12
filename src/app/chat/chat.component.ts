@@ -81,6 +81,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   enviarMensaje() {
     if (!this.nuevoMensaje.trim() || !this.chatId || !this.idReceptor) {
+      console.log(this.nuevoMensaje)
+      console.log(this.chatId)
+      console.log(this.idReceptor)
+
       console.warn('Faltan datos para enviar el mensaje');
       return;
     }
