@@ -85,7 +85,9 @@ export class CalendarComponent {
         });
 
         this.weekDates.forEach(day => {
-          day.consultas = consultasPorDia[day.date] || [];
+          day.consultas = (consultasPorDia[day.date] || []).sort((a, b) => {
+            return a.horaConsulta.localeCompare(b.horaConsulta);
+          });
         });
       },
       (error) => {
