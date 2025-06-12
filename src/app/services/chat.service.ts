@@ -49,7 +49,7 @@ export class ChatService {
       return;
     }
 
-    const socket = new SockJS('/api/ws');
+    const socket = new SockJS(`${this.apiUrl}/ws`);
     this.stompClient = new Stomp.Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
