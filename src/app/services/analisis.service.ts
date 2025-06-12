@@ -31,7 +31,7 @@ export class AnalisisService {
   verResultadosPorAnalisisMedico(analisisMedicoId: number): Observable<any[]> {
     const token = this.authService.getToken();
     const headers = { Authorization: `Bearer ${token}` };
-    const url = `${this.apiUrl}/ver/${analisisMedicoId}`;
+    const url = `${this.apiUrl}/resultados-analisis/ver/${analisisMedicoId}`;
     return this.http.get<any[]>(url, { headers });
   }
 }
