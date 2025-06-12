@@ -90,16 +90,28 @@ export class ChatComponent implements OnInit, OnDestroy {
     mensajeDTO.idReceptor = this.idReceptor;
     mensajeDTO.contenido = this.nuevoMensaje;
 
+    const mensajeTemporal = {
+      ...mensajeDTO,
+      idEmisor: this.idMedicoActual,
+      fecha: new Date()
+    };
+
+    // Lo agregamos antes de recibir confirmación del backend
+    this.mensajes.push(mensajeTemporal);
+    this.scrollToBottom();
+
     this.chatService.enviarMensaje(mensajeDTO).subscribe({
       next: () => {
         this.nuevoMensaje = '';
-        this.scrollToBottom();
+        // No necesitas hacer nada más, ya se insertó arriba
       },
       error: (err) => {
         console.error('Error enviando mensaje:', err);
+        // Podrías mostrar un error y quitar el mensaje temporal si quieres
       }
     });
   }
+
 
 
   private scrollToBottom(): void {
