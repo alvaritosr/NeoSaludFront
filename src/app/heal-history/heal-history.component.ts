@@ -34,6 +34,7 @@ export class HealHistoryComponent implements OnInit {
 
   detalleAlergias: any;
   detalleAnalisis: any;
+  detalleAnalisisResultado: any;
   detalleAntecedente: any;
   habitos: string[] = [];
   detalleHabito: any;
@@ -146,7 +147,7 @@ export class HealHistoryComponent implements OnInit {
         const analisisId = this.detalleAnalisis?.id;
         if (analisisId) {
           this.analisisService.verResultadosPorAnalisisMedico(analisisId).subscribe((resultados: any) => {
-            this.detalleAnalisis.resultados = resultados;
+            this.detalleAnalisisResultado = resultados;
           });
         }
       });
