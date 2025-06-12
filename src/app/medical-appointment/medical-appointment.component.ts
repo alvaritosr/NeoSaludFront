@@ -139,11 +139,11 @@ export class MedicalAppointmentComponent implements OnInit {
   }
 
   onDateSelected(event: any) {
-    const selectedDate = event.detail.value;
-    this.selectedDate = selectedDate;
-    this.closeDatePicker();
+    this.selectedDate = event.detail.value;
     console.log('Fecha seleccionada:', this.selectedDate);
+    this.closeDatePicker();
   }
+
 
   fetchConsultas() {
     this.medicoService.verConsultasPorMedico(this.nombreMedico).subscribe(
