@@ -119,7 +119,7 @@ export class EmergenciesComponent implements OnInit {
 
       this.medicoService.crearConsulta(nh, nuevaConsulta, this.nombreMedico).subscribe(
         (data) => {
-          this.consultas.push(data);
+          this.fetchConsultas();
         },
         (error) => {
           console.error('Error al añadir consulta:', error);
