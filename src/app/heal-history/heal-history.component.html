@@ -67,11 +67,12 @@
       <div *ngIf="detalleAnalisis">
         <p><strong>Tipo:</strong> {{ detalleAnalisis.tipo }}</p>
         <p><strong>Fecha:</strong> {{ detalleAnalisis.fecha }}</p>
-        <p><strong>Parametro:</strong> {{ detalleAnalisis.resultados.parametro }}</p>
-        <p><strong>Valor:</strong> {{ detalleAnalisis.resultados.valor }}</p>
-        <p><strong>Unidad:</strong> {{ detalleAnalisis.resultados.unidad }}</p>
-        <p><strong>Valor Referencia:</strong> {{ detalleAnalisis.resultados.valorReferencia }}</p>
-
+        <div *ngIf="detalleAnalisis.resultados">
+          <p><strong>Parametro:</strong> {{ detalleAnalisis.resultados.parametro }}</p>
+          <p><strong>Valor:</strong> {{ detalleAnalisis.resultados.valor }}</p>
+          <p><strong>Unidad:</strong> {{ detalleAnalisis.resultados.unidad }}</p>
+          <p><strong>Valor Referencia:</strong> {{ detalleAnalisis.resultados.valorReferencia }}</p>
+        </div>
       </div>
 
       <div *ngIf="detalleAntecedente">

@@ -195,4 +195,9 @@ export class HealHistoryComponent implements OnInit {
       });
     }
   }
+
+  cargarDetalleAnalisis(analitica: any): void {
+    this.detalleAnalisis = analitica || {};
+    this.detalleAnalisis.resultados = this.detalleAnalisis.resultados || {};
+  }
 }
