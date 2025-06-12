@@ -21,7 +21,7 @@ export class CalendarComponent {
   nombreMedico: string = '';
   consultas: any[] = [];
   daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-  hours = Array.from({ length: 7 }, (_, i) => `${i + 8}:00`);
+  hours = Array.from({ length: 24 }, (_, i) => `${i}:00`); // Todas las horas del día
   currentDate = new Date();
   weekDates: { day: string; date: string; consultas?: any[] }[] = [];
 
@@ -49,10 +49,6 @@ export class CalendarComponent {
     });
   }
 
-  hasConsultasForHour(weekDate: any, hour: string): boolean {
-    return weekDate.consultas?.some((consulta: any) => consulta.horaConsulta === hour) || false;
-  }
-
   moveWeek(direction: number) {
     this.currentDate.setDate(this.currentDate.getDate() + direction * 7);
     this.calculateWeekDates();
@@ -73,13 +69,14 @@ export class CalendarComponent {
 
         data.forEach(consulta => {
           const fechaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy');
-          if (fechaConsulta) {
+          const horaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'HH:00');
+          if (fechaConsulta && horaConsulta) {
             if (!consultasPorDia[fechaConsulta]) {
               consultasPorDia[fechaConsulta] = [];
             }
             consultasPorDia[fechaConsulta].push({
               ...consulta,
-              horaConsulta: this.datePipe.transform(consulta.fechaConsulta, 'HH:mm'),
+              horaConsulta,
             });
           }
         });
@@ -92,5 +89,9 @@ export class CalendarComponent {
         console.error('Error al obtener las consultas:', error);
       }
     );
+  }
+
+  hasConsultasForHour(weekDate: any, hour: string): boolean {
+    return weekDate.consultas?.some((consulta: any) => consulta.horaConsulta === hour) || false;
   }
 }
