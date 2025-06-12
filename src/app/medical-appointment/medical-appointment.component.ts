@@ -107,17 +107,17 @@ export class MedicalAppointmentComponent implements OnInit {
 
   anadirConsulta() {
     const nh = (document.querySelector('ion-input[name="nh"]') as HTMLInputElement)?.value;
-    const usernameMedico = this.nombreMedico;
-    const motivoConsulta = "";
-    const observaciones = "";
+    const motivoConsulta = (document.querySelector('ion-textarea[name="motivoConsulta"]') as HTMLTextAreaElement)?.value;
+    const observaciones = (document.querySelector('ion-textarea[name="observaciones"]') as HTMLTextAreaElement)?.value;
 
-    if (nh && observaciones && this.selectedDate) {
+    if (nh && this.selectedDate) {
       const nuevaConsulta = {
         fechaConsulta: this.selectedDate,
-        motivoConsulta: motivoConsulta,
-        observaciones: observaciones,
+        motivoConsulta: motivoConsulta?.trim() === "" ? null : motivoConsulta,
+        observaciones: observaciones || "",
       };
-      this.medicoService.crearConsulta(nh, nuevaConsulta, usernameMedico).subscribe(
+
+      this.medicoService.crearConsulta(nh, nuevaConsulta, this.nombreMedico).subscribe(
         (data) => {
           this.consultas.push(data);
         },

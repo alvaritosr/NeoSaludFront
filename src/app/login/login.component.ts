@@ -76,7 +76,6 @@ export class LoginComponent implements OnInit {
           this.loginService.setAuthState(true);
         },
         error: (e) => {
-          console.error(e);
           this.alertaError('Error | Validación', 'La contraseña o el nombre de usuario son incorrectos.');
         },
         complete: () => this.router.navigate(['home'])
