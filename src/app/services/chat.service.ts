@@ -40,7 +40,7 @@ export class ChatService {
     const token = this.authService.getToken();
     console.log('Enviando mensaje:', JSON.stringify(mensaje), 'con token:', token);
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.post<any>('${this.baseUrl}/mensaje/enviar', mensaje, { headers });
+    return this.http.post<any>(`${this.baseUrl}/mensaje/enviar`, mensaje, { headers });
   }
 
   // ---------- WebSocket / STOMP ----------
@@ -50,8 +50,8 @@ export class ChatService {
       return; // ya conectado
     }
 
-    // Ajusta la URL según tu backend
-    const socket = new SockJS('${this.baseUrl}/ws'); // o la URL donde expongas SockJS
+    // Construir correctamente la URL del WebSocket
+    const socket = new SockJS(`${this.baseUrl}/ws`);
     this.stompClient = new Stomp.Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
