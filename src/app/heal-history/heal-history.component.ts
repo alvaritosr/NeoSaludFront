@@ -116,6 +116,7 @@ export class HealHistoryComponent implements OnInit {
       this.errorToastShown = true;
       this.toastErrorService.presentToast('Este médico no tiene este paciente asignado', 3000, 'error-center');
     }
+    return;
   }
 
   cargarDetalleAlergias(nombreAlergia: string) {
