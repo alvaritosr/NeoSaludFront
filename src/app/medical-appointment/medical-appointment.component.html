@@ -86,10 +86,12 @@
   <ng-template>
     <ion-content>
       <ion-datetime
-        presentation="date"
-        (ionChange)="onDateSelected($event)"
+        name="fechaConsulta"
+        presentation="date-time"
         [value]="selectedDate"
-      ></ion-datetime>
+        (ionChange)="onDateSelected($event)">
+      </ion-datetime>
+
 
       <ion-button expand="block" color="primary" (click)="closeDatePicker()">
         Cerrar
