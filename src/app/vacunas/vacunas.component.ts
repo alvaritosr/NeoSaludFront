@@ -56,6 +56,7 @@ export class VacunasComponent implements OnInit {
   obtenerNhDesdeUrl(): void {
     this.route.queryParams.subscribe(params => {
       this.nhPaciente = params['nh'] || '';
+      console.log(this.nhPaciente);
     });
   }
 
@@ -89,6 +90,7 @@ export class VacunasComponent implements OnInit {
 
   selectVacuna(vacunaId: number): void {
     this.selectedVacunaId = vacunaId;
+    console.log(this.selectedVacunaId);
   }
 
   asignarVacuna(): void {
@@ -108,6 +110,13 @@ export class VacunasComponent implements OnInit {
     this.vacunasService.infoPaciente(nhPacienteString, usernameMedico).subscribe({
       next: (data) => {
         this.pacienteId = data.id;
+        // Imprime los datos enviados
+        console.log('Datos enviados a asignarVacuna:', {
+          pacienteId: this.pacienteId,
+          vacunaId: this.vacunaId,
+          dosis: this.dosis,
+          fechaAplicacion: fechaAplicacion
+        });
         this.vacunasService.asignarVacuna(this.pacienteId, this.vacunaId, this.dosis, fechaAplicacion).subscribe({
           next: async (response) => {
             await this.mostrarAlertaExito('La vacuna se ha asignado correctamente.');
