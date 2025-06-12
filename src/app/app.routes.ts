@@ -102,5 +102,9 @@ export const routes: Routes = [
   {
     path: 'ver-vacunas-paciente/:nhPaciente',
     loadComponent: () => import('./ver-vacunas-paciente/ver-vacunas-paciente.component').then((m) => m.VerVacunasPacienteComponent)
+  },
+  {
+    path: 'enviarEmail',
+    loadComponent: () => import('./enviar-correo/enviar-correo.component').then((m) => m.EnviarCorreoComponent)
   }
 ];
