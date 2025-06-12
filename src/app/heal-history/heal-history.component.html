@@ -71,10 +71,10 @@
           <p><strong>Resultados:</strong></p>
           <ul>
             <li *ngFor="let resultado of detalleAnalisis.resultados">
-              <p><strong>Nombre:</strong> {{ resultado.nombre }}</p>
+              <p><strong>Nombre:</strong> {{ resultado.parametro }}</p>
               <p><strong>Valor:</strong> {{ resultado.valor }}</p>
               <p><strong>Unidad:</strong> {{ resultado.unidad }}</p>
-              <p><strong>Rango:</strong> {{ resultado.rango }}</p>
+              <p><strong>Rango:</strong> {{ resultado.valorReferencia }}</p>
             </li>
           </ul>
         </div>
