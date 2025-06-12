@@ -140,7 +140,6 @@ export class MedicalAppointmentComponent implements OnInit {
 
   onDateSelected(event: any) {
     this.selectedDate = event.detail.value;
-    console.log('Fecha seleccionada:', this.selectedDate);
     this.closeDatePicker();
   }
 

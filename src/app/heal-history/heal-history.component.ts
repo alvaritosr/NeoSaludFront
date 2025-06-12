@@ -142,6 +142,13 @@ export class HealHistoryComponent implements OnInit {
       this.detalleHabito = null;
       this.analisisService.verAnaliticasDetalle(nh, nombreAnalisis).subscribe((data: any) => {
         this.detalleAnalisis = data;
+
+        const analisisId = this.detalleAnalisis?.id;
+        if (analisisId) {
+          this.analisisService.verResultadosPorAnalisisMedico(analisisId).subscribe((resultados: any) => {
+            this.detalleAnalisis.resultados = resultados;
+          });
+        }
       });
     }
   }

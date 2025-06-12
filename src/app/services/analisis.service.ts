@@ -27,4 +27,11 @@ export class AnalisisService {
     const params = { nh, nombre };
     return this.http.get<string[]>(url, { headers, params });
   }
+
+  verResultadosPorAnalisisMedico(analisisMedicoId: number): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `${this.apiUrl}/ver/${analisisMedicoId}`;
+    return this.http.get<any[]>(url, { headers });
+  }
 }

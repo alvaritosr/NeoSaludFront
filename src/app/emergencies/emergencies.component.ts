@@ -111,17 +111,15 @@ export class EmergenciesComponent implements OnInit {
     const observaciones = (document.querySelector('ion-textarea[name="observaciones"]') as HTMLTextAreaElement)?.value;
 
     if (nh && this.selectedDate) {
-      const fechaISO = new Date(this.selectedDate).toISOString();
-
       const nuevaConsulta = {
-        fechaConsulta: fechaISO,
+        fechaConsulta: this.selectedDate,
         motivoConsulta: motivoConsulta?.trim() === "" ? null : motivoConsulta,
         observaciones: observaciones || "",
       };
 
       this.medicoService.crearConsulta(nh, nuevaConsulta, this.nombreMedico).subscribe(
         (data) => {
-          this.fetchConsultas();
+          this.consultas.push(data);
         },
         (error) => {
           console.error('Error al añadir consulta:', error);
