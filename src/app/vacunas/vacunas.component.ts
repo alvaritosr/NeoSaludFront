@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { VacunasService } from '../services/vacunas.service';
 import { MenuSuperiorComponent } from "../menu-superior/menu-superior.component";
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -28,15 +28,9 @@ export class VacunasComponent implements OnInit {
   vacunaId = 0;
   dosis = '';
   fechaAplicacion = '';
-  selectedVacunaId: number | null = null;
   private usernameMedico: string = '';
 
-  constructor(
-    private vacunasService: VacunasService,
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private alertController: AlertController
-  ) {}
+  constructor(private vacunasService: VacunasService, private route: ActivatedRoute, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.obtenerNhDesdeUrl();
@@ -44,19 +38,10 @@ export class VacunasComponent implements OnInit {
     this.obtenerUsernameMedicoDesdeToken();
   }
 
-  async mostrarAlertaExito(mensaje: string) {
-    const alert = await this.alertController.create({
-      header: 'Éxito',
-      message: mensaje,
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
-
   obtenerNhDesdeUrl(): void {
     this.route.queryParams.subscribe(params => {
       this.nhPaciente = params['nh'] || '';
-      console.log(this.nhPaciente);
+      console.log('nhPaciente obtenido desde la URL:', this.nhPaciente);
     });
   }
 
@@ -69,6 +54,7 @@ export class VacunasComponent implements OnInit {
 
   obtenerUsernameMedicoDesdeToken(): void {
     this.usernameMedico = this.authService.getUsernameFromToken();
+    console.log('usernameMedico obtenido desde el token:', this.usernameMedico);
   }
 
   infoPaciente(): void {
@@ -83,14 +69,14 @@ export class VacunasComponent implements OnInit {
     this.vacunasService.infoPaciente(nhPacienteString, usernameMedico).subscribe({
       next: (data) => {
         this.pacienteId = data.id;
+        console.log('Información del paciente:', data);
       },
       error: (err) => console.error('Error al obtener información del paciente:', err)
     });
   }
 
   selectVacuna(vacunaId: number): void {
-    this.selectedVacunaId = vacunaId;
-    console.log(this.selectedVacunaId);
+    this.vacunaId = vacunaId;
   }
 
   asignarVacuna(): void {
@@ -111,9 +97,7 @@ export class VacunasComponent implements OnInit {
       next: (data) => {
         this.pacienteId = data.id;
         this.vacunasService.asignarVacuna(this.pacienteId, this.vacunaId, this.dosis, fechaAplicacion).subscribe({
-          next: async (response) => {
-            await this.mostrarAlertaExito('La vacuna se ha asignado correctamente.');
-          },
+          next: (response) => console.log('Vacuna asignada exitosamente:', response),
           error: (err) => console.error('Error al asignar la vacuna:', err)
         });
       },
@@ -128,9 +112,9 @@ export class VacunasComponent implements OnInit {
     }
 
     this.vacunasService.crearVacuna(this.vacuna).subscribe({
-      next: async (response) => {
+      next: (response) => {
+        console.log('Vacuna creada exitosamente:', response);
         this.obtenerTodasLasVacunas();
-        await this.mostrarAlertaExito('La vacuna se ha creado correctamente.');
       },
       error: (err) => console.error('Error al crear la vacuna:', err)
     });
