@@ -11,6 +11,16 @@
   </ion-buttons>
 
   <ion-grid>
+    <ion-row>
+      <ion-col size="1">
+        <strong>Horas</strong>
+      </ion-col>
+      <ion-col *ngFor="let weekDate of weekDates" size="2.20">
+        <strong>{{ weekDate.day }}</strong>
+        <br />
+        <small>{{ weekDate.date }}</small>
+      </ion-col>
+    </ion-row>
     <ion-row *ngFor="let hour of hours">
       <ion-col size="1">
         <strong>{{ hour }}</strong>
@@ -20,13 +30,11 @@
           <ion-card-content>
             <div *ngIf="weekDate.consultas && weekDate.consultas.length > 0">
               <div *ngFor="let consulta of weekDate.consultas">
-                <div *ngIf="consulta.horaConsulta === hour">
-                  <p>Hora: {{ consulta.horaConsulta }}</p>
-                  <p>Paciente: {{ consulta.paciente.nombre }} {{ consulta.paciente.primerApellido }} {{ consulta.paciente.segundoApellido }}</p>
-                </div>
+                <p>Hora: {{ consulta.horaConsulta }}</p>
+                <p>Paciente: {{ consulta.paciente.nombre }} {{ consulta.paciente.primerApellido }} {{ consulta.paciente.segundoApellido }}</p>
               </div>
             </div>
-            <div *ngIf="!hasConsultasForHour(weekDate, hour)">
+            <div *ngIf="!weekDate.consultas?.length">
               <p>No hay consultas</p>
             </div>
           </ion-card-content>
