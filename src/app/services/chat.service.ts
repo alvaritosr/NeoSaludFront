@@ -5,11 +5,14 @@ import { AuthService } from './auth.service';
 
 import * as Stomp from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
+  private baseUrl = environment.apiUrl;
+
   private stompClient: Stomp.Client | null = null;
   private messageSubject = new Subject<any>();
 
@@ -18,26 +21,26 @@ export class ChatService {
   getChatsByMedico(idMedico: number): Observable<any> {
     const token = this.authService.getToken();
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get(`api/chat/medico/${idMedico}`, { headers });
+    return this.http.get(`${this.baseUrl}/chat/medico/${idMedico}`, { headers });
   }
 
   getOtroParticipante(chatId: number, medicoId: number) {
     return this.http.get<{ nombre: string }>(
-      `/api/chat/otro-participante/${chatId}/${medicoId}`
+      `${this.baseUrl}/chat/otro-participante/${chatId}/${medicoId}`
     );
   }
 
   getMensajes(chatId: number) {
     const token = this.authService.getToken();
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<any[]>(`/api/mensaje/chat/${chatId}`, { headers });
+    return this.http.get<any[]>(`${this.baseUrl}/mensaje/chat/${chatId}`, { headers });
   }
 
   enviarMensaje(mensaje: any) {
     const token = this.authService.getToken();
     console.log('Enviando mensaje:', JSON.stringify(mensaje), 'con token:', token);
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.post<any>('/api/mensaje/enviar', mensaje, { headers });
+    return this.http.post<any>('${this.baseUrl}/mensaje/enviar', mensaje, { headers });
   }
 
   // ---------- WebSocket / STOMP ----------
@@ -48,7 +51,7 @@ export class ChatService {
     }
 
     // Ajusta la URL según tu backend
-    const socket = new SockJS('/api/ws'); // o la URL donde expongas SockJS
+    const socket = new SockJS('${this.baseUrl}/ws'); // o la URL donde expongas SockJS
     this.stompClient = new Stomp.Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,

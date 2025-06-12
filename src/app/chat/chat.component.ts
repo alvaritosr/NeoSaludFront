@@ -64,10 +64,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.mensajes = data;
           this.scrollToBottom();
-          // Conectamos al websocket para recibir mensajes en tiempo real
           this.chatService.connectWebSocket(this.chatId!);
           this.wsSubscription = this.chatService.onNewMessage().subscribe((mensaje) => {
-            // Solo añadimos mensajes que correspondan a este chat
             if (mensaje.idChat === this.chatId) {
               this.mensajes.push(mensaje);
               this.scrollToBottom();
@@ -94,7 +92,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.chatService.enviarMensaje(mensajeDTO).subscribe({
       next: () => {
-        // No añadimos el mensaje aquí para evitar duplicados
         this.nuevoMensaje = '';
         this.scrollToBottom();
       },
