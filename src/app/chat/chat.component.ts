@@ -52,8 +52,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.chatId && this.idMedicoActual) {
       this.chatService.getOtroParticipante(this.chatId, this.idMedicoActual).subscribe({
         next: (response: OtroParticipanteChat) => {
-          this.nombreReceptor = response.nombre || '';
-          this.idReceptor = response.id || null;
+          if (response) {
+            console.log('Otro participante:', response); // Depuración
+            this.nombreReceptor = response.nombre || '';
+            this.idReceptor = response.id || null;
+
+            if (!this.idReceptor) {
+              console.warn('El id del receptor es null o undefined');
+            }
+          } else {
+            console.warn('No se recibió respuesta válida del servicio');
+          }
         },
         error: (err) => {
           console.error('Error obteniendo el otro participante:', err);
