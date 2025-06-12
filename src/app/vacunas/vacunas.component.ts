@@ -56,6 +56,7 @@ export class VacunasComponent implements OnInit {
   obtenerNhDesdeUrl(): void {
     this.route.queryParams.subscribe(params => {
       this.nhPaciente = params['nh'] || '';
+      console.log(this.nhPaciente);
     });
   }
 
@@ -89,6 +90,7 @@ export class VacunasComponent implements OnInit {
 
   selectVacuna(vacunaId: number): void {
     this.selectedVacunaId = vacunaId;
+    console.log(this.selectedVacunaId);
   }
 
   asignarVacuna(): void {
