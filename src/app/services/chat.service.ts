@@ -26,21 +26,21 @@ export class ChatService {
 
   getOtroParticipante(chatId: number, medicoId: number) {
     return this.http.get<{ nombre: string }>(
-      `/${this.baseUrl}/chat/otro-participante/${chatId}/${medicoId}`
+      `${this.baseUrl}/chat/otro-participante/${chatId}/${medicoId}`
     );
   }
 
   getMensajes(chatId: number) {
     const token = this.authService.getToken();
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<any[]>(`/${this.baseUrl}/mensaje/chat/${chatId}`, { headers });
+    return this.http.get<any[]>(`${this.baseUrl}/mensaje/chat/${chatId}`, { headers });
   }
 
   enviarMensaje(mensaje: any) {
     const token = this.authService.getToken();
     console.log('Enviando mensaje:', JSON.stringify(mensaje), 'con token:', token);
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.post<any>(`/${this.baseUrl}/mensaje/enviar`, mensaje, { headers });
+    return this.http.post<any>(`${this.baseUrl}/mensaje/enviar`, mensaje, { headers });
   }
 
   // ---------- WebSocket / STOMP ----------
