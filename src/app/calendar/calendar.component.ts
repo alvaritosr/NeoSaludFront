@@ -21,7 +21,7 @@ export class CalendarComponent {
   nombreMedico: string = '';
   consultas: any[] = [];
   daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-  hours = Array.from({ length: 24 }, (_, i) => `${i}:00`); // Todas las horas del día
+  hours = Array.from({ length: 7 }, (_, i) => `${i+8}:00`); // Todas las horas del día
   currentDate = new Date();
   weekDates: { day: string; date: string; consultas?: any[] }[] = [];
 
