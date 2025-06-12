@@ -12,13 +12,19 @@
 
   <ion-grid>
     <ion-row>
+      <ion-col size="1">
+        <strong>Horas</strong>
+      </ion-col>
       <ion-col *ngFor="let weekDate of weekDates" size="2.20">
         <strong>{{ weekDate.day }}</strong>
         <br />
         <small>{{ weekDate.date }}</small>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngFor="let hour of hours">
+      <ion-col size="1">
+        <strong>{{ hour }}</strong>
+      </ion-col>
       <ion-col *ngFor="let weekDate of weekDates" size="2.20">
         <ion-card>
           <ion-card-content>
