@@ -58,11 +58,12 @@ export class ChatService {
       },
     });
 
-    this.stompClient.onConnect = (frame) => {
+    this.stompClient.onConnect = () => {
       console.log('Conectado a WebSocket');
       this.stompClient?.subscribe(`/topic/chat/${chatId}`, (message) => {
         if (message.body) {
           const mensajeRecibido = JSON.parse(message.body);
+          console.log('Mensaje recibido:', mensajeRecibido); // Depuración
           this.messageSubject.next(mensajeRecibido);
         }
       });
