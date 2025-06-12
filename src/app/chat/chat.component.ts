@@ -52,12 +52,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.chatId && this.idMedicoActual) {
       this.chatService.getOtroParticipante(this.chatId, this.idMedicoActual).subscribe({
         next: (response: OtroParticipanteChat) => {
-          if (response) {
-            this.nombreReceptor = response.nombre || '';
-            this.idReceptor = response.id || null;
-          } else {
-            console.warn('No se recibió respuesta válida del servicio');
-          }
+          this.nombreReceptor = response.nombre || '';
+          this.idReceptor = response.id || null;
         },
         error: (err) => {
           console.error('Error obteniendo el otro participante:', err);
@@ -68,11 +64,13 @@ export class ChatComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.mensajes = data;
           this.scrollToBottom();
+          // Conectamos al websocket para recibir mensajes en tiempo real
           this.chatService.connectWebSocket(this.chatId!);
           this.wsSubscription = this.chatService.onNewMessage().subscribe((mensaje) => {
+            // Solo añadimos mensajes que correspondan a este chat
             if (mensaje.idChat === this.chatId) {
               this.mensajes.push(mensaje);
-              this.scrollToBottom(); // Asegura que la vista se actualice
+              this.scrollToBottom();
             }
           });
         },
@@ -85,10 +83,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   enviarMensaje() {
     if (!this.nuevoMensaje.trim() || !this.chatId || !this.idReceptor) {
-      console.log(this.nuevoMensaje)
-      console.log(this.chatId)
-      console.log(this.idReceptor)
-
       console.warn('Faltan datos para enviar el mensaje');
       return;
     }
@@ -100,6 +94,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.chatService.enviarMensaje(mensajeDTO).subscribe({
       next: () => {
+        // No añadimos el mensaje aquí para evitar duplicados
         this.nuevoMensaje = '';
         this.scrollToBottom();
       },
