@@ -36,13 +36,17 @@ import {AlertController} from "@ionic/angular";
     RouterLink,
   ]
 })
-
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   login: Login = new Login();
   passwordFieldType: string = 'password';
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private alertController: AlertController) {
+  constructor(
+    private fb: FormBuilder,
+    private loginService: LoginService,
+    private router: Router,
+    private alertController: AlertController
+  ) {
     this.loginForm = this.fb.group({
       username: [this.login.username, Validators.required],
       password: [this.login.password, Validators.required],
@@ -62,7 +66,6 @@ export class LoginComponent implements OnInit {
       message: message,
       buttons: ['OK']
     });
-
     await alert.present();
   }
 
@@ -74,12 +77,11 @@ export class LoginComponent implements OnInit {
           const token = respuesta.token;
           sessionStorage.setItem("authToken", token);
           this.loginService.setAuthState(true);
+          this.router.navigate(['home']);
         },
-        error: (e) => {
-          console.error(e);
+        error: (_e) => {
           this.alertaError('Error | Validación', 'La contraseña o el nombre de usuario son incorrectos.');
-        },
-        complete: () => this.router.navigate(['home'])
+        }
       });
     } else {
       this.alertaError('Error | Sin Datos', 'Los campos están vacíos. Por favor inserta los datos.');
@@ -91,6 +93,5 @@ export class LoginComponent implements OnInit {
   }
 
   forgotPassword() {
-
   }
 }
