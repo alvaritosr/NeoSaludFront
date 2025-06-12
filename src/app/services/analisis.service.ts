@@ -32,6 +32,7 @@ export class AnalisisService {
     const token = this.authService.getToken();
     const headers = { Authorization: `Bearer ${token}` };
     const url = `${this.apiUrl}/resultados-analisis/ver/${analisisMedicoId}`;
+    console.log(url);
     return this.http.get<any[]>(url, { headers });
   }
 }
