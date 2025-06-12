@@ -5,15 +5,11 @@ import { AuthService } from './auth.service';
 
 import * as Stomp from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class ChatService {
-  private apiUrl = environment.apiUrl;
-
   private stompClient: Stomp.Client | null = null;
   private messageSubject = new Subject<any>();
 
@@ -22,34 +18,37 @@ export class ChatService {
   getChatsByMedico(idMedico: number): Observable<any> {
     const token = this.authService.getToken();
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get(`${this.apiUrl}/chat/medico/${idMedico}`, { headers });
+    return this.http.get(`api/chat/medico/${idMedico}`, { headers });
   }
 
   getOtroParticipante(chatId: number, medicoId: number) {
     return this.http.get<{ nombre: string }>(
-      `${this.apiUrl}/chat/otro-participante/${chatId}/${medicoId}`
+      `/api/chat/otro-participante/${chatId}/${medicoId}`
     );
   }
 
   getMensajes(chatId: number) {
     const token = this.authService.getToken();
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<any[]>(`${this.apiUrl}/mensaje/chat/${chatId}`, { headers });
+    return this.http.get<any[]>(`/api/mensaje/chat/${chatId}`, { headers });
   }
 
   enviarMensaje(mensaje: any) {
     const token = this.authService.getToken();
     console.log('Enviando mensaje:', JSON.stringify(mensaje), 'con token:', token);
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.post<any>(`${this.apiUrl}/mensaje/enviar`, mensaje, { headers });
+    return this.http.post<any>('/api/mensaje/enviar', mensaje, { headers });
   }
+
+  // ---------- WebSocket / STOMP ----------
 
   connectWebSocket(chatId: number): void {
     if (this.stompClient && this.stompClient.connected) {
-      return;
+      return; // ya conectado
     }
 
-    const socket = new SockJS(`${this.apiUrl}/ws`);
+    // Ajusta la URL según tu backend
+    const socket = new SockJS('/api/ws'); // o la URL donde expongas SockJS
     this.stompClient = new Stomp.Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
@@ -58,12 +57,12 @@ export class ChatService {
       },
     });
 
-    this.stompClient.onConnect = () => {
+    this.stompClient.onConnect = (frame) => {
       console.log('Conectado a WebSocket');
+      // Suscribirse al topic del chat
       this.stompClient?.subscribe(`/topic/chat/${chatId}`, (message) => {
         if (message.body) {
           const mensajeRecibido = JSON.parse(message.body);
-          console.log('Mensaje recibido:', mensajeRecibido); // Depuración
           this.messageSubject.next(mensajeRecibido);
         }
       });
