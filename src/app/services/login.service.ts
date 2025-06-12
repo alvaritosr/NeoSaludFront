@@ -20,7 +20,6 @@ export class LoginService {
   }
 
   loguearUsuario(login: Login): Observable<any>{
-    console.log(`${this.baseUrl}/auth/login`, login);
     return this.http.post<any>(`${this.baseUrl}/auth/login`,login) ;
   }
 }
