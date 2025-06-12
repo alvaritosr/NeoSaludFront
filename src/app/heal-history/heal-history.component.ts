@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {IonicModule, MenuController} from "@ionic/angular";
 import {MenuSuperiorComponent} from "../menu-superior/menu-superior.component";
-import { MedicoService } from '../services/medico.service';
+import {MedicoService} from '../services/medico.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import {AuthService} from '../services/auth.service';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {AntecedentesService} from "../services/antecedentes.service";
 import {AlergiasService} from "../services/alergias.service";
 import {AnalisisService} from "../services/analisis.service";
 import {HabitosVidaService} from "../services/habitos-vida.service";
-import { ToastErrorService } from '../services/toast-error.service';
+import {ToastErrorService} from '../services/toast-error.service';
 
 @Component({
   selector: 'app-heal-history',
@@ -39,6 +39,8 @@ export class HealHistoryComponent implements OnInit {
   detalleHabito: any;
   detalleConsulta: any;
 
+  private errorToastShown = false;
+
   constructor(
     private medicoService: MedicoService,
     private alergiasService: AlergiasService,
@@ -58,53 +60,62 @@ export class HealHistoryComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const nh = params['nh'];
       if (nh && this.nombreMedico) {
+        this.errorToastShown = false;
+
         this.medicoService.verDetallePaciente(nh, this.nombreMedico).subscribe({
           next: data => {
             this.paciente = data;
             this.paciente.fecha = this.datePipe.transform(this.paciente.fecha, 'dd/MM/yyyy HH:mm');
           },
-          error: err => {
-            if (err.status === 400) {
-              this.toastErrorService.presentToast('El paciente no tiene médico asignado', 3000, 'error-center');
-            } else {
-              this.toastErrorService.presentToast('Error al cargar el paciente', 3000, 'error-center');
-            }
-          }
+          error: err => this.handle400Error(err)
         });
 
-        this.alergiasService.verAlergias(nh, this.nombreMedico).subscribe(data => {
-          this.alergias = data;
+        this.alergiasService.verAlergias(nh, this.nombreMedico).subscribe({
+          next: data => {
+            this.alergias = data;
+          },
+          error: err => this.handle400Error(err)
         });
 
-        this.analisisService.verAnaliticas(nh).subscribe(data => {
-          this.analisis = data;
+        this.analisisService.verAnaliticas(nh).subscribe({
+          next: data => {
+            this.analisis = data;
+          },
+          error: err => this.handle400Error(err)
         });
 
         this.antecedentesService.verAntecedentesFamiliares(nh, this.nombreMedico).subscribe({
           next: data => {
             this.antecedentes = data;
           },
-          error: err => {
-            if (err.status === 400) {
-              this.toastErrorService.presentToast('El paciente no tiene médico asignado', 3000, 'error-center');
-            } else {
-              this.toastErrorService.presentToast('Error al cargar antecedentes', 3000, 'error-center');
-            }
-          }
+          error: err => this.handle400Error(err)
         });
 
-        this.medicoService.verConsultas(nh, this.nombreMedico).subscribe(data => {
-          this.consultas = data;
-          this.consultas.forEach(consulta => {
-            consulta.fechaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy HH:mm');
-          });
+        this.medicoService.verConsultas(nh, this.nombreMedico).subscribe({
+          next: data => {
+            this.consultas = data;
+            this.consultas.forEach(consulta => {
+              consulta.fechaConsulta = this.datePipe.transform(consulta.fechaConsulta, 'dd/MM/yyyy HH:mm');
+            });
+          },
+          error: err => this.handle400Error(err)
         });
 
-        this.habitosVidaService.obtenerTiposDeHabitosDeVida(nh, this.nombreMedico).subscribe(data => {
-          this.habitos = data;
+        this.habitosVidaService.obtenerTiposDeHabitosDeVida(nh, this.nombreMedico).subscribe({
+          next: data => {
+            this.habitos = data;
+          },
+          error: err => this.handle400Error(err)
         });
       }
     });
+  }
+
+  private handle400Error(err: any) {
+    if (err.status === 400 && !this.errorToastShown) {
+      this.errorToastShown = true;
+      this.toastErrorService.presentToast('Este médico no tiene este paciente asignado', 3000, 'error-center');
+    }
   }
 
   cargarDetalleAlergias(nombreAlergia: string) {
