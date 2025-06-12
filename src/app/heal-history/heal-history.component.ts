@@ -49,7 +49,6 @@ export class HealHistoryComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private habitosVidaService: HabitosVidaService,
-    private router: Router,
     private datePipe: DatePipe,
     private toastErrorService: ToastErrorService
   ) {}
@@ -142,6 +141,7 @@ export class HealHistoryComponent implements OnInit {
       this.detalleHabito = null;
       this.analisisService.verAnaliticasDetalle(nh, nombreAnalisis).subscribe((data: any) => {
         this.detalleAnalisis = data;
+        this.detalleAnalisis.fecha = this.datePipe.transform(this.detalleAnalisis.fecha, 'dd/MM/yyyy');
 
         const analisisId = this.detalleAnalisis?.id;
         if (analisisId) {
