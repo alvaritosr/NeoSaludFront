@@ -101,7 +101,19 @@ export class VacunasComponent implements OnInit {
       return;
     }
     if (!this.vacunaId || !this.dosis || !fechaAplicacion) {
-      console.error('Faltan datos para asignar la vacuna.');
+      console.error('Faltan datos para asignar la vacuna.:' + {
+        vacunaId: this.vacunaId,
+        dosis: this.dosis,
+        fechaAplicacion: fechaAplicacion,
+        pacienteId: this.pacienteId
+
+      });
+      console.log('Datos enviados a la vacuna:', {
+        pacienteId: this.pacienteId,
+        vacunaId: this.vacunaId,
+        dosis: this.dosis,
+        fechaAplicacion: fechaAplicacion
+      })
       return;
     }
 
