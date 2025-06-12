@@ -142,6 +142,7 @@ export class MedicalAppointmentComponent implements OnInit {
     const selectedDate = event.detail.value;
     this.selectedDate = selectedDate;
     this.closeDatePicker();
+    console.log('Fecha seleccionada:', this.selectedDate);
   }
 
   fetchConsultas() {
