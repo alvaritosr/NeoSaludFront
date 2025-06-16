@@ -62,7 +62,7 @@ export class CamasComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       const updatedData = this.form.value;
-      updatedData.nh = updatedData.nh || "";
+      updatedData.nh = updatedData.nh === "" ? "" : updatedData.nh;
       this.ingresosService.modificarIngreso(this.room.id, updatedData).subscribe(
         (response) => {
           this.room = { ...this.room, ...updatedData };
